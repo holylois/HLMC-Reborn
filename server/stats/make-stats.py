@@ -185,13 +185,30 @@ def main():
     earned = [a for a in achievements if a['earned_by']]
     rarest = sorted(earned, key=lambda a: (a['earned_by'], a['first']['date'] or ''))[:3]
 
+    # World firsts: the first find of each structure kind (onboarding Discoveries v2 marks it; v1 files: first by name and time)
+    # with a BlueMap link, plus boss and Runeforged elite/level firsts.
     firsts = []
     hidden = hidden_names()
-    for entry in read(WORLD / 'holylois/discoveries.json', {}).get('found', []):
+    discoveries = read(WORLD / 'holylois/discoveries.json', {})
+    maps = {'minecraft:overworld': 'world', 'minecraft:the_nether': 'world_the_nether', 'minecraft:the_end': 'world_the_end'}
+    def day(entry):
+        return datetime.datetime.fromtimestamp(entry.get('time', 0), datetime.timezone.utc).date().isoformat()
+    def link(entry):
+        world = maps.get(entry.get('dim') or 'minecraft:overworld')
+        return f"https://map.holylois.com/#{world}:{entry.get('x', 0)}:{entry.get('y', 64)}:{entry.get('z', 0)}:120:0:0:0:1:flat" if world else ''
+    seen = set()
+    for entry in sorted(discoveries.get('found', []), key=lambda e: e.get('time', 0)):
+        kind = entry.get('name', '')
+        first = entry['first'] if 'first' in entry else kind not in seen
+        seen.add(kind)
+        name = entry.get('player', '')
+        if not first or name.lower() in hidden: continue
+        firsts.append({'what': kind, 'player': shown_as.get(name, 'Someone'), 'date': day(entry), 'map': link(entry) if 'x' in entry or 'first' in entry else ''})
+    for entry in discoveries.get('firsts', []):
         name = entry.get('player', '')
         if name.lower() in hidden: continue
-        firsts.append({'what': entry.get('name', ''), 'player': shown_as.get(name, 'Someone'),
-                       'date': datetime.datetime.fromtimestamp(entry.get('time', 0), datetime.timezone.utc).date().isoformat()})
+        what = entry.get('what', '')
+        firsts.append({'what': what[:1].upper() + what[1:], 'player': shown_as.get(name, 'Someone'), 'date': day(entry), 'map': ''})
     firsts.sort(key=lambda f: f['date'], reverse=True)
 
     # The live pack's own changelog, so the website's update list follows each release by itself.
