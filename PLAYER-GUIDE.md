@@ -124,7 +124,7 @@ Log in once a day (Riga time) for a small gift: food, ores, books or rockets. Th
 
 ## Money and the auction house
 
-Everyone starts with 250 coins. `/sell` turns spare items into coins, `/ah` opens the auction house to buy and list items, `/orders` lets you ask for items at your price, `/pay NAME AMOUNT` sends coins and `/bal` shows your balance. 100 daily coins arrive by themselves with your first login each day; if they ever do not, the daily message shows a **[Claim]** button (`/daily` does the same).
+Everyone starts with 250 coins. `/sell` turns spare items into coins, `/ah` opens the auction house to buy and list items, `/orders` lets you ask for items at your price, `/pay NAME AMOUNT` sends coins and `/bal` shows your balance. 100 daily coins arrive by themselves with your first login each day; if they ever do not, the daily message shows a **[Claim]** button.
 
 ## Boombox
 
@@ -179,7 +179,7 @@ The optional party HUD shows member health and absorption, including offline/oth
 
 `/rally` deliberately shares your current position with authenticated party members for90seconds. It has a10second cooldown. `/rally clear` removes your mark; the party owner can also clear it. The HUD shows a direction arrow, distance and time remaining. Pings never teleport anyone or publish a point to website stats/BlueMap. Leaving/kicking the sender revokes the mark. `/partyhud pings off` hides notifications locally; it does not change membership or delivery to other party members.
 
-Daily item gifts remain once per Riga day. Coins use EconomyCraft's own daily claim operation and native daily ledger/reset schedule, without a second deposit. A corner card and short chat receipt show delivered rewards. The seventh-day lootbox keeps its central celebration. `/daily` remains available for status/manual recovery; it cannot pay twice for the same native reward day.
+Daily item gifts remain once per Riga day. Coins use EconomyCraft's own daily claim operation and native daily ledger/reset schedule, without a second deposit. A corner card and short chat receipt show delivered rewards. The seventh-day lootbox keeps its central celebration. If the coins ever do not arrive, the daily message shows a **[Claim]** button.
 
 Voice recovery retries the existing mod handshake after authentication when there is no active native connection. `/voicefix` requests another attempt, with a short cooldown. It does not unmute your microphone or change volume settings. If voice stays unavailable, use V to check the setup and contact support.
 

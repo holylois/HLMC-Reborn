@@ -112,7 +112,7 @@ adv("travel/around_the_world", "travel/long_way_home", "minecraft:elytra", "Arou
     {"done": impossible()}, frame="challenge", hidden=True, xp=300)
 adv("time/regular", "root", "minecraft:clock", "Regular", "Play for 24 hours on Holy Lois", {"done": impossible()})
 adv("time/resident", "time/regular", "minecraft:red_bed", "Resident", "Play for 100 hours on Holy Lois", {"done": impossible()}, frame="goal", hidden=True)
-adv("daily/pocket_money", "root", "minecraft:gold_nugget", "Pocket Money", "Claim your daily coins with /daily", {"done": impossible()})
+adv("daily/pocket_money", "root", "minecraft:gold_nugget", "Pocket Money", "Get your daily coins (they arrive when you join)", {"done": impossible()})
 adv("daily/seven_days", "daily/pocket_money", "mcwholidays:yellow_present", "Seven Days of Lois", "Log in seven days in a row", {"done": impossible()})
 adv("daily/unboxed", "daily/seven_days", "minecraft:chest", "Unboxed", "Open a Holy Lootbox", {"done": impossible()})
 adv("daily/jackpot", "daily/unboxed", "minecraft:golden_pickaxe", "Jackpot!", "Find a named tool in a Holy Lootbox", {"done": impossible()}, frame="goal", hidden=True)
