@@ -4,6 +4,10 @@ A cozy modded Minecraft survival server for friends: claim land on the map, expl
 
 **Launcher 1.4.2 / pack 1.9.4 / Minecraft 26.3 / Fabric 0.19.5 / Java 25**
 
+## Next candidate: pack 1.10.0
+
+The Holy Lois Journal collects world firsts, your fish, places and creature defeats, with personal waypoints and map links. The workshop batch also brings notable-item cards, fish colours and bite frames, Easy Anvils/Magic and more structures in new land. This candidate is not live yet; the download above still uses the published release.
+
 ## Download and play
 
 [Download HolyLoisReborn.exe](https://github.com/pjampjam/HLMC-Reborn-Packaging-Lab/releases/latest/download/HolyLoisReborn.exe) - about 66 MB, for Windows x64. Its runtime is included, so no separate .NET installation is needed.

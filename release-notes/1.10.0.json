@@ -1,0 +1,87 @@
+{
+  "version": "1.10.0",
+  "date": "2026-10-11",
+  "locales": {
+    "en": {
+      "summary": "Your adventures have a journal. New places, better catches and a cleaner look.",
+      "teaser": "Your adventures, collected",
+      "added": [
+        "Open /journal for your fish collection, visited places and lifetime creature defeats. Search entries and add a personal waypoint or open their recorded location on the map.",
+        "World firsts has its own Journal tab: first discoveries, bosses, elites and the first defeat of each creature type. Ordinary creature firsts get a quiet gold chat line.",
+        "Fish collections remember the species, rarities and heaviest measured trophy you have caught. Personal records stay with your profile after a name change.",
+        "Notable pickups get a short item card. Use /itemcards on or off to choose whether to show them.",
+        "Easy Anvils and Easy Magic keep items in their blocks and improve repairs and enchanting. Enchantment re-rolls have a cost.",
+        "More mineshafts, ruins, towers, towns and other structures await in newly generated land. Their treasure chests can hold legends and Runeforged loot."
+      ],
+      "changed": [
+        "Fish and fillets have a thin rarity outline around their inventory picture. Legendary and Mythic names and outlines shimmer in their colours.",
+        "Fish tooltips show their own colour palette and variant name. Fish of Thieves fish shrink bite by bite while eaten.",
+        "Cooked trophy fish give stronger, longer effects; fillets can be eaten even when you are full. Rarer trophy fish take longer to eat.",
+        "Hooked swimming fish arrive as fish items with a weight and rarity roll, including when fishing from a boat.",
+        "Explorer maps use the proper holding pose and first-person map view. Held boomboxes sway more gently.",
+        "Use /cinematic on or off and /cinematic fishing on or off to control the idle and fishing cameras.",
+        "Shader names are shorter and sorted from light to heavy. Required animation packs stay enabled while your own resource packs remain available.",
+        "The website has a cleaner background, and daily-coins help now explains that coins arrive when you join."
+      ],
+      "fixed": [
+        "Placing a one-item fish back into its slot no longer leaves it stuck on your cursor after a quick double-click.",
+        "Login and registration forms hide the game HUD until the transition finishes.",
+        "Uploaded song links must contain real MP3 or WAV audio. BlueMap's updated renderer fixes lost low-resolution tile writes."
+      ]
+    },
+    "ru": {
+      "summary": "У приключений появился журнал. Новые места, лучший улов и более чистый вид.",
+      "teaser": "Ваши приключения в журнале",
+      "added": [
+        "Команда /journal открывает коллекцию рыб, посещённых мест и побед над существами. Ищите записи, добавляйте личные метки или открывайте записанные места на карте.",
+        "Вкладка «Первые в мире» хранит первые открытия, победы над боссами, элитными врагами и каждым видом существ. Для обычных существ появляется короткая золотая строка в чате.",
+        "Коллекция рыб запоминает виды, редкости и самый тяжёлый измеренный трофей. Личные записи сохраняются после смены имени.",
+        "Для примечательной добычи появляется короткая карточка. Включайте или выключайте её командами /itemcards on и /itemcards off.",
+        "Easy Anvils и Easy Magic сохраняют предметы в своих блоках и улучшают ремонт и зачарование. Смена предложенных чар имеет цену.",
+        "В новых землях появятся дополнительные шахты, руины, башни, поселения и другие структуры. В их сундуках можно найти легенды и добычу Runeforged."
+      ],
+      "changed": [
+        "Рыба и филе получили тонкую обводку редкости вокруг изображения в инвентаре. Легендарные и мифические названия и обводки переливаются своими цветами.",
+        "Подсказки рыб показывают их палитру и название варианта. Рыба Fish of Thieves уменьшается с каждым укусом.",
+        "Приготовленные трофеи дают более сильные и долгие эффекты; филе можно есть при полной сытости. Более редкая трофейная рыба съедается дольше.",
+        "Пойманная плавающая рыба сразу становится предметом с весом и редкостью, в том числе при ловле из лодки.",
+        "Карты исследователя правильно держатся в руках и отображаются от первого лица. Бумбокс в руке качается мягче.",
+        "Команды /cinematic on|off и /cinematic fishing on|off управляют кинокамерой в покое и при рыбалке.",
+        "Названия шейдеров короче, список идёт от лёгких к тяжёлым. Обязательные пакеты анимаций остаются включёнными, а свои ресурс-паки можно добавлять.",
+        "Фон сайта стал чище, а помощь по ежедневным монетам объясняет, что они приходят при входе."
+      ],
+      "fixed": [
+        "Быстрый двойной клик больше не оставляет одиночную рыбу на курсоре при возврате в слот.",
+        "Формы входа и регистрации скрывают игровой интерфейс до завершения перехода.",
+        "Ссылки на песни должны содержать настоящий звук MP3 или WAV. Обновлённый BlueMap исправляет потерю записей плиток низкого разрешения."
+      ]
+    },
+    "lv": {
+      "summary": "Taviem piedzīvojumiem ir žurnāls. Jaunas vietas, labāki lomi un tīrāks izskats.",
+      "teaser": "Tavi piedzīvojumi, apkopoti",
+      "added": [
+        "Komanda /journal atver zivju, apmeklēto vietu un uzvarēto radību kolekciju. Meklē ierakstus, pievieno personīgas atzīmes vai atver ierakstītās vietas kartē.",
+        "Cilne «Pirmie pasaulē» glabā pirmos atklājumus, bosu, elites un katra radību veida pirmās uzvaras. Parastām radībām parādās īsa zelta rinda čatā.",
+        "Zivju kolekcija atceras sugas, retumus un smagāko izmērīto trofeju. Personīgie ieraksti saglabājas pēc vārda maiņas.",
+        "Ievērojamam laupījumam parādās īsa priekšmeta kartīte. Ieslēdz vai izslēdz to ar /itemcards on un /itemcards off.",
+        "Easy Anvils un Easy Magic saglabā priekšmetus savos blokos un uzlabo labošanu un buršanu. Burvju piedāvājuma maiņai ir cena.",
+        "Jaunās zemēs gaida papildu raktuves, drupas, torņi, apdzīvotas vietas un citas būves. To lādēs var būt leģendas un Runeforged laupījums."
+      ],
+      "changed": [
+        "Zivīm un filejām ir plāna retuma kontūra ap attēlu inventārā. Leģendārie un mītiskie nosaukumi un kontūras mirdz savās krāsās.",
+        "Zivju apraksti rāda to krāsu paleti un varianta nosaukumu. Fish of Thieves zivis ēdot sarūk ar katru kumosu.",
+        "Gatavotas trofejas dod stiprākus un ilgākus efektus; filejas var ēst arī ar pilnu izsalkuma joslu. Retākas trofejas apēst prasa ilgāk.",
+        "Uz āķa noķerta peldoša zivs uzreiz kļūst par priekšmetu ar svaru un retumu, arī makšķerējot no laivas.",
+        "Pētnieku kartes tiek turētas pareizi un rāda karti pirmās personas skatā. Boombox rokā šūpojas maigāk.",
+        "Komandas /cinematic on|off un /cinematic fishing on|off vada kameru dīkstāvē un makšķerējot.",
+        "Īsāki šeideru nosaukumi, saraksts no viegliem līdz smagiem. Obligātās animāciju pakotnes paliek ieslēgtas; savas resursu pakotnes var pievienot.",
+        "Vietnes fons ir tīrāks, un ikdienas monētu palīdzība skaidro, ka tās pienāk, pievienojoties spēlei."
+      ],
+      "fixed": [
+        "Ātrs dubultklikšķis vairs neatstāj vienu zivi uz kursora, ieliekot to atpakaļ vietā.",
+        "Pieteikšanās un reģistrācijas logi slēpj spēles saskarni līdz pārejas beigām.",
+        "Dziesmu saitēm jāsatur īsts MP3 vai WAV audio. Atjauninātais BlueMap novērš zemas izšķirtspējas karšu daļu ierakstīšanas zudumus."
+      ]
+    }
+  }
+}
