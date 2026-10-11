@@ -1,10 +1,26 @@
 {
   "chestChance": 0.012,
   "chestTables": [
-    "*:chests/*"
+    "*:chests/*",
+    "kaisyn:village/*",
+    "kaisyn:outpost/*",
+    "mvs:*",
+    "mes:end_*",
+    "mes:mega_ship_*",
+    "structory:outcast/*",
+    "structory:harvest/*",
+    "structory:library/*",
+    "structory:mood/*",
+    "structory:ruin/*",
+    "structory:extra/*",
+    "structory_towers:basic/*",
+    "structory_towers:top/*",
+    "structory_towers:end_tower",
+    "structory_towers:workshop_minecart",
+    "villagesandpillages:village_witch/*"
   ],
   "crateTables": [
-    "*:*crate*"
+    "fishing_crates:*"
   ],
   "crateChance": 0.05,
   "treasureChance": 0.3,

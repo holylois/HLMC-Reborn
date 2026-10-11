@@ -38,10 +38,11 @@ VERIFY_SECONDS = 6
 MAX_NBT_BYTES = 32 * 1024**2
 # Pregeneration must never starve the server thread (the 2026-10-05 watchdog crash came after minutes of growing "ticks behind").
 # Generation runs in slices: it pauses when the server reports lag, or after RUN_SECONDS, and rests before the next slice.
+# The server is empty while it runs, so slices are long and the normal rest is short; lag still backs it off (2026-10-11).
 LAG_TICKS = 100
-RUN_SECONDS = 15 * 60
-REST_SECONDS = 10 * 60
-LAG_REST_SECONDS = 20 * 60
+RUN_SECONDS = 45 * 60
+REST_SECONDS = 2 * 60
+LAG_REST_SECONDS = 10 * 60
 
 
 class ChunkNotFull(IOError):

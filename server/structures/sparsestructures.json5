@@ -1,0 +1,12 @@
+// Holy Lois: neutral for the existing world. Factor 1 and the original salts keep every structure where it already is;
+// only vanilla mineshafts are switched off in new chunks (Hopo Better Mineshaft replaces them).
+{
+  "spreadFactor": 1,
+  "idBasedSalt": false,
+  "customSpreadFactors": [
+    {
+      "structure": "minecraft:mineshafts",
+      "factor": 0
+    }
+  ]
+}

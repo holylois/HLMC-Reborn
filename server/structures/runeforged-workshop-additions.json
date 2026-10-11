@@ -1,0 +1,1562 @@
+[
+ {
+  "loot_table": "hopo:chests/copper",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/coral",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/food",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/materials",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/abandoned_miners_stuff",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/base/amethyst",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/base/archer",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/base/armor",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/base/bedroom",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/base/books",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/base/brown_mushroom",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/base/copper",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/base/crafting",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/base/diamond",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/base/emerald",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/base/food",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/base/fossils",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/base/gold",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/base/iron",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/base/lapis",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/base/potions",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/base/prison",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/base/red_mushroom",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/base/redstone",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/base/rip",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/base/smelting",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/base/tnt",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/base/tools",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/base/weapons",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/archer",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/biomes_map/target_acacia",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/biomes_map/target_bamboo",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/biomes_map/target_birch",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/biomes_map/target_cherry",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/biomes_map/target_dark_oak",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/biomes_map/target_jungle",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/biomes_map/target_lush_caves",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/biomes_map/target_mangrove",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/biomes_map/target_mud",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/biomes_map/target_oak",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/biomes_map/target_pale",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/biomes_map/target_poplar",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/biomes_map/target_spruce",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/biomes_map/target_stone",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/biomes_map/target_sulfur",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/copper",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/farm_beetroot",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/farm_carrot",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/farm_melon",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/farm_potato",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/farm_pumpkin",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/farm_wheat",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/iron_golem",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/map",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/music",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/potion",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/prison",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/stews",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/villager_toolsmith",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/big_rooms/villager_weaponsmith",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/deepslate/copper",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/deepslate/diamond",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/deepslate/emerald",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/deepslate/gold",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/deepslate/iron",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/deepslate/lapis",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/deepslate/redstone",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/dungeontraps/cavespiderpotion",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/dungeontraps/potion",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/mineshaft/minecart/connector",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/portal/better_ruined_portal",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "hopo:chests/portal/dripstone_portal",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "hopo:chests/portal/lush_portal",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "hopo:chests/portal/piglin_ruin",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "hopo:chests/portal/ruined_portal_cool",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "hopo:chests/prismarine",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/small_ruin_cold",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "hopo:chests/small_ruin_warm",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "kaisyn:outpost/common/armory",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "kaisyn:outpost/common/food",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "kaisyn:outpost/exclusives/outpost_beach_barrel",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "kaisyn:outpost/exclusives/outpost_mediterranean_barrel",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "kaisyn:outpost/exclusives/outpost_rustic_barrel",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "kaisyn:village/exclusives/village_classic_blacksmith",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "kaisyn:village/exclusives/village_mediterranean_house",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "kaisyn:village/exclusives/village_piglin_barrel",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "kaisyn:village/exclusives/village_piglin_house",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "kaisyn:village/exclusives/village_wandering_trader_hut",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "kaisyn:village/village_badlands_house",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "kaisyn:village/village_jungle_house",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "kaisyn:village/village_mushroom_house",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "kaisyn:village/village_swamp_house",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "mes:end_common",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "mes:end_rare",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "mes:end_uncommon",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "mes:mega_ship_barrel",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "mes:mega_ship_crate",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "mes:mega_ship_treasure",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "mvs:abandoned",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "mvs:cart",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "mvs:cartographer_tower",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "mvs:cathedral_base",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "mvs:cathedral_common",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "mvs:cathedral_rare",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "mvs:crystal",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "mvs:floating_islands",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "mvs:general",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "mvs:houses_books",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "mvs:houses_brewing",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "mvs:houses_common",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "mvs:houses_desert",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "mvs:houses_flower",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "mvs:houses_rare",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "mvs:houses_uncommon",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "mvs:jungle_tower",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "mvs:large_carts",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "mvs:large_carts_2",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "mvs:mushroom_pond",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "mvs:ocean_tower/common",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "mvs:ocean_tower/treasure",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "mvs:ocean_tower/uncommon",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "mvs:pillager",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "mvs:pond",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "mvs:rare",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "mvs:red_tower/common",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "mvs:red_tower/treasure",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "mvs:red_tower/uncommon",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "mvs:stable",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "mvs:swamps",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:barrels/abandoned_camps/basalt",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:barrels/abandoned_camps/crimson",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:barrels/abandoned_camps/nether_brick",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:barrels/abandoned_camps/soul",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:barrels/abandoned_camps/warped",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/abandoned_camps/basalt_common",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/abandoned_camps/basalt_secret",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/abandoned_camps/crimson_common",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/abandoned_camps/crimson_secret",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/abandoned_camps/nether_brick_common",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/abandoned_camps/nether_brick_secret",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/abandoned_camps/soul_common",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/abandoned_camps/soul_secret",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/abandoned_camps/warped_common",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/abandoned_camps/warped_secret",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/ancient_cities/end",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/ancient_cities/end_spawner_box",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/ancient_cities/nether",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/ancient_cities/nether_magma_box",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/ancient_cities/ocean",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/ancient_cities/ocean_ice_box",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/bastions/underground/bridge",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/bastions/underground/other",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/bastions/underground/skeleton_horse_stable",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/bastions/underground/treasure",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/cities/nether",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/cities/overworld",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/dungeons/badlands",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/dungeons/dark_forest",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/dungeons/deep",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/dungeons/desert",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/dungeons/icy",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/dungeons/jungle",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/dungeons/mushroom",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/dungeons/nether",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/dungeons/ocean",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/dungeons/snow",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/dungeons/swamp",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/fortresses/jungle_center",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/fortresses/jungle_hallway",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/fortresses/jungle_shrine",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/igloos/grassy",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/igloos/mangrove",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/igloos/mushroom",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/igloos/stone",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mansions/birch",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mansions/birch_storage",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mansions/dappled",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mansions/dappled_storage",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mansions/desert",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mansions/desert_storage",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mansions/jungle",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mansions/jungle_storage",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mansions/mangrove",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mansions/mangrove_storage",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mansions/oak",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mansions/oak_storage",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mansions/savanna",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mansions/savanna_storage",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mansions/snowy",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mansions/snowy_storage",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mansions/taiga",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mansions/taiga_storage",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mineshafts/basalt",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mineshafts/birch",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mineshafts/crimson",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mineshafts/dappled",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mineshafts/dark_forest",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mineshafts/desert",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mineshafts/end",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mineshafts/icy",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mineshafts/jungle",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mineshafts/nether",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mineshafts/ocean",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mineshafts/pale_garden",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mineshafts/savanna",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mineshafts/soul",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mineshafts/stone",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mineshafts/swamp",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mineshafts/taiga",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/mineshafts/warped",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/monuments/desert",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/monuments/icy",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/monuments/jungle",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/monuments/nether",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/outposts/badlands",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/outposts/basalt",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/outposts/birch",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/outposts/crimson",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/outposts/dappled",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/outposts/desert",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/outposts/giant_tree_taiga",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/outposts/icy",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/outposts/jungle",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/outposts/mangrove",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/outposts/nether_brick",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/outposts/oak",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/outposts/ocean",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/outposts/savanna",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/outposts/snowy",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/outposts/soul",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/outposts/taiga",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/outposts/warped",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/pyramids/dark_forest",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/pyramids/end",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/pyramids/flower_forest",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/pyramids/giant_tree_taiga",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/pyramids/icy",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/pyramids/jungle",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/pyramids/mushroom",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/pyramids/snowy",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/ruined_portals/end/large_portal",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/ruined_portals/end/small_portal",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/ruins/land_cold/large",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/ruins/land_cold/small",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/ruins/land_hot/large",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/ruins/land_hot/small",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/ruins/land_icy/large",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/ruins/land_icy/small",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/ruins/land_warm/large",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/ruins/land_warm/small",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/ruins/nether",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/shipwrecks/crimson/map",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/shipwrecks/crimson/supply",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/shipwrecks/crimson/treasure",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/shipwrecks/end/map",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/shipwrecks/end/supply",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/shipwrecks/end/treasure",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/shipwrecks/nether_bricks/treasure",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/shipwrecks/warped/map",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/shipwrecks/warped/supply",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/shipwrecks/warped/treasure",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/strongholds/nether_hallway",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/strongholds/nether_library",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/strongholds/nether_storage_room",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/temples/basalt",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/temples/crimson",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/temples/ocean",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/temples/soul",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/temples/taiga",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/temples/warped",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/temples/wasteland",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/villages/badlands_house",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/villages/bamboo_house",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/villages/birch_house",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/villages/cherry_house",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/villages/crimson_cartographer",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/villages/crimson_fisher",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/villages/crimson_house",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/villages/crimson_tannery",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/villages/crimson_weaponsmith",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/villages/dappled_house",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/villages/dark_forest_house",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/villages/giant_taiga_house",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/villages/jungle_house",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/villages/mountains_house",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/villages/mushroom_house",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/villages/oak_house",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/villages/ocean_cartographer",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/villages/ocean_house",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/villages/pale_garden_house",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/villages/swamp_house",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/villages/warped_cartographer",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/villages/warped_fisher",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/villages/warped_house",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/villages/warped_tannery",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:chests/villages/warped_weaponsmith",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "repurposed_structures:shulker_boxes/dungeons/end",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:shulker_boxes/outposts/end",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:shulker_boxes/strongholds/end_hallway",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:shulker_boxes/strongholds/end_library",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:shulker_boxes/strongholds/end_storage_room",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "repurposed_structures:trapped_chests/pyramids/badlands",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:trapped_chests/pyramids/end",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:trapped_chests/pyramids/nether",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:trapped_chests/pyramids/ocean",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "repurposed_structures:trapped_chests/temples/warped",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "structory:extra/copper",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:harvest/graveyard",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:harvest/graveyard2",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:harvest/manor2/loot",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "structory:harvest/manor2/treasure",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "structory:harvest/old_manor/common",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "structory:harvest/old_manor/treasure",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "structory:library/high",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "structory:library/junk",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "structory:library/low",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "structory:mood/badlands",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:mood/cave",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:mood/desert",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:mood/farmer",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:mood/fisherman",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:mood/grassy",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:mood/jungle",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:mood/mangrove",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:mood/miner",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:mood/mushroom",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:mood/ocean",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:mood/snowy",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:mood/taiga",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:outcast/bandit/desert",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:outcast/bandit/desert_copper",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:outcast/boat/loot",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:outcast/farm_ruin",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:outcast/generic/bandit",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:outcast/generic/miner",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:outcast/low",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:outcast/mine/loot",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:outcast/ruin/ruin",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:outcast/settlement",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:ruin/ruin",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:ruin/swamp/loot",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:ruin/taiga/illager_high",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "structory:ruin/taiga/illager_low",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory:ruin/taiga/illager_treasure",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "structory:ruin/taiga/loot",
+  "tier_id": "t3"
+ },
+ {
+  "loot_table": "structory_towers:basic/crimson_basic",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "structory_towers:basic/dark_basic",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "structory_towers:basic/desert_basic",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "structory_towers:basic/farm_basic",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "structory_towers:basic/forager_basic",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "structory_towers:basic/fortress_basic",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "structory_towers:basic/lighthouse_basic",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "structory_towers:basic/mangrove_basic",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "structory_towers:basic/nomad_basic",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "structory_towers:basic/ocean_pillar_basic",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "structory_towers:basic/paranoid_basic",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "structory_towers:basic/pillager_basic",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "structory_towers:basic/sacred_temple_basic",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "structory_towers:basic/small_firetower_basic",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "structory_towers:basic/strange_basic",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "structory_towers:basic/trader_basic",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "structory_towers:basic/warped_basic",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "structory_towers:basic/wizard_basic",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "structory_towers:basic/workshop_basic",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "structory_towers:end_tower",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "structory_towers:sword_portal",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "structory_towers:toadstool",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "structory_towers:top/crimson_top",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "structory_towers:top/dark_top",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "structory_towers:top/desert_top",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "structory_towers:top/farm_top",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "structory_towers:top/forager_top",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "structory_towers:top/fortress_top",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "structory_towers:top/lighthouse_top",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "structory_towers:top/mangrove_top",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "structory_towers:top/nomad_top",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "structory_towers:top/ocean_pillar_top",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "structory_towers:top/paranoid_top",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "structory_towers:top/pillager_top",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "structory_towers:top/sacred_temple_top",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "structory_towers:top/small_firetower_top",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "structory_towers:top/strange_top",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "structory_towers:top/trader_top",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "structory_towers:top/warped_top",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "structory_towers:top/wizard_top",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "structory_towers:top/workshop_top",
+  "tier_id": "t1"
+ },
+ {
+  "loot_table": "structory_towers:workshop_minecart",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "villagesandpillages:village_witch/house/attic_chest",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "villagesandpillages:village_witch/house/barrel",
+  "tier_id": "t2"
+ },
+ {
+  "loot_table": "villagesandpillages:village_witch/house/personal_chest",
+  "tier_id": "t2"
+ }
+]
