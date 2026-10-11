@@ -215,6 +215,16 @@ Maps are held up in front of you, food goes to your mouth and shrinks bite by bi
 
 Your saved skin returns on rejoin, and BlueMap uses it when refreshing your marker. Skins, guide keys and statistics head layouts retain the earlier prepared fixes.
 
+## Holy Lois Journal (next release: 1.10.0)
+
+`/journal` opens **My journal**. **World firsts** shows the first discoveries and creature defeats across the server; `/discoveries` opens that tab. Search or choose Fish, Places or Kills, then select an entry for details. **Waypoint** saves its recorded location on your own minimap; **Map** opens BlueMap there. These buttons do not teleport you.
+
+Your fish collection records catches per species, the heaviest measured trophy and the rarities you have caught. Personal places include notable structures you visit, even if a friend found them first. Kills use your lifetime Minecraft statistics; recorded locations and highest creature levels start with this update. Earlier unmeasured catches and visits are not invented.
+
+The Journal has a control in Options, Controls. It uses **K** on first installation if K is free; existing bindings and deliberately unbound controls stay yours. `/journal` always works without a key. Personal records belong to your profile and stay with you after an approved name change.
+
+The first defeat of each creature type appears as a compact gold world-first line. Ordinary creatures do not play a server-wide chime; major boss and elite firsts keep their celebration.
+
 ## Account help (pack 1.8.3)
 
 Quick start accepts a valid player name without checking Minecraft ownership. Names already claimed on Holy Lois still need their server password.

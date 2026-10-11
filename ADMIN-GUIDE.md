@@ -243,12 +243,20 @@ Owner/test exclusions merge with `/etc/holylois/stats-hidden.txt` and `config/ho
 - **/donate**: the wallet list moved here from the old `/support`; addresses are in `DonateCommand.java`.
 - **World border**: 14,000 blocks wide (7,000 from spawn), warning at 64 blocks. Raise it later with `worldborder set`; never lower it below land people live on.
 
+## Journal candidate for pack 1.10.0
+
+Discoveries v3 adds personal fish/visit/creature records to `world/holylois/discoveries.json`, keyed by stable player UUID. It migrates v1/v2 discoveries without clearing firsts. A broken store fails loading instead of replacing the history. New catches, visits and best creature levels start when the candidate is installed; lifetime kill counts still come from vanilla stats.
+
+`/journal`, `/discoveries` and `/discoveries mine` open read-only screens for authenticated players. Page requests have no target identity, are rate-limited and return at most eight entries. Personal records are sent only to their owner. The public stats exporter selects world-first fields explicitly and never exports the `journals` collection. Waypoints stay on the requesting client; Map opens the existing public BlueMap location.
+
+Per-mob firsts use `mob:NAMESPACE:TYPE` keys. Repeated kills can raise their highest recorded level but never replace the original first player, time or location. Ordinary mob firsts have a compact gold broadcast without the challenge chime. Boss firsts retain their existing celebration.
+
 ## Server release for pack 1.7.0
 
 `server/deploy-release-170.py` (run as root from `~/hl-170`) adds Macaw's Holidays and onboarding 1.5.0, installs the cleaner Tab style, removes the old tagline from the server list, raises `view-distance` to 12, updates the Discord monitor and enables the weekly recap. It refuses while players are online, backs up the complete server first and rolls back if the server does not start. Afterwards it posts the update notes to Discord.
 
 - **Leaderboards** come from the vanilla stats files, refreshed every two minutes off the main thread.
-- **Discoveries** are stored in `world/holylois/discoveries.json`. Delete an entry there to let a structure be announced again.
+- **Discoveries** are stored in `world/holylois/discoveries.json`. Never edit the file while the service is running; back it up before any reviewed correction.
 - **Weekly recap**: `holylois-weekly-recap.timer` posts on Sundays at 19:00 Riga time. A week with no play posts nothing.
 - **Restart call**: every restart, planned or not, is announced once in Discord with "Maaarek nahhul!".
 - **Daily gifts and events**: `world/holylois/daily.json` (streaks) and `world/holylois/events.json` (holiday gifts, day counter). Time and weather pause while the server is empty, so the day counter follows real play. `/dailytest <1-7>` (operators) previews the reward card for that streak day; it gives nothing and changes no streak.
