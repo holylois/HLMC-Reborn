@@ -8,7 +8,9 @@ Every restart, planned or not, is announced once with the group's restart call: 
 
 Players read #server-status, so alerts go there through the bot (token /etc/holylois/discord-bot-token, root 600). The old
 webhook in /etc/holylois/discord-webhook points at a staff channel and is used only when the bot cannot post.
-Without either, every mode exits quietly. /run/holylois-maintenance silences alerts during planned work.
+Without either, every mode exits quietly. During planned work /run/holylois-maintenance holds the reason (deploy scripts write
+it, e.g. "Adding new structures"): players get one "restarting for an update" note and a "back online" note after, no alarm.
+A deliberate stop (systemctl stop, no crash) is announced as a shutdown by an admin, not as a crash.
 """
 import glob, json, os, shutil, socket, struct, subprocess, sys, time, urllib.request
 from pathlib import Path
@@ -141,6 +143,12 @@ def save(state):
     STATE.write_text(json.dumps(state))
 
 
+def service():
+    """(ActiveState, Result) of minecraft.service, e.g. ("inactive", "success") after a deliberate stop."""
+    out = subprocess.run(["systemctl", "show", "minecraft", "-p", "ActiveState", "-p", "Result", "--value"], capture_output=True, text=True).stdout.split()
+    return (out + ["", ""])[:2]
+
+
 def report_down(state, reason):
     status, crash, health, tail = diagnostics()
     post("Holy Lois server is DOWN", f"{reason}\nSince {time.strftime('%d.%m %H:%M UTC', time.gmtime(state['down_since']))}.", RED,
@@ -156,10 +164,17 @@ def main():
     if mode == "message":
         post("Holy Lois server", " ".join(sys.argv[2:]), GOLD)
         return
+    state = load()
     if MAINTENANCE.exists():
+        # Planned work: one friendly note with the reason, no crash alarm.
+        if not state.get("maintenance"):
+            try: reason = MAINTENANCE.read_text(encoding="utf-8").strip()
+            except OSError: reason = ""
+            reason = reason or "Planned maintenance"
+            post("Holy Lois server is restarting for an update", f"{reason}. Back in a few minutes.", GOLD)
+            state.update(maintenance=reason, maintenance_since=time.time()); save(state)
         print("Planned maintenance; alerts paused.")
         return
-    state = load()
     if mode == "failure":
         if state["up"]:
             state.update(up=False, down_since=time.time(), alerted=True)
@@ -171,7 +186,10 @@ def main():
     players = online()
     if players is not None:
         restarted = state.get("invocation") not in (None, run)
-        if not state["up"] and state.get("alerted"):
+        if state.get("maintenance"):
+            minutes = int((time.time() - state.get("maintenance_since", time.time())) / 60)
+            post("Holy Lois server is back online", MEME + f"\nUpdate done: {state['maintenance']}. Down for about {minutes} minute(s). {players} player(s) online.", GREEN)
+        elif not state["up"] and state.get("alerted"):
             minutes = int((time.time() - (state["down_since"] or time.time())) / 60)
             post("Holy Lois server is back online", f"{MEME}\nDown for about {minutes} minute(s). {players} player(s) online.", GREEN)
         elif restarts > state.get("restarts", restarts):
@@ -185,6 +203,13 @@ def main():
         save({"up": True, "failures": 0, "down_since": None, "restarts": restarts, "invocation": run})
         return
     state["restarts"] = restarts
+    state.pop("maintenance", None)
+    active, result = service()
+    if state["up"] and active in ("inactive", "failed") and result == "success":
+        # Stopped on purpose (systemctl stop): say so, without crash diagnostics.
+        state.update(up=False, down_since=time.time(), alerted=True, failures=0)
+        post("Holy Lois server was shut down", "An admin stopped the server on purpose. It will be back later.", GOLD)
+        save(state); return
     state["failures"] = state.get("failures", 0) + 1
     if state["up"] and state["failures"] >= 2:
         state.update(up=False, down_since=time.time() - 240, alerted=True)

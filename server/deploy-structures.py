@@ -2,7 +2,8 @@
 
 Same file changes as the passed loopback test (test-structures.py apply_changes): the new structure mods and libraries, BlueMap 5.29,
 Polymer 0.18.3, the overlap toggles, legend loot tables and Runeforged chest tiers. Also the faster terrain pacing
-(expand-terrain.py, its tests must pass here first) and the MOTD headline.
+(expand-terrain.py, its tests must pass here first), the MOTD headline and the monitor's update/shutdown notes
+(discord-alert.py; the maintenance flag now carries the reason players see in #server-status).
 Online players get the approved one-minute countdown first. A fresh complete backup is verified before anything changes; if the
 server does not come up healthy, mods, config, claims data and the terrain script return automatically. Only after a healthy
 start: BlueMap re-renders the map center (lost low-zoom tiles, fixed in 5.29) and the terrain hold file is removed (pregen resumes).
@@ -24,6 +25,9 @@ ROOT = Path('/opt/minecraft')
 MOTD = ROOT / 'config/MiniMOTD/main.conf'
 MAINTENANCE = Path('/run/holylois-maintenance')
 TERRAIN = Path('/usr/local/lib/holylois/expand-terrain.py')
+ALERT = Path('/usr/local/lib/holylois/discord-alert.py')
+# Shown in #server-status while the update runs (the monitor reads the maintenance flag).
+REASON = 'Adding hundreds of new structures to explore'
 HOLD = Path('/opt/minecraft-backups/terrain-expansion/hold')
 BAR = 'holylois:restart'
 # Server list line under the name: the newest exciting change, capital letter after "New:".
@@ -92,12 +96,12 @@ def main():
     archive = backup / 'complete-server.tar'
     timer_active = subprocess.run(['systemctl', 'is-active', '--quiet', 'holylois-stats.timer']).returncode == 0
     changed = False
-    MAINTENANCE.touch()
+    MAINTENANCE.write_text(REASON, encoding='utf-8')
     try:
         run('systemctl', 'stop', 'holylois-stats.timer', 'holylois-stats.service')
         run('systemctl', 'stop', 'minecraft-console.socket', 'minecraft.service')
         for tree in TREES: shutil.copytree(tree, backup / 'trees' / tree.relative_to(ROOT), symlinks=True)
-        shutil.copy2(TERRAIN, backup / 'expand-terrain.py')
+        shutil.copy2(TERRAIN, backup / 'expand-terrain.py'); shutil.copy2(ALERT, backup / 'discord-alert.py')
         print('Creating fresh complete server backup...', flush=True)
         run('tar', '--exclude=minecraft/backups', '-cf', str(archive), '-C', '/opt', 'minecraft'); archive.chmod(0o600)
         with tarfile.open(archive) as tar:
@@ -113,6 +117,7 @@ def main():
         changed = True
         added = test.apply_changes(ROOT, KIT)
         shutil.copy2(KIT / 'expand-terrain.py', TERRAIN); TERRAIN.chmod(0o755)
+        shutil.copy2(KIT / 'discord-alert.py', ALERT); ALERT.chmod(0o755)
         text, count = re.subn(r'(?m)^(\s*line2=).*$', lambda m: m.group(1) + json.dumps(HEADLINE, ensure_ascii=False),
                               MOTD.read_text(encoding='utf-8'), count=1)
         assert count == 1; MOTD.write_text(text, encoding='utf-8')
@@ -128,7 +133,7 @@ def main():
                 if saved.exists():
                     shutil.rmtree(tree, ignore_errors=True); shutil.copytree(saved, tree, symlinks=True)
                     run('chown', '-R', 'minecraft:minecraft', str(tree))
-            shutil.copy2(backup / 'expand-terrain.py', TERRAIN)
+            shutil.copy2(backup / 'expand-terrain.py', TERRAIN); shutil.copy2(backup / 'discord-alert.py', ALERT)
         run('systemctl', 'start', 'minecraft-console.socket', 'minecraft.service')
         print('Rolled back. Complete backup kept at', archive, '- the terrain hold stays in place.', flush=True)
         raise
