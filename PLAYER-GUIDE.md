@@ -223,6 +223,10 @@ Your fish collection records catches per species, the heaviest measured trophy a
 
 Fish history shows every tier up to your highest catch. If your first catch is Epic, Common, Uncommon and Rare show zero until caught; Legendary and Mythic stay hidden. Older records with an unknown detailed count keep that label. Fish tooltips omit color swatches and variant labels, while retaining the fish's appearance. Wooden, Iron and Golden Crates use Uncommon, Rare and Legendary presentation respectively; loot contents are unchanged.
 
+Swimming fish and the fish shown in circling shoals keep their assigned weight and rarity when reeled in. Bigger fish swim in wider circles, and casts near the visible circle's edge can reach them. Natural shoals include vanilla fish suited to the water: Cod, Salmon, Tropical Fish or Pufferfish. The caught item flies from the hook toward you before pickup. Fish with individual weights are separate items.
+
+First discoveries have plain yellow names, with a star in their description. Legendary item names and outlines keep their gold color with a white shine; Mythic keeps its moving gradient. REI favorites are hidden by default, including the add button and left panel; saved favorites remain available if you re-enable the setting. To open a fishing crate, place it and break it with a suitable tool in Survival.
+
 The Journal has a control in Options, Controls. It uses **K** on first installation if K is free; existing bindings and deliberately unbound controls stay yours. `/journal` always works without a key. Personal records belong to your profile and stay with you after an approved name change.
 
 The first defeat of each hostile creature type appears as a compact gold world-first line. Passive kills remain personal. Ordinary hostile creatures do not play a server-wide chime; major boss and elite firsts keep their celebration.

@@ -15,15 +15,16 @@
         "More mineshafts, ruins, towers, towns and other structures await in newly generated land. Their treasure chests can hold legends and Runeforged loot."
       ],
       "changed": [
-        "Fish and fillets have a thin rarity outline around their inventory picture. Legendary and Mythic names and outlines shimmer in their colours.",
+        "Fish and fillets have a thin rarity outline around their inventory picture. Legendary stays gold with a white shine; Mythic keeps its moving colour gradient.",
         "Fish tooltips omit colour swatches and variant labels. Fish of Thieves fish shrink bite by bite while eaten, and large meals start their eating feedback promptly.",
         "Wooden, Iron and Golden Crates share the fish rarity palette as Uncommon, Rare and Legendary. Their cards show the name once; loot contents are unchanged.",
         "Cooked trophy fish give stronger, longer effects; fillets can be eaten even when you are full. Rarer trophy fish take longer to eat.",
-        "Hooked swimming fish and Fish of Thieves shoal catches arrive as fish items with a weight and rarity roll, including when fishing from a boat.",
+        "Swimming and shoal fish keep their visible weight, rarity and Fish of Thieves variant when caught. Bigger fish swim in wider circles, natural shoals include vanilla fish, and catches fly from the hook toward you before pickup.",
         "Explorer maps use the proper holding pose and first-person map view. Held boomboxes sway more gently.",
         "Held boombox music notes are smaller. Disabled Holy Lois buttons keep the ordinary cursor, and selected Journal tabs are easier to read.",
         "Empty Journal categories explain how to start a collection. Clipped names have tooltips, and entry dates say what happened.",
-        "Your world firsts have a gold star and their own personal filter. Known mob heads replace sword icons; long fish details scroll. Refreshing keeps the previous list visible.",
+        "World-first discovery names are plain yellow, with a star in the description and a personal firsts filter. Known mob heads replace sword icons; long fish details scroll. Refreshing keeps the previous list visible.",
+        "REI's favorite button and left panel are hidden by default without deleting saved favorites. Crate tooltips explain how to place and break them for loot.",
         "Use /cinematic on or off and /cinematic fishing on or off to control the idle and fishing cameras.",
         "Shader names are shorter and sorted from light to heavy. Required animation packs stay enabled while your own resource packs remain available.",
         "The website has a cleaner background, and daily-coins help now explains that coins arrive when you join."
@@ -50,15 +51,16 @@
         "В новых землях появятся дополнительные шахты, руины, башни, поселения и другие структуры. В их сундуках можно найти легенды и добычу Runeforged."
       ],
       "changed": [
-        "Рыба и филе получили тонкую обводку редкости вокруг изображения в инвентаре. Легендарные и мифические названия и обводки переливаются своими цветами.",
+        "У рыб и филе тонкая рамка редкости вокруг картинки в инвентаре. Легендарные остаются золотыми с белым блеском, а мифические сохраняют движущийся цветовой градиент.",
         "Подсказки рыб не показывают цветные квадраты и название варианта. Рыба Fish of Thieves уменьшается с каждым укусом, а звуки и частицы большой еды начинаются сразу.",
         "Деревянные, железные и золотые ящики используют палитру рыб: необычный, редкий и легендарный. Карточки показывают название один раз; содержимое не изменилось.",
         "Приготовленные трофеи дают более сильные и долгие эффекты; филе можно есть при полной сытости. Более редкая трофейная рыба съедается дольше.",
-        "Пойманная плавающая рыба и улов из косяка Fish of Thieves сразу становятся предметами с весом и редкостью, в том числе при ловле из лодки.",
+        "Плавающие рыбы и рыбы в косяках сохраняют видимые вес, редкость и вариант Fish of Thieves при ловле. Крупные рыбы плавают по более широкому кругу, обычные косяки включают рыб Minecraft, а улов летит от крючка к вам перед подбором.",
         "Карты исследователя правильно держатся в руках и отображаются от первого лица. Бумбокс в руке качается мягче.",
         "Музыкальные ноты у бумбокса в руке стали меньше. Неактивные кнопки Holy Lois оставляют обычный курсор, а выбранные вкладки журнала легче читать.",
         "Пустые категории журнала объясняют, как начать коллекцию. Обрезанные названия показываются в подсказке, а даты подписаны по событию.",
-        "Ваши первые в мире отмечены золотой звездой и доступны в личном фильтре. Известные головы существ заменяют мечи; длинные описания рыб прокручиваются. При обновлении предыдущий список остаётся виден.",
+        "Названия первых открытий в мире жёлтые, а звезда находится в описании; есть личный фильтр первых. Известные головы существ заменяют мечи; длинные описания рыб прокручиваются. При обновлении предыдущий список остаётся виден.",
+        "Кнопка избранного и левая панель REI скрыты по умолчанию без удаления сохранённого избранного. Подсказки ящиков объясняют, что их надо поставить и разбить для получения добычи.",
         "Команды /cinematic on|off и /cinematic fishing on|off управляют кинокамерой в покое и при рыбалке.",
         "Названия шейдеров короче, список идёт от лёгких к тяжёлым. Обязательные пакеты анимаций остаются включёнными, а свои ресурс-паки можно добавлять.",
         "Фон сайта стал чище, а помощь по ежедневным монетам объясняет, что они приходят при входе."
@@ -85,15 +87,16 @@
         "Jaunās zemēs gaida papildu raktuves, drupas, torņi, apdzīvotas vietas un citas būves. To lādēs var būt leģendas un Runeforged laupījums."
       ],
       "changed": [
-        "Zivīm un filejām ir plāna retuma kontūra ap attēlu inventārā. Leģendārie un mītiskie nosaukumi un kontūras mirdz savās krāsās.",
+        "Zivīm un filejām ir plāna retuma kontūra ap attēlu inventārā. Leģendārie paliek zeltaini ar baltu spīdumu, bet mītiskie saglabā kustīgo krāsu gradientu.",
         "Zivju apraksti nerāda krāsu kvadrātus un varianta nosaukumu. Fish of Thieves zivis ēdot sarūk ar katru kumosu, un lielām maltītēm skaņas un daļiņas sākas uzreiz.",
         "Koka, dzelzs un zelta kastes izmanto zivju retuma paleti: neparasta, reta un leģendāra. Kartītes rāda nosaukumu vienreiz; saturs nav mainīts.",
         "Gatavotas trofejas dod stiprākus un ilgākus efektus; filejas var ēst arī ar pilnu izsalkuma joslu. Retākas trofejas apēst prasa ilgāk.",
-        "Uz āķa noķerta peldoša zivs un Fish of Thieves zivju bara loms uzreiz kļūst par priekšmetu ar svaru un retumu, arī makšķerējot no laivas.",
+        "Peldošās zivis un bara zivis pēc noķeršanas saglabā redzamo svaru, retumu un Fish of Thieves variantu. Lielas zivis peld plašākos apļos, parastajos baros ir arī Minecraft zivis, un loms lido no āķa pie tevis pirms savākšanas.",
         "Pētnieku kartes tiek turētas pareizi un rāda karti pirmās personas skatā. Boombox rokā šūpojas maigāk.",
         "Boombox rokā rāda mazākas mūzikas notis. Neaktīvas Holy Lois pogas saglabā parasto kursoru, un izvēlētās žurnāla cilnes ir vieglāk lasāmas.",
         "Tukšās žurnāla kategorijas paskaidro, kā sākt kolekciju. Saīsinātiem nosaukumiem ir pilna nosaukuma padoms, un datumi norāda notikumu.",
-        "Tavi pasaules pirmie ir atzīmēti ar zelta zvaigzni un atrodami personīgā filtrā. Zināmo radījumu galvas aizstāj zobenus; garus zivju aprakstus var ritināt. Atjaunināšanas laikā iepriekšējais saraksts paliek redzams.",
+        "Pasaules pirmo atklājumu nosaukumi ir dzelteni, zvaigzne ir aprakstā, un ir personīgais pirmo filtrs. Zināmo radījumu galvas aizstāj zobenus; garus zivju aprakstus var ritināt. Atjaunināšanas laikā iepriekšējais saraksts paliek redzams.",
+        "REI izlases poga un kreisais panelis pēc noklusējuma ir paslēpti, nedzēšot saglabāto izlasi. Kastu apraksti paskaidro, ka tās jānovieto un jāsalauž, lai savāktu laupījumu.",
         "Komandas /cinematic on|off un /cinematic fishing on|off vada kameru dīkstāvē un makšķerējot.",
         "Īsāki šeideru nosaukumi, saraksts no viegliem līdz smagiem. Obligātās animāciju pakotnes paliek ieslēgtas; savas resursu pakotnes var pievienot.",
         "Vietnes fons ir tīrāks, un ikdienas monētu palīdzība skaidro, ka tās pienāk, pievienojoties spēlei."
