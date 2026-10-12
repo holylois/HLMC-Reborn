@@ -6,7 +6,7 @@ A cozy modded Minecraft survival server for friends: claim land on the map, expl
 
 ## Next candidate: pack 1.10.0
 
-The Holy Lois Journal collects world firsts, your fish, places and creature defeats, with personal waypoints and map links. The workshop batch also brings notable-item cards, fish colours and bite frames, Easy Anvils/Magic and more structures in new land. This candidate is not live yet; the download above still uses the published release.
+The Holy Lois Journal collects world firsts, your fish, places and creature defeats, with personal waypoints and map links. The workshop batch also brings notable-item cards, fish bite frames, Easy Anvils/Magic and more structures in new land. This candidate is not live yet; the download above still uses the published release.
 
 ## Download and play
 

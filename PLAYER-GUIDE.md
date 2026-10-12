@@ -221,9 +221,11 @@ Your saved skin returns on rejoin, and BlueMap uses it when refreshing your mark
 
 Your fish collection records catches per species, the heaviest measured trophy and the rarities you have caught. Personal places include notable structures you visit, even if a friend found them first. Kills use your lifetime Minecraft statistics; recorded locations and highest creature levels start with this update. Earlier unmeasured catches and visits are not invented.
 
+Fish history shows every tier up to your highest catch. If your first catch is Epic, Common, Uncommon and Rare show zero until caught; Legendary and Mythic stay hidden. Older records with an unknown detailed count keep that label. Fish tooltips omit color swatches and variant labels, while retaining the fish's appearance. Wooden, Iron and Golden Crates use Uncommon, Rare and Legendary presentation respectively; loot contents are unchanged.
+
 The Journal has a control in Options, Controls. It uses **K** on first installation if K is free; existing bindings and deliberately unbound controls stay yours. `/journal` always works without a key. Personal records belong to your profile and stay with you after an approved name change.
 
-The first defeat of each creature type appears as a compact gold world-first line. Ordinary creatures do not play a server-wide chime; major boss and elite firsts keep their celebration.
+The first defeat of each hostile creature type appears as a compact gold world-first line. Passive kills remain personal. Ordinary hostile creatures do not play a server-wide chime; major boss and elite firsts keep their celebration.
 
 ## Account help (pack 1.8.3)
 
