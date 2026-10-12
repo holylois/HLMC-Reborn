@@ -21,6 +21,7 @@
         "Hooked swimming fish arrive as fish items with a weight and rarity roll, including when fishing from a boat.",
         "Explorer maps use the proper holding pose and first-person map view. Held boomboxes sway more gently.",
         "Held boombox music notes are smaller. Disabled Holy Lois buttons keep the ordinary cursor, and selected Journal tabs are easier to read.",
+        "Empty Journal categories explain how to start a collection. Clipped names have tooltips, and entry dates say what happened.",
         "Use /cinematic on or off and /cinematic fishing on or off to control the idle and fishing cameras.",
         "Shader names are shorter and sorted from light to heavy. Required animation packs stay enabled while your own resource packs remain available.",
         "The website has a cleaner background, and daily-coins help now explains that coins arrive when you join."
@@ -29,6 +30,7 @@
         "Placing a one-item fish back into its slot no longer leaves it stuck on your cursor after a quick double-click.",
         "Login and registration forms hide the game HUD until the transition finishes.",
         "The Journal no longer gets stuck after a resize or quick filter change. If the server does not respond, Retry lets you try again.",
+        "Delayed Journal replies no longer reopen a closed menu or replace newer results.",
         "Uploaded song links must contain real MP3 or WAV audio. BlueMap's updated renderer fixes lost low-resolution tile writes."
       ]
     },
@@ -51,6 +53,7 @@
         "Пойманная плавающая рыба сразу становится предметом с весом и редкостью, в том числе при ловле из лодки.",
         "Карты исследователя правильно держатся в руках и отображаются от первого лица. Бумбокс в руке качается мягче.",
         "Музыкальные ноты у бумбокса в руке стали меньше. Неактивные кнопки Holy Lois оставляют обычный курсор, а выбранные вкладки журнала легче читать.",
+        "Пустые категории журнала объясняют, как начать коллекцию. Обрезанные названия показываются в подсказке, а даты подписаны по событию.",
         "Команды /cinematic on|off и /cinematic fishing on|off управляют кинокамерой в покое и при рыбалке.",
         "Названия шейдеров короче, список идёт от лёгких к тяжёлым. Обязательные пакеты анимаций остаются включёнными, а свои ресурс-паки можно добавлять.",
         "Фон сайта стал чище, а помощь по ежедневным монетам объясняет, что они приходят при входе."
@@ -59,6 +62,7 @@
         "Быстрый двойной клик больше не оставляет одиночную рыбу на курсоре при возврате в слот.",
         "Формы входа и регистрации скрывают игровой интерфейс до завершения перехода.",
         "Журнал больше не зависает после изменения размера окна или быстрой смены фильтра. Если сервер не ответил, кнопка «Повторить» отправит запрос снова.",
+        "Запоздавшие ответы журнала больше не открывают закрытое меню и не заменяют новые результаты.",
         "Ссылки на песни должны содержать настоящий звук MP3 или WAV. Обновлённый BlueMap исправляет потерю записей плиток низкого разрешения."
       ]
     },
@@ -81,6 +85,7 @@
         "Uz āķa noķerta peldoša zivs uzreiz kļūst par priekšmetu ar svaru un retumu, arī makšķerējot no laivas.",
         "Pētnieku kartes tiek turētas pareizi un rāda karti pirmās personas skatā. Boombox rokā šūpojas maigāk.",
         "Boombox rokā rāda mazākas mūzikas notis. Neaktīvas Holy Lois pogas saglabā parasto kursoru, un izvēlētās žurnāla cilnes ir vieglāk lasāmas.",
+        "Tukšās žurnāla kategorijas paskaidro, kā sākt kolekciju. Saīsinātiem nosaukumiem ir pilna nosaukuma padoms, un datumi norāda notikumu.",
         "Komandas /cinematic on|off un /cinematic fishing on|off vada kameru dīkstāvē un makšķerējot.",
         "Īsāki šeideru nosaukumi, saraksts no viegliem līdz smagiem. Obligātās animāciju pakotnes paliek ieslēgtas; savas resursu pakotnes var pievienot.",
         "Vietnes fons ir tīrāks, un ikdienas monētu palīdzība skaidro, ka tās pienāk, pievienojoties spēlei."
@@ -89,6 +94,7 @@
         "Ātrs dubultklikšķis vairs neatstāj vienu zivi uz kursora, ieliekot to atpakaļ vietā.",
         "Pieteikšanās un reģistrācijas logi slēpj spēles saskarni līdz pārejas beigām.",
         "Žurnāls vairs neiestrēgst pēc loga izmēra maiņas vai ātras filtra maiņas. Ja serveris neatbild, poga «Mēģināt vēlreiz» nosūta jaunu pieprasījumu.",
+        "Novēlotas žurnāla atbildes vairs neatver aizvērtu izvēlni un neaizstāj jaunākos rezultātus.",
         "Dziesmu saitēm jāsatur īsts MP3 vai WAV audio. Atjauninātais BlueMap novērš zemas izšķirtspējas karšu daļu ierakstīšanas zudumus."
       ]
     }
