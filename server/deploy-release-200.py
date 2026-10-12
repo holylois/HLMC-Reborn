@@ -14,7 +14,7 @@ FIFO=Path('/run/minecraft-console.fifo');MAINTENANCE=Path('/run/holylois-mainten
 TERRAIN=Path('/usr/local/lib/holylois/expand-terrain.py');ALERT=Path('/usr/local/lib/holylois/discord-alert.py')
 BOT=Path('/opt/holylois-bot/bot.py');MOTD=ROOT/'config/MiniMOTD/main.conf'
 BAR='holylois:restart'
-HEADLINE='<#FFAD42>✦ New:</#FFAD42> <white>Your adventure journal, Smelting & new dungeons!</white>'
+HEADLINE='<#FFAD42>✦ New:</#FFAD42> <white>Journal & Smelting!</white>'
 FATAL=('Failed to start','Crash report','Incompatible mods','Failed to load datapacks','Mixin apply failed',
        'Registry loading errors','Encountered an unexpected exception','could not lock admin-only commands')
 MARKERS=('holylois-extras 1.8.0','holylois-onboarding 1.10.0','bluemap 5.29','polymer-core 0.18.4',
@@ -130,6 +130,9 @@ def main():
             print('Complete backup structure and changed-file restore bytes verified.',flush=True)
             changed=True
             workshop.structures.apply_changes(ROOT,KIT/'structures');workshop.apply_workshop(ROOT)
+            guard=ROOT/'config/holylois-mods.json';settings=json.loads(guard.read_text())
+            settings['allowed']=sorted(set(settings['allowed'])|{'autosmelt','easyanvils','easymagic','resourcepackoverrides'})
+            guard.write_text(json.dumps(settings,indent=2)+'\n')
             shutil.copy2(KIT/'structures/expand-terrain.py',TERRAIN);TERRAIN.chmod(0o755)
             shutil.copy2(KIT/'discord-alert.py',ALERT);ALERT.chmod(0o755)
             shutil.copy2(KIT/'bot.py',BOT)

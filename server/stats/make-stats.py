@@ -214,7 +214,10 @@ def main():
     # The live pack's own changelog, so the website's update list follows each release by itself.
     pack = (read(OUT, {}) or {}).get('pack')
     try:
-        manifest = json.loads(urllib.request.urlopen(PACK_FEED, timeout=15).read())
+        # Mutable release asset redirects can stay cached after a stable-channel move.
+        fresh = PACK_FEED + '?check=' + str(int(datetime.datetime.now(datetime.timezone.utc).timestamp()))
+        request = urllib.request.Request(fresh, headers={'Cache-Control': 'no-cache'})
+        manifest = json.loads(urllib.request.urlopen(request, timeout=15).read())
         pack = {'version': manifest['version'], 'history': manifest.get('history', [])[:8]}
     except Exception:
         pass
