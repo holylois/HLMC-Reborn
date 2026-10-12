@@ -227,6 +227,13 @@ Swimming fish and the fish shown in circling shoals keep their assigned rarity a
 
 Vanilla trophies now also have useful main-hand bonuses: Cod gives armor, Salmon movement speed, and Tropical Fish swimming efficiency; Pufferfish keeps armor. Eat Cod to get Haste for mining. Cod armor starts at 2 Rare, 4 Epic, 6 Legendary and 10 Mythic, with a bounded extra bonus for weight (up to 14 for a heavy non-Shiny Mythic). Shiny increases it by half. Cooking a whole trophy keeps the stronger eaten effects, but halves its held bonus. Common/Uncommon and fillets have no held bonus. Placed boombox music notes are half as large; handheld notes are 1.5 times their previously reduced size.
 
+My journal now saves your strongest confirmed defeat of each creature: level, maximum health, gear appearances, affixes,
+active effects, time and place. Level wins first, then health, then elite status; exact ties keep the older record. Later
+weaker kills update the lifetime count and latest defeat without replacing the strongest record. Existing totals stay,
+but earlier gear/effects are not invented. Zombie records have a cropped head portrait and a rotating model with Pause.
+Other creatures have their saved details while model previews are extended. Map/Waypoint targets the saved strongest
+record when one is available.
+
 First discoveries have plain yellow names, with a star in their description. Legendary item names and outlines keep their gold color with a white shine; Mythic keeps its moving gradient. REI favorites are hidden by default, including the add button and left panel; saved favorites remain available if you re-enable the setting. To open a fishing crate, place it and break it with a suitable tool in Survival.
 
 The Journal has a control in Options, Controls. It uses **K** on first installation if K is free; existing bindings and deliberately unbound controls stay yours. `/journal` always works without a key. Personal records belong to your profile and stay with you after an approved name change.
