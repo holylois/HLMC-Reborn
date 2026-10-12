@@ -7,8 +7,8 @@
       "teaser": "Your adventures, collected",
       "added": [
         "Open /journal for your fish collection, visited places and lifetime creature defeats. Search entries and add a personal waypoint or open their recorded location on the map.",
-        "World firsts has its own Journal tab: first discoveries, bosses, elites and the first defeat of each creature type. Ordinary creature firsts get a quiet gold chat line.",
-        "Fish collections remember the species, rarities and heaviest measured trophy you have caught. Personal records stay with your profile after a name change.",
+        "World firsts has its own Journal tab: first discoveries, bosses, elites and the first defeat of each hostile creature type. Passive kills stay in your personal history.",
+        "Fish collections remember species and heaviest trophies. New catches record rarity and shiny totals; unseen tiers stay hidden. Earlier catches remain in your total, and records follow your profile after a name change.",
         "A quiet Journal notice marks your first fish species, creature type or notable place. Nearby updates combine; repeated catches and defeats stay quiet. Use /journalalerts on or off to choose.",
         "Notable pickups get a short item card. Use /itemcards on or off to choose whether to show them.",
         "Easy Anvils and Easy Magic keep items in their blocks and improve repairs and enchanting. Enchantment re-rolls have a cost.",
@@ -22,6 +22,7 @@
         "Explorer maps use the proper holding pose and first-person map view. Held boomboxes sway more gently.",
         "Held boombox music notes are smaller. Disabled Holy Lois buttons keep the ordinary cursor, and selected Journal tabs are easier to read.",
         "Empty Journal categories explain how to start a collection. Clipped names have tooltips, and entry dates say what happened.",
+        "Your world firsts have a gold star and their own personal filter. Known mob heads replace sword icons; long fish details scroll. Refreshing keeps the previous list visible.",
         "Use /cinematic on or off and /cinematic fishing on or off to control the idle and fishing cameras.",
         "Shader names are shorter and sorted from light to heavy. Required animation packs stay enabled while your own resource packs remain available.",
         "The website has a cleaner background, and daily-coins help now explains that coins arrive when you join."
@@ -31,6 +32,7 @@
         "Login and registration forms hide the game HUD until the transition finishes.",
         "The Journal no longer gets stuck after a resize or quick filter change. If the server does not respond, Retry lets you try again.",
         "Delayed Journal replies no longer reopen a closed menu or replace newer results.",
+        "Fish and item cards remain visible over the cinematic camera; /cinematiccards on|off is your choice. Journal notices wait until visible, then show quiet outlined text near chat. Use /journalalerts motion off to stop their pop and Journal text shine.",
         "Uploaded song links must contain real MP3 or WAV audio. BlueMap's updated renderer fixes lost low-resolution tile writes."
       ]
     },
@@ -39,8 +41,8 @@
       "teaser": "Ваши приключения в журнале",
       "added": [
         "Команда /journal открывает коллекцию рыб, посещённых мест и побед над существами. Ищите записи, добавляйте личные метки или открывайте записанные места на карте.",
-        "Вкладка «Первые в мире» хранит первые открытия, победы над боссами, элитными врагами и каждым видом существ. Для обычных существ появляется короткая золотая строка в чате.",
-        "Коллекция рыб запоминает виды, редкости и самый тяжёлый измеренный трофей. Личные записи сохраняются после смены имени.",
+        "Вкладка «Первые в мире» хранит первые открытия, победы над боссами, элитными врагами и каждым видом враждебных существ. Мирные существа остаются в личной истории.",
+        "Коллекция рыб запоминает виды и самые тяжёлые трофеи. Новые уловы записывают количество по редкости и сияющих рыб; невиданные редкости скрыты. Ранние уловы остаются в общем счёте, записи сохраняются после смены имени.",
         "Первый вид рыбы, побеждённого существа или примечательное место отмечается тихим уведомлением журнала. Близкие обновления объединяются, повторы не отвлекают. Настройка: /journalalerts on|off.",
         "Для примечательной добычи появляется короткая карточка. Включайте или выключайте её командами /itemcards on и /itemcards off.",
         "Easy Anvils и Easy Magic сохраняют предметы в своих блоках и улучшают ремонт и зачарование. Смена предложенных чар имеет цену.",
@@ -54,6 +56,7 @@
         "Карты исследователя правильно держатся в руках и отображаются от первого лица. Бумбокс в руке качается мягче.",
         "Музыкальные ноты у бумбокса в руке стали меньше. Неактивные кнопки Holy Lois оставляют обычный курсор, а выбранные вкладки журнала легче читать.",
         "Пустые категории журнала объясняют, как начать коллекцию. Обрезанные названия показываются в подсказке, а даты подписаны по событию.",
+        "Ваши первые в мире отмечены золотой звездой и доступны в личном фильтре. Известные головы существ заменяют мечи; длинные описания рыб прокручиваются. При обновлении предыдущий список остаётся виден.",
         "Команды /cinematic on|off и /cinematic fishing on|off управляют кинокамерой в покое и при рыбалке.",
         "Названия шейдеров короче, список идёт от лёгких к тяжёлым. Обязательные пакеты анимаций остаются включёнными, а свои ресурс-паки можно добавлять.",
         "Фон сайта стал чище, а помощь по ежедневным монетам объясняет, что они приходят при входе."
@@ -63,6 +66,7 @@
         "Формы входа и регистрации скрывают игровой интерфейс до завершения перехода.",
         "Журнал больше не зависает после изменения размера окна или быстрой смены фильтра. Если сервер не ответил, кнопка «Повторить» отправит запрос снова.",
         "Запоздавшие ответы журнала больше не открывают закрытое меню и не заменяют новые результаты.",
+        "Карточки рыб и предметов видны поверх кинокамеры; настройка: /cinematiccards on|off. Уведомления журнала ждут видимого кадра и появляются тихим текстом у чата. /journalalerts motion off отключает увеличение уведомления и перелив текста журнала.",
         "Ссылки на песни должны содержать настоящий звук MP3 или WAV. Обновлённый BlueMap исправляет потерю записей плиток низкого разрешения."
       ]
     },
@@ -71,8 +75,8 @@
       "teaser": "Tavi piedzīvojumi, apkopoti",
       "added": [
         "Komanda /journal atver zivju, apmeklēto vietu un uzvarēto radību kolekciju. Meklē ierakstus, pievieno personīgas atzīmes vai atver ierakstītās vietas kartē.",
-        "Cilne «Pirmie pasaulē» glabā pirmos atklājumus, bosu, elites un katra radību veida pirmās uzvaras. Parastām radībām parādās īsa zelta rinda čatā.",
-        "Zivju kolekcija atceras sugas, retumus un smagāko izmērīto trofeju. Personīgie ieraksti saglabājas pēc vārda maiņas.",
+        "Cilne «Pirmie pasaulē» glabā pirmos atklājumus, bosu, elites un katra naidīga radību veida pirmās uzvaras. Miermīlīgo radījumu uzvaras paliek personīgajā vēsturē.",
+        "Zivju kolekcija atceras sugas un smagākās trofejas. Jauniem lomiem skaita retuma pakāpes un spīdīgās zivis; vēl neredzētās pakāpes slēpj. Agrākie lomi paliek kopskaitā, un ieraksti saglabājas pēc vārda maiņas.",
         "Par pirmo zivs sugu, uzvarētu radījuma veidu vai ievērojamu vietu parādās kluss žurnāla paziņojums. Tuvus papildinājumus apvieno; atkārtojumi netraucē. Iestatījums: /journalalerts on|off.",
         "Ievērojamam laupījumam parādās īsa priekšmeta kartīte. Ieslēdz vai izslēdz to ar /itemcards on un /itemcards off.",
         "Easy Anvils un Easy Magic saglabā priekšmetus savos blokos un uzlabo labošanu un buršanu. Burvju piedāvājuma maiņai ir cena.",
@@ -86,6 +90,7 @@
         "Pētnieku kartes tiek turētas pareizi un rāda karti pirmās personas skatā. Boombox rokā šūpojas maigāk.",
         "Boombox rokā rāda mazākas mūzikas notis. Neaktīvas Holy Lois pogas saglabā parasto kursoru, un izvēlētās žurnāla cilnes ir vieglāk lasāmas.",
         "Tukšās žurnāla kategorijas paskaidro, kā sākt kolekciju. Saīsinātiem nosaukumiem ir pilna nosaukuma padoms, un datumi norāda notikumu.",
+        "Tavi pasaules pirmie ir atzīmēti ar zelta zvaigzni un atrodami personīgā filtrā. Zināmo radījumu galvas aizstāj zobenus; garus zivju aprakstus var ritināt. Atjaunināšanas laikā iepriekšējais saraksts paliek redzams.",
         "Komandas /cinematic on|off un /cinematic fishing on|off vada kameru dīkstāvē un makšķerējot.",
         "Īsāki šeideru nosaukumi, saraksts no viegliem līdz smagiem. Obligātās animāciju pakotnes paliek ieslēgtas; savas resursu pakotnes var pievienot.",
         "Vietnes fons ir tīrāks, un ikdienas monētu palīdzība skaidro, ka tās pienāk, pievienojoties spēlei."
@@ -95,6 +100,7 @@
         "Pieteikšanās un reģistrācijas logi slēpj spēles saskarni līdz pārejas beigām.",
         "Žurnāls vairs neiestrēgst pēc loga izmēra maiņas vai ātras filtra maiņas. Ja serveris neatbild, poga «Mēģināt vēlreiz» nosūta jaunu pieprasījumu.",
         "Novēlotas žurnāla atbildes vairs neatver aizvērtu izvēlni un neaizstāj jaunākos rezultātus.",
+        "Zivju un priekšmetu kartītes paliek redzamas virs kino kameras; iestatījums: /cinematiccards on|off. Žurnāla paziņojumi gaida redzamu kadru un parādās kā kluss teksts pie čata. /journalalerts motion off izslēdz paziņojuma palielinājumu un žurnāla teksta mirdzēšanu.",
         "Dziesmu saitēm jāsatur īsts MP3 vai WAV audio. Atjauninātais BlueMap novērš zemas izšķirtspējas karšu daļu ierakstīšanas zudumus."
       ]
     }
