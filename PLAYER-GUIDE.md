@@ -225,6 +225,8 @@ Fish history shows every tier up to your highest catch. If your first catch is E
 
 Swimming fish and the fish shown in circling shoals keep their assigned rarity and appearance when reeled in. Bigger fish swim in wider circles, and casts near the visible circle's edge can reach them. Natural shoals include vanilla fish suited to the water: Cod, Salmon, Tropical Fish or Pufferfish. The caught item flies from the hook toward you before pickup. Common and Uncommon meals stack and show no weight. Uncommon fish have a green outline and short species effects, without a held bonus. Rare and above retain individual trophy weights and stay separate.
 
+Vanilla trophies now also have useful main-hand bonuses: Cod gives armor, Salmon movement speed, and Tropical Fish swimming efficiency; Pufferfish keeps armor. Eat Cod to get Haste for mining. Cooking a whole trophy keeps the stronger eaten effects, but halves its held bonus. Common/Uncommon and fillets have no held bonus. Placed boombox music notes are half as large; handheld notes keep their previous small size.
+
 First discoveries have plain yellow names, with a star in their description. Legendary item names and outlines keep their gold color with a white shine; Mythic keeps its moving gradient. REI favorites are hidden by default, including the add button and left panel; saved favorites remain available if you re-enable the setting. To open a fishing crate, place it and break it with a suitable tool in Survival.
 
 The Journal has a control in Options, Controls. It uses **K** on first installation if K is free; existing bindings and deliberately unbound controls stay yours. `/journal` always works without a key. Personal records belong to your profile and stay with you after an approved name change.
