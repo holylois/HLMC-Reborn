@@ -6,7 +6,7 @@
       "summary": "Your adventures have a journal. New places, better catches and a cleaner look.",
       "teaser": "Your adventures, collected",
       "added": [
-        "My journal records the strongest confirmed creature defeats, with saved gear appearances, affixes, buffs and exact time/place. Zombie records have a head portrait and a rotating model with Pause; weaker later kills keep the best record.",
+        "My journal records your strongest confirmed creature defeats. Zombie records show their saved gear on an idle, rotating model with Pause; details keep health, level, affixes and exact time/place. New world-first Zombie records show that first defeat's appearance. Creature icons use familiar drops.",
         "Open /journal for your fish collection, visited places and lifetime creature defeats. Search entries and add a personal waypoint or open their recorded location on the map.",
         "World firsts has its own Journal tab: first discoveries, bosses, elites and the first defeat of each hostile creature type. Passive kills stay in your personal history.",
         "Fish collections remember species and heaviest trophies. New catches record rarity and shiny totals; missed tiers below your highest catch show zero, while higher tiers stay hidden. Earlier catches remain in your total, and records follow your profile after a name change.",
@@ -49,7 +49,7 @@
         "Вкладка «Первые в мире» хранит первые открытия, победы над боссами, элитными врагами и каждым видом враждебных существ. Мирные существа остаются в личной истории.",
         "Коллекция рыб запоминает виды и самые тяжёлые трофеи. Новые уловы записывают количество по редкости и сияющих рыб; пропущенные редкости ниже лучшего улова показывают ноль, а более высокие скрыты. Ранние уловы остаются в общем счёте, записи сохраняются после смены имени.",
         "Первый вид рыбы, побеждённого существа или примечательное место отмечается тихим уведомлением журнала. Близкие обновления объединяются, повторы не отвлекают. Настройка: /journalalerts on|off.",
-        "Журнал сохраняет сильнейшие подтверждённые победы над существами: вид снаряжения, свойства, эффекты, точное время и место. Для зомби есть портрет головы и вращающаяся модель с паузой; более слабые противники не заменяют рекорд.",
+        "Журнал сохраняет ваши сильнейшие подтверждённые победы. Зомби показаны с сохранённым снаряжением на вращающейся модели с анимацией ожидания и паузой; в описании остаются здоровье, уровень, свойства, время и место. Новые мировые рекорды зомби показывают вид первого побеждённого противника. Значки существ используют знакомую добычу.",
         "Для примечательной добычи появляется короткая карточка. Включайте или выключайте её командами /itemcards on и /itemcards off.",
         "Easy Anvils и Easy Magic сохраняют предметы в своих блоках и улучшают ремонт и зачарование. Смена предложенных чар имеет цену.",
         "В новых землях появятся дополнительные шахты, руины, башни, поселения и другие структуры. В их сундуках можно найти легенды и добычу Runeforged."
@@ -88,7 +88,7 @@
         "Cilne «Pirmie pasaulē» glabā pirmos atklājumus, bosu, elites un katra naidīga radību veida pirmās uzvaras. Miermīlīgo radījumu uzvaras paliek personīgajā vēsturē.",
         "Zivju kolekcija atceras sugas un smagākās trofejas. Jauniem lomiem skaita retuma pakāpes un spīdīgās zivis; zemākās neiegūtās pakāpes rāda ar nulli, bet augstākās slēpj. Agrākie lomi paliek kopskaitā, un ieraksti saglabājas pēc vārda maiņas.",
         "Par pirmo zivs sugu, uzvarētu radījuma veidu vai ievērojamu vietu parādās kluss žurnāla paziņojums. Tuvus papildinājumus apvieno; atkārtojumi netraucē. Iestatījums: /journalalerts on|off.",
-        "Žurnāls saglabā spēcīgākās apstiprinātās uzvaras pār radījumiem: aprīkojuma izskatu, īpašības, efektus, precīzu laiku un vietu. Zombijiem ir galvas portrets un rotējošs modelis ar pauzi; vājāki pretinieki rekordu neaizstāj.",
+        "Žurnāls saglabā jūsu spēcīgākās apstiprinātās uzvaras. Zombiji rāda saglabāto aprīkojumu uz rotējoša modeļa ar miera animāciju un pauzi; aprakstā paliek veselība, līmenis, īpašības, laiks un vieta. Jauni zombiju pasaules rekordi rāda pirmā uzvarētā pretinieka izskatu. Radījumu ikonas izmanto pazīstamu laupījumu.",
         "Ievērojamam laupījumam parādās īsa priekšmeta kartīte. Ieslēdz vai izslēdz to ar /itemcards on un /itemcards off.",
         "Easy Anvils un Easy Magic saglabā priekšmetus savos blokos un uzlabo labošanu un buršanu. Burvju piedāvājuma maiņai ir cena.",
         "Jaunās zemēs gaida papildu raktuves, drupas, torņi, apdzīvotas vietas un citas būves. To lādēs var būt leģendas un Runeforged laupījums."
