@@ -1,9 +1,9 @@
 {
-  "version": "1.10.0",
-  "date": "2026-10-11",
+  "version": "2.0.0",
+  "date": "2026-10-12",
   "locales": {
     "en": {
-      "summary": "Your adventures have a journal. New places, better catches and a cleaner look.",
+      "summary": "Holy Lois 2.0: your adventure journal, trophy fishing and more dungeons to explore.",
       "teaser": "Your adventures, collected",
       "added": [
         "My journal records your strongest confirmed creature defeats. Living creatures, including Witches, have rotating previews with Pause and saved gear. Named elite traits stay in the details, with a matching persistent aura around the preview. New world firsts preserve the original defeat. Creature icons use familiar drops; details scroll only when needed.",
@@ -14,7 +14,8 @@
         "A quiet Journal notice marks your first fish species, creature type or notable place. Nearby updates combine; repeated catches and defeats stay quiet. Use /journalalerts on or off to choose.",
         "Notable pickups get a short item card. Use /itemcards on or off to choose whether to show them.",
         "Easy Anvils and Easy Magic keep items in their blocks and improve repairs and enchanting. Enchantment re-rolls have a cost.",
-        "More mineshafts, ruins, towers, towns and other structures await in newly generated land. Their treasure chests can hold legends and Runeforged loot."
+        "More mineshafts, ruins, towers, towns and other structures await in newly generated land. Their treasure chests can hold legends and Runeforged loot.",
+        "Smelting is a new pickaxe enchantment, available from enchanting tables and librarian books. Mined iron, copper and gold become ingots, and ancient debris becomes netherite scrap. Fortune stays useful; Silk Touch is incompatible."
       ],
       "changed": [
         "Journal models keep a stable idle pose, spiders fit their leg span, and Witches no longer use their recorded potion. Fish entries preview the heaviest catch in a swimming pose; new catches save Fish of Thieves variants without inventing old appearances.",
@@ -28,11 +29,12 @@
         "Explorer maps use the proper holding pose and first-person map view. Held boomboxes sway more gently.",
         "Held boombox music notes are smaller. Disabled Holy Lois buttons keep the ordinary cursor, and selected Journal tabs are easier to read.",
         "Empty Journal categories explain how to start a collection. Clipped names have tooltips, and entry dates say what happened.",
-        "World-first discovery names are plain yellow, with a star in the description and a personal firsts filter. Known mob heads replace sword icons; long fish details scroll. Refreshing keeps the previous list visible.",
+        "World-first discovery names are plain yellow, with a star in the description and a personal firsts filter. Creature icons use familiar drops; long fish details scroll. Refreshing keeps the previous list visible.",
         "REI's favorite button and left panel are hidden by default without deleting saved favorites. Crate tooltips explain how to place and break them for loot.",
         "Use /cinematic on or off and /cinematic fishing on or off to control the idle and fishing cameras.",
         "Shader names are shorter and sorted from light to heavy. Required animation packs stay enabled while your own resource packs remain available.",
-        "The website has a cleaner background, and daily-coins help now explains that coins arrive when you join."
+        "The website has a cleaner background, and daily-coins help now explains that coins arrive when you join.",
+        "Updated stable libraries, including Puzzles Lib and Polymer. Your existing keybinds and settings stay yours."
       ],
       "fixed": [
         "Placing a one-item fish back into its slot no longer leaves it stuck on your cursor after a quick double-click.",
@@ -44,8 +46,8 @@
       ]
     },
     "ru": {
-      "summary": "У приключений появился журнал. Новые места, лучший улов и более чистый вид.",
-      "teaser": "Ваши приключения в журнале",
+      "summary": "Holy Lois 2.0: журнал приключений, трофейная рыбалка и новые подземелья.",
+      "teaser": "Твои приключения в журнале",
       "added": [
         "Команда /journal открывает коллекцию рыб, посещённых мест и побед над существами. Ищите записи, добавляйте личные метки или открывайте записанные места на карте.",
         "Вкладка «Первые в мире» хранит первые открытия, победы над боссами, элитными врагами и каждым видом враждебных существ. Мирные существа остаются в личной истории.",
@@ -55,7 +57,8 @@
         "Журнал сохраняет ваши сильнейшие подтверждённые победы. Живые существа, включая ведьм, имеют вращающиеся модели с паузой и сохранённым снаряжением. Особенности элитных противников остаются в описании, а вокруг модели видна соответствующая постоянная аура. Новые мировые рекорды сохраняют первого побеждённого противника. Значки используют знакомую добычу; прокрутка работает только при необходимости.",
         "Для примечательной добычи появляется короткая карточка. Включайте или выключайте её командами /itemcards on и /itemcards off.",
         "Easy Anvils и Easy Magic сохраняют предметы в своих блоках и улучшают ремонт и зачарование. Смена предложенных чар имеет цену.",
-        "В новых землях появятся дополнительные шахты, руины, башни, поселения и другие структуры. В их сундуках можно найти легенды и добычу Runeforged."
+        "В новых землях появятся дополнительные шахты, руины, башни, поселения и другие структуры. В их сундуках можно найти легенды и добычу Runeforged.",
+        "Плавка - новое зачарование кирки, доступное за столом зачарований и в книгах библиотекарей. Железо, медь и золото выпадают слитками, древние обломки - незеритовым ломом. Удача работает; Шёлковое касание несовместимо."
       ],
       "changed": [
         "Модели журнала сохраняют спокойную позу, лапы пауков помещаются в рамку, а ведьмы больше не используют сохранённое зелье. Рыбы показывают самый тяжёлый улов в позе плавания; новые уловы сохраняют варианты Fish of Thieves без выдумывания старого внешнего вида.",
@@ -73,7 +76,8 @@
         "Кнопка избранного и левая панель REI скрыты по умолчанию без удаления сохранённого избранного. Подсказки ящиков объясняют, что их надо поставить и разбить для получения добычи.",
         "Команды /cinematic on|off и /cinematic fishing on|off управляют кинокамерой в покое и при рыбалке.",
         "Названия шейдеров короче, список идёт от лёгких к тяжёлым. Обязательные пакеты анимаций остаются включёнными, а свои ресурс-паки можно добавлять.",
-        "Фон сайта стал чище, а помощь по ежедневным монетам объясняет, что они приходят при входе."
+        "Фон сайта стал чище, а помощь по ежедневным монетам объясняет, что они приходят при входе.",
+        "Обновлены стабильные библиотеки, включая Puzzles Lib и Polymer. Ваши клавиши и настройки сохраняются."
       ],
       "fixed": [
         "Быстрый двойной клик больше не оставляет одиночную рыбу на курсоре при возврате в слот.",
@@ -85,8 +89,8 @@
       ]
     },
     "lv": {
-      "summary": "Taviem piedzīvojumiem ir žurnāls. Jaunas vietas, labāki lomi un tīrāks izskats.",
-      "teaser": "Tavi piedzīvojumi, apkopoti",
+      "summary": "Holy Lois 2.0: piedzīvojumu žurnāls, trofeju makšķerēšana un jaunas pazemes.",
+      "teaser": "Tavi piedzīvojumi žurnālā",
       "added": [
         "Komanda /journal atver zivju, apmeklēto vietu un uzvarēto radību kolekciju. Meklē ierakstus, pievieno personīgas atzīmes vai atver ierakstītās vietas kartē.",
         "Cilne «Pirmie pasaulē» glabā pirmos atklājumus, bosu, elites un katra naidīga radību veida pirmās uzvaras. Miermīlīgo radījumu uzvaras paliek personīgajā vēsturē.",
@@ -96,7 +100,8 @@
         "Žurnāls saglabā jūsu spēcīgākās apstiprinātās uzvaras. Dzīvām radībām, arī raganām, ir rotējoši modeļi ar pauzi un saglabātu aprīkojumu. Elites īpašības paliek aprakstā, un modeli ieskauj atbilstoša pastāvīga aura. Jauni pasaules rekordi saglabā pirmo uzvarēto pretinieku. Ikonas izmanto pazīstamu laupījumu; apraksts ritinās tikai tad, kad vajadzīgs.",
         "Ievērojamam laupījumam parādās īsa priekšmeta kartīte. Ieslēdz vai izslēdz to ar /itemcards on un /itemcards off.",
         "Easy Anvils un Easy Magic saglabā priekšmetus savos blokos un uzlabo labošanu un buršanu. Burvju piedāvājuma maiņai ir cena.",
-        "Jaunās zemēs gaida papildu raktuves, drupas, torņi, apdzīvotas vietas un citas būves. To lādēs var būt leģendas un Runeforged laupījums."
+        "Jaunās zemēs gaida papildu raktuves, drupas, torņi, apdzīvotas vietas un citas būves. To lādēs var būt leģendas un Runeforged laupījums.",
+        "Kausēšana ir jauns cirtņa burvības veids, pieejams burvību galdā un bibliotekāru grāmatās. Dzelzs, varš un zelts izkrīt kā lietņi, senās atlūzas - kā nederīta lūžņi. Veiksme darbojas; Zīda pieskāriens nav savietojams."
       ],
       "changed": [
         "Žurnāla modeļi saglabā mierīgu pozu, zirnekļu kājas ietilpst rāmī, un raganas vairs neizmanto saglabāto dziru. Zivju ieraksti rāda smagāko lomu peldēšanas pozā; jauni lomi saglabā Fish of Thieves variantus, neizdomājot veco izskatu.",
@@ -114,7 +119,8 @@
         "REI izlases poga un kreisais panelis pēc noklusējuma ir paslēpti, nedzēšot saglabāto izlasi. Kastu apraksti paskaidro, ka tās jānovieto un jāsalauž, lai savāktu laupījumu.",
         "Komandas /cinematic on|off un /cinematic fishing on|off vada kameru dīkstāvē un makšķerējot.",
         "Īsāki šeideru nosaukumi, saraksts no viegliem līdz smagiem. Obligātās animāciju pakotnes paliek ieslēgtas; savas resursu pakotnes var pievienot.",
-        "Vietnes fons ir tīrāks, un ikdienas monētu palīdzība skaidro, ka tās pienāk, pievienojoties spēlei."
+        "Vietnes fons ir tīrāks, un ikdienas monētu palīdzība skaidro, ka tās pienāk, pievienojoties spēlei.",
+        "Atjauninātas stabilās bibliotēkas, tostarp Puzzles Lib un Polymer. Tavi taustiņi un iestatījumi saglabājas."
       ],
       "fixed": [
         "Ātrs dubultklikšķis vairs neatstāj vienu zivi uz kursora, ieliekot to atpakaļ vietā.",

@@ -4,9 +4,9 @@ An adventure-focused modded Minecraft survival server for friends: claim land on
 
 **Launcher 1.4.2 / pack 1.9.4 / Minecraft 26.3 / Fabric 0.19.5 / Java 25**
 
-## Next candidate: pack 1.10.0
+## Next candidate: pack 2.0.0
 
-The Holy Lois Journal collects world firsts, your fish, places and creature defeats, with personal waypoints and map links. The workshop batch also brings notable-item cards, fish bite frames, Easy Anvils/Magic and more structures in new land. This candidate is not live yet; the download above still uses the published release.
+The Holy Lois Journal collects world firsts, your fish, places and creature defeats, with personal waypoints and map links. The batch also brings notable-item cards, fish bite frames, Easy Anvils/Magic, the Smelting pickaxe enchantment and more structures in new land. This candidate is not live yet; the download above still uses the published release.
 
 ## Download and play
 

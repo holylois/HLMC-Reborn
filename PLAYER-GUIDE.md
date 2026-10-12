@@ -215,7 +215,7 @@ Maps are held up in front of you, food goes to your mouth and shrinks bite by bi
 
 Your saved skin returns on rejoin, and BlueMap uses it when refreshing your marker. Skins, guide keys and statistics head layouts retain the earlier prepared fixes.
 
-## Holy Lois Journal (next release: 1.10.0)
+## Holy Lois Journal (next release: 2.0.0)
 
 `/journal` opens **My journal**. **World firsts** shows the first discoveries and creature defeats across the server; `/discoveries` opens that tab. Search or choose Fish, Places or Kills, then select an entry for details. **Waypoint** saves its recorded location on your own minimap; **Map** opens BlueMap there. These buttons do not teleport you.
 
@@ -230,9 +230,20 @@ Vanilla trophies now also have useful main-hand bonuses: Cod gives armor, Salmon
 My journal now saves your strongest confirmed defeat of each creature: level, maximum health, gear appearances, affixes,
 active effects, time and place. Level wins first, then health, then elite status; exact ties keep the older record. Later
 weaker kills update the lifetime count and latest defeat without replacing the strongest record. Existing totals stay,
-but earlier gear/effects are not invented. Zombie records have a cropped head portrait and a rotating model with Pause.
-Other creatures have their saved details while model previews are extended. Map/Waypoint targets the saved strongest
+but earlier gear/effects are not invented. Living creatures have rotating previews with Pause and saved gear; list icons
+use familiar creature drops. Map/Waypoint targets the saved strongest
 record when one is available.
+
+Fish entries keep separate **Heaviest** and **Rarest** catches. Switch the button beneath the details to see each record's
+own appearance, date and location. An old record without a saved location cannot create a map link or waypoint.
+Your first real Mythic, Shiny Legendary and Shiny Mythic catches earn new achievements; gifted fish do not count.
+
+### Smelting pickaxes
+
+The new **Smelting** enchantment can appear on pickaxes or books at an enchanting table, and on librarian books.
+Use an anvil to apply a book. It converts mined iron, copper and gold into ingots, and ancient debris into netherite scrap.
+Fortune still increases eligible drops. Smelting cannot be combined with Silk Touch. It has one level and works with
+the pack's vein mining. This is a 2.0.0 candidate feature, not available on the live server yet.
 
 First discoveries have plain yellow names, with a star in their description. Legendary item names and outlines keep their gold color with a white shine; Mythic keeps its moving gradient. REI favorites are hidden by default, including the add button and left panel; saved favorites remain available if you re-enable the setting. To open a fishing crate, place it and break it with a suitable tool in Survival.
 
