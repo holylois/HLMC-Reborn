@@ -215,7 +215,7 @@ Maps are held up in front of you, food goes to your mouth and shrinks bite by bi
 
 Your saved skin returns on rejoin, and BlueMap uses it when refreshing your marker. Skins, guide keys and statistics head layouts retain the earlier prepared fixes.
 
-## Holy Lois Journal (next release: 2.0.0)
+## Holy Lois Journal (pack 2.0.0)
 
 `/journal` opens **My journal**. **World firsts** shows the first discoveries and creature defeats across the server; `/discoveries` opens that tab. Search or choose Fish, Places or Kills, then select an entry for details. **Waypoint** saves its recorded location on your own minimap; **Map** opens BlueMap there. These buttons do not teleport you.
 
@@ -243,7 +243,7 @@ Your first real Mythic, Shiny Legendary and Shiny Mythic catches earn new achiev
 The new **Smelting** enchantment can appear on pickaxes or books at an enchanting table, and on librarian books.
 Use an anvil to apply a book. It converts mined iron, copper and gold into ingots, and ancient debris into netherite scrap.
 Fortune still increases eligible drops. Smelting cannot be combined with Silk Touch. It has one level and works with
-the pack's vein mining. This is a 2.0.0 candidate feature, not available on the live server yet.
+the pack's vein mining. Available from pack 2.0.0.
 
 First discoveries have plain yellow names, with a star in their description. Legendary item names and outlines keep their gold color with a white shine; Mythic keeps its moving gradient. REI favorites are hidden by default, including the add button and left panel; saved favorites remain available if you re-enable the setting. To open a fishing crate, place it and break it with a suitable tool in Survival.
 

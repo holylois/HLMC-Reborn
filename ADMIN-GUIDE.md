@@ -243,7 +243,7 @@ Owner/test exclusions merge with `/etc/holylois/stats-hidden.txt` and `config/ho
 - **/donate**: the wallet list moved here from the old `/support`; addresses are in `DonateCommand.java`.
 - **World border**: 14,000 blocks wide (7,000 from spawn), warning at 64 blocks. Raise it later with `worldborder set`; never lower it below land people live on.
 
-## Journal candidate for pack 2.0.0
+## Journal for pack 2.0.0
 
 Discoveries v3 adds personal fish/visit/creature records to `world/holylois/discoveries.json`, keyed by stable player UUID. It migrates v1/v2 discoveries without clearing firsts. A broken store fails loading instead of replacing the history. New catches, visits and best creature levels start when the candidate is installed; lifetime kill counts still come from vanilla stats.
 
