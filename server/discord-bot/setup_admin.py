@@ -58,7 +58,7 @@ for old in ["HOLY LOIS", "WELCOME", "Holy Lois Server", "TEXT CHANNELS", "VOICE 
 
 new_members, rules, announcements = find("new-members"), find("rules"), find("announcements")
 api("PATCH", f"/guilds/{gid}", {"verification_level": 2, "explicit_content_filter": 2, "system_channel_id": new_members["id"],
-                               "description": "Holy Lois: Reborn - a cozy modded Minecraft survival server. play.holylois.com"})
+                               "description": "Holy Lois: Reborn - an adventure-focused modded Minecraft survival server. play.holylois.com"})
 print("verification Medium, media filter all members, join messages in #new-members")
 
 alert = {"type": 2, "metadata": {"channel_id": log["id"]}}

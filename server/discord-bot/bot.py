@@ -239,7 +239,7 @@ class HolyLoisBot(discord.Client):
     async def post_welcome(self, guild):
         """One start-here message in #welcome: what the server is, how to join and every link."""
         embed = discord.Embed(title="Welcome to Holy Lois: Reborn", color=GOLD, url=WEBSITE,
-            description="A cozy modded Minecraft survival world for friends: cooking and furniture, dungeons with real loot, "
+            description="An adventure-focused modded Minecraft survival world for friends: cooking and furniture, dungeons with real loot, "
                         "a boombox radio, daily gifts, an auction house and proximity voice chat with cave echo.")
         embed.add_field(name="How to join", inline=False, value=(
             f"1. Download the launcher from **{WEBSITE}**\n"

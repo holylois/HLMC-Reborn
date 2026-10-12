@@ -155,6 +155,9 @@ adv("fishing/fish_story", "root", "minecraft:cod", "Fish Story", "Catch a Rare f
     {r: holding("{holylois_fish:{rarity:%s}}" % json.dumps(r)) for r in ["rare", "epic", "legendary"]}, any_of=True)
 adv("fishing/the_big_one", "fishing/fish_story", "minecraft:salmon", "The One That Didn't Get Away", "Catch a Legendary fish",
     {"caught": holding('{holylois_fish:{rarity:"legendary"}}')}, frame="challenge", hidden=True, xp=300)
+adv("fishing/mythic", "fishing/fish_story", "minecraft:tropical_fish", "A Myth on the Line", "Catch your first Mythic fish", {"caught": impossible()}, frame="challenge", hidden=True)
+adv("fishing/shiny_legendary", "fishing/the_big_one", "minecraft:salmon", "A Shining Legend", "Catch your first Shiny Legendary fish", {"caught": impossible()}, frame="challenge", hidden=True)
+adv("fishing/shiny_mythic", "fishing/mythic", "minecraft:tropical_fish", "A Shining Myth", "Catch your first Shiny Mythic fish", {"caught": impossible()}, frame="challenge", hidden=True)
 
 if out.exists(): shutil.rmtree(out)
 (out / "data/holylois/advancement").mkdir(parents=True)

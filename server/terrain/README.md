@@ -17,7 +17,12 @@ Check progress with `sudo journalctl -u holylois-terrain-expansion -n 20 --no-pa
 
 ## Slices and lag guard (since 1.7.10)
 
-The 2026-10-05 watchdog crash came after minutes of growing "ticks behind" while Chunky ran. Generation now runs in slices of 15 minutes and
-rests 10 minutes between them, and a "Can't keep up ... N ticks behind" warning of 100 or more in the last three minutes pauses it for 20 minutes
+The 2026-10-05 watchdog crash came after minutes of growing "ticks behind" while Chunky ran. The candidate runs in slices of 45 minutes and
+rests 2 minutes between them, and a "Can't keep up ... N ticks behind" warning of 100 or more in the last three minutes pauses it for 10 minutes
 (`LAG_TICKS`, `RUN_SECONDS`, `REST_SECONDS`, `LAG_REST_SECONDS` in `expand-terrain.py`). `server.properties` also gets `max-tick-time=120000` so a long
 chunk burst is not mistaken for a hang.
+
+The live job remains held until the approved structure set is installed and checked. At release, verify the hold is removed,
+the job resumes its existing selection, and it pauses when a player joins. Do not regenerate existing chunks or raise RTP early.
+The new schedule increases theoretical working time from 60% to about 96%; actual chunks/hour depends on CPU, worldgen and lag.
+Further empty-server acceleration and temporarily pausing BlueMap rendering are planned, not enabled by this documentation.
