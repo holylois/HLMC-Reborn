@@ -2,7 +2,7 @@
 
 An adventure-focused modded Minecraft survival server for friends: claim land on the map, explore dungeons, earn achievements and Runeforged runes, trade in the auction house and play radio with a boombox. A Windows launcher installs the pack and keeps it updated.
 
-**Launcher 1.4.3 / pack 2.0.0 / Minecraft 26.3 / Fabric 0.19.5 / Java 25**
+**Launcher 1.4.3 / pack 2.0.1 / Minecraft 26.3 / Fabric 0.19.5 / Java 25**
 
 ## Pack 2.0.0
 
