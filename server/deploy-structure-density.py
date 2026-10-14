@@ -64,6 +64,11 @@ def verify_backup(archive):
         assert tar.extractfile('minecraft/config/sparsestructures.json5').read() == TARGET.read_bytes()
     # Compare every archived file to the stopped server. Output may contain private paths, so do not print it.
     compared = subprocess.run(['tar','--compare','--file',str(archive),'-C','/opt'],capture_output=True)
+    diagnostic = archive.parent/'backup-compare-private.log'
+    diagnostic.write_bytes(compared.stdout+b'\n'+compared.stderr)
+    diagnostic.chmod(0o600)
+    (archive.parent/'backup-check.json').write_text(json.dumps({'comparison_exit':compared.returncode,
+        'required_paths':True,'changed_config_matches':True,'archive_bytes':archive.stat().st_size}))
     assert compared.returncode == 0, 'Full backup comparison failed; keep the archive and inspect privately'
 def deploy(base, tested):
     stamp = datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ')
