@@ -1,0 +1,8 @@
+[Unit]
+Description=Daily Holy Lois scoped log review
+[Timer]
+OnCalendar=*-*-* 04:40:00
+RandomizedDelaySec=20m
+Persistent=true
+[Install]
+WantedBy=timers.target

@@ -12,6 +12,8 @@ import asyncio, json, os, re, socket, struct, subprocess, time
 from pathlib import Path
 
 import discord
+from support_registry import Registry
+from routine import load_policy, ensure_audit, support as expire_support
 from discord import app_commands
 
 TOKEN = Path("/etc/holylois/discord-bot-token").read_text().strip()
@@ -139,6 +141,8 @@ class HolyLoisBot(discord.Client):
         self.state = load_state()
         self.status_channel = self.chat_channel = self.support_channel = None
         self.online = set()
+        self.support_registry = Registry("/var/lib/holylois/support-retention.sqlite")
+        self.support_registry.protect_after_gap()
 
     async def setup_hook(self):
         @self.tree.command(name="status", description="Is the Holy Lois server online?")
@@ -170,11 +174,12 @@ class HolyLoisBot(discord.Client):
         await self.post_welcome(guild)
         self.tree.copy_global_to(guild=guild)
         await self.tree.sync(guild=guild)
-        print(f"Ready in {guild.name}: #{self.status_channel.name}, #{self.chat_channel.name}")
+        print(f"Ready in {guild.name}: #{self.status_channel.name}, #{self.chat_channel.name}", flush=True)
         if not getattr(self, "_started", False):
             self._started = True
             self.loop.create_task(self.status_loop())
             self.loop.create_task(self.log_loop())
+            self.loop.create_task(self.retention_loop())
 
     async def on_guild_join(self, guild):
         await self.on_ready()
@@ -201,7 +206,7 @@ class HolyLoisBot(discord.Client):
         """One embed per request, pinging the server owner, with buttons that answer the player in game."""
         if self.support_channel is None: return
         player, kind = str(data.get("player", "")), data.get("kind", "help")
-        if not NAME.match(player): return
+        if not NAME.match(player) or kind not in ("help", "report"): return
         safe = lambda text: discord.utils.escape_mentions(discord.utils.escape_markdown(str(text)))[:1000]
         report = kind == "report"
         embed = discord.Embed(title=("🚩 Report about " + safe(data.get("target", "?"))) if report else "🆘 Help request",
@@ -212,14 +217,40 @@ class HolyLoisBot(discord.Client):
         view = discord.ui.View(timeout=None)
         view.add_item(discord.ui.Button(label="On my way", style=discord.ButtonStyle.primary, custom_id=f"hl-support:onway:{player}"))
         view.add_item(discord.ui.Button(label="Solved", style=discord.ButtonStyle.success, custom_id=f"hl-support:solved:{player}"))
+        view.add_item(self.hold_button(player, report))
         owner = self.support_channel.guild.owner_id
-        await self.support_channel.send(content=f"<@{owner}>" if owner else None, embed=embed, view=view,
+        sent = await self.support_channel.send(content=f"<@{owner}>" if owner else None, embed=embed, view=view,
                                         allowed_mentions=discord.AllowedMentions(users=True))
+        self.support_registry.received(sent.id, sent.channel.id, sent.created_at.isoformat(),
+                                       retention_class="case" if report else "routine")
 
     async def on_interaction(self, interaction):
         custom = (interaction.data or {}).get("custom_id", "") if interaction.type == discord.InteractionType.component else ""
         if not custom.startswith("hl-support:"): return
-        _, action, player = custom.split(":", 2)
+        parts = custom.split(":", 2)
+        if len(parts) != 3 or parts[1] not in ("onway", "solved", "hold", "release"): return
+        _, action, player = parts
+        if (self.support_channel is None or interaction.channel_id != self.support_channel.id
+                or interaction.message is None or interaction.message.author.id != self.user.id): return
+        if not interaction.permissions.manage_messages and not interaction.permissions.administrator:
+            await interaction.response.send_message("Only staff can change support requests.", ephemeral=True)
+            return
+        snapshot = self.support_registry.snapshot(interaction.message.id)
+        if snapshot is None:
+            await interaction.response.send_message("This older request requires manual retention review.", ephemeral=True)
+            return
+        if action in ("hold", "release"):
+            self.support_registry.hold(interaction.message.id, interaction.channel_id, action == "hold")
+            view = discord.ui.View(timeout=None)
+            if not snapshot['resolved']:
+                view.add_item(discord.ui.Button(label="Solved", style=discord.ButtonStyle.success,
+                                               custom_id=f"hl-support:solved:{player}"))
+            view.add_item(self.hold_button(player, action == "hold"))
+            await interaction.response.edit_message(view=view)
+            await interaction.followup.send("Retention hold enabled." if action == "hold" else
+                                            "Reviewed as routine. Expiry uses the latest resolution or activity.",
+                                            ephemeral=True)
+            return
         helper = interaction.user.display_name[:24]
         if action == "onway":
             tell_player(player, [{"text": "[Holy Lois] ", "color": "gold", "bold": True}, {"text": f"{helper} saw your request and will help you soon.", "color": "yellow", "bold": False}])
@@ -234,7 +265,11 @@ class HolyLoisBot(discord.Client):
         view = discord.ui.View(timeout=None)
         if not done:
             view.add_item(discord.ui.Button(label="Solved", style=discord.ButtonStyle.success, custom_id=f"hl-support:solved:{player}"))
+        view.add_item(self.hold_button(player, bool(snapshot["held"])))
         await interaction.response.edit_message(embed=embed, view=view)
+        if done:
+            self.support_registry.resolve(interaction.message.id, interaction.channel_id,
+                                          discord.utils.utcnow().isoformat())
 
     async def post_welcome(self, guild):
         """One start-here message in #welcome: what the server is, how to join and every link."""
@@ -380,7 +415,38 @@ class HolyLoisBot(discord.Client):
             elif first in self.online:
                 await self.chat_channel.send(f"☠ {safe(text)}")
 
+    @staticmethod
+    def hold_button(player, held):
+        return discord.ui.Button(label="Release hold" if held else "Hold", style=discord.ButtonStyle.secondary,
+                                 custom_id=f"hl-support:{'release' if held else 'hold'}:{player}")
+
+    async def retention_loop(self):
+        while not self.is_closed():
+            try:
+                policy = load_policy()
+                if policy.get('support_enabled') is True and self.support_channel is not None:
+                    ensure_audit()
+                    result = await expire_support(self.support_registry, self.support_channel, self.user.id, policy)
+                    print("Support retention:", json.dumps(result, sort_keys=True), flush=True)
+            except Exception as error:
+                print("Support retention blocked:", type(error).__name__, flush=True)
+            await asyncio.sleep(86400)
+
+    async def on_disconnect(self):
+        self.support_registry.protect_after_gap()
+
+    async def on_raw_message_edit(self, payload):
+        if self.support_channel is not None and payload.channel_id == self.support_channel.id:
+            stamp = payload.data.get('edited_timestamp')
+            if stamp:
+                self.support_registry.touch_message(payload.message_id, payload.channel_id, stamp)
+
     async def on_message(self, message):
+        if (self.support_channel is not None and message.channel.id == self.support_channel.id
+                and not message.author.bot and message.reference is not None
+                and message.reference.message_id is not None):
+            self.support_registry.reply(message.id, message.channel.id, message.reference.message_id,
+                                        message.created_at.isoformat())
         if message.author.bot or self.chat_channel is None or message.channel.id != self.chat_channel.id: return
         text = message.clean_content
         if message.attachments: text = (text + " [attachment]").strip()

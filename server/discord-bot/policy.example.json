@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "log_days": 90,
+  "support_days": 180,
+  "logs_enabled": false,
+  "support_enabled": false,
+  "log_holds_reviewed": false,
+  "held_log_names": [],
+  "support_channel": "REPLACE_WITH_REVIEWED_PRIVATE_CHANNEL_ID"
+}
