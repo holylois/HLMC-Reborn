@@ -596,12 +596,15 @@ def run_job(state):
         return
     if not generation_allowed(state):
         return
+    if state.get('pause_pending') and checkpoint(state) is None:
+        return
     if time.time() < state.get('rest_until', 0):
         print(f'Resting until {time.strftime("%H:%M", time.localtime(state["rest_until"]))} to let the server catch up.')
         return
     pause_for = rest_needed(state, time.time(), recent_lag())
     if pause_for:
         request_pause(state)
+        checkpoint(state)
         state['rest_until'] = time.time() + pause_for
         save(state)
         print(f'Generation paused for {pause_for // 60} minutes (server lag or end of a slice).')
@@ -619,11 +622,20 @@ def run_job(state):
         command(f'chunky start {WORLD} square 0 0 {GENERATION_RADIUS}')
         print(f'Started owned {GENERATION_RADIUS}-block square generation. RTP radius is unchanged.')
         return
+    if state.get('running') is True:
+        try:
+            active_task = task_snapshot()
+        except CheckpointIncomplete:
+            return
+        if active_task['cancelled'] != 'true':
+            return
     task = checkpoint(state)
     if task is None or not generation_allowed(state):
         return
     state['checkpoint_chunks'] = int(task['chunks'])
     if task['cancelled'] != 'true':
+        if state.get('running') is True:
+            return
         state.update(running=True, pause_pending=False, phase='running', resumed_at=time.time())
         save(state)
         command('chunky continue ' + WORLD)

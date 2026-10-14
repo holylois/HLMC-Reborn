@@ -314,7 +314,7 @@ class TerrainJobTests(unittest.TestCase):
         self.assertFalse(state.get('complete'))
 
     def test_join_or_low_storage_after_wait_prevents_continue(self):
-        state = {'started': True, 'running': True}
+        state = {'started': True, 'running': False}
         with mock.patch.object(job.subprocess, 'run', return_value=SimpleNamespace(returncode=0)):
             with mock.patch.object(job, 'generation_allowed', side_effect=[True, False]):
                 with mock.patch.object(job, 'checkpoint', return_value=task(cancelled='false')):
@@ -353,6 +353,58 @@ class TerrainJobTests(unittest.TestCase):
                 with mock.patch.object(job, 'command') as command:
                     job.run_job(state)
                     command.assert_not_called()
+
+    def test_running_checks_preserve_slice_start_without_repeated_continue(self):
+        state = {'started': True, 'running': True, 'resumed_at': 1000}
+        with mock.patch.object(job.subprocess, 'run', return_value=SimpleNamespace(returncode=0)), \
+                mock.patch.object(job.time, 'time', return_value=1100), \
+                mock.patch.object(job, 'recent_lag', return_value=0), \
+                mock.patch.object(job, 'task_snapshot', return_value=task(cancelled='false')), \
+                mock.patch.object(job, 'checkpoint') as checkpoint, \
+                mock.patch.object(job, 'command') as command:
+            job.run_job(state)
+            self.assertEqual(state['resumed_at'], 1000)
+            command.assert_not_called()
+            checkpoint.assert_not_called()
+
+    def test_long_running_slice_really_pauses(self):
+        state = {'started': True, 'running': True, 'resumed_at': 1000}
+        with mock.patch.object(job.subprocess, 'run', return_value=SimpleNamespace(returncode=0)), \
+                mock.patch.object(job.time, 'time', return_value=4000), \
+                mock.patch.object(job, 'recent_lag', return_value=0), \
+                mock.patch.object(job, 'request_pause') as pause, \
+                mock.patch.object(job, 'checkpoint') as checkpoint, mock.patch.object(job, 'save'):
+            job.run_job(state)
+            pause.assert_called_once_with(state)
+            checkpoint.assert_called_once_with(state)
+            self.assertEqual(state['rest_until'], 4000 + job.REST_SECONDS)
+
+    def test_pending_pause_is_finalized_before_rest(self):
+        state = {'started': True, 'running': True, 'pause_pending': True,
+                 'resumed_at': 1000, 'rest_until': 4000}
+        def confirmed(_):
+            state.update(running=False, pause_pending=False)
+            return task(cancelled='false')
+        with mock.patch.object(job.subprocess, 'run', return_value=SimpleNamespace(returncode=0)), \
+                mock.patch.object(job.time, 'time', return_value=1100), \
+                mock.patch.object(job, 'checkpoint', side_effect=confirmed) as checkpoint, \
+                mock.patch.object(job, 'command') as command:
+            job.run_job(state)
+            checkpoint.assert_called_once_with(state)
+            self.assertFalse(state['running'])
+            command.assert_not_called()
+
+    def test_finished_rest_resumes_existing_task_once(self):
+        state = {'started': True, 'running': False, 'resumed_at': 100, 'rest_until': 1000}
+        with mock.patch.object(job.subprocess, 'run', return_value=SimpleNamespace(returncode=0)), \
+                mock.patch.object(job.time, 'time', return_value=1100), \
+                mock.patch.object(job, 'recent_lag', return_value=0), \
+                mock.patch.object(job, 'checkpoint', return_value=task(cancelled='false')), \
+                mock.patch.object(job, 'save'), mock.patch.object(job, 'command') as command:
+            job.run_job(state)
+            self.assertEqual(state['resumed_at'], 1100)
+            self.assertTrue(state['running'])
+            command.assert_called_once_with('chunky continue minecraft:overworld')
 
     def test_owner_hold_pauses_running_generation_and_starts_nothing(self):
         (self.job_directory / 'hold').touch()

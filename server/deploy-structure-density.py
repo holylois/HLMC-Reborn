@@ -70,12 +70,13 @@ def deploy(base, tested):
     backup = Path('/opt/minecraft-backups/maintenance')/('density-'+stamp); backup.mkdir(mode=0o700)
     archive = backup/'complete-server.tar'
     timers = {unit:subprocess.run(['systemctl','is-active','--quiet',unit]).returncode == 0
-              for unit in ['holylois-stats.timer','holylois-terrain-expansion.timer']}
+              for unit in ['holylois-stats.timer','holylois-terrain-expansion.timer','holylois-offsite-backup.timer']}
+    assert subprocess.run(['systemctl','is-active','--quiet','holylois-offsite-backup.service']).returncode != 0, 'Backup job running; wait for completion'
     held = HOLD.exists(); installed = False
     MAINTENANCE.write_text('Applying a quiet structure-density balance patch')
     try:
         console('save-all flush'); time.sleep(2)
-        run('systemctl','stop','holylois-stats.timer','holylois-stats.service','holylois-terrain-expansion.timer','holylois-terrain-expansion.service')
+        run('systemctl','stop','holylois-stats.timer','holylois-stats.service','holylois-terrain-expansion.timer','holylois-terrain-expansion.service','holylois-offsite-backup.timer')
         run('systemctl','stop','minecraft-console.socket','minecraft.service')
         print('Creating and comparing a full stopped-server backup...', flush=True)
         run('tar','--exclude=minecraft/backups','-cf',str(archive),'-C','/opt','minecraft'); archive.chmod(0o600)

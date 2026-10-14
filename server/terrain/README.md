@@ -2,10 +2,10 @@
 
 Pregenerates the whole Overworld inside the world border (20,000 wide, so a radius-10,000 square around 0,0) with Chunky 1.5.3, then raises `/rtp` and first-join placement to 5,000 blocks.
 
-- `expand-terrain.py` runs one short step per timer tick. It generates only while no players are online and at least 6 GB is free, and pauses Chunky as soon as someone joins.
+- `expand-terrain.py` runs one short step per timer tick. It generates only while no players are online and at least 6 GiB of disk space is free. The timer checks every 15 seconds and requests a pause when players are online.
 - RTP changes only after Chunky reports natural completion of the job's own task **and** all 1,565,001 chunks in the square are stored with matching coordinates and `Status=full`. MCA files or headers alone are never treated as proof.
 - Any unexpected state blocks the job and disables its timer. It never trims or deletes terrain.
-- `test-expand-terrain.py` holds 23 synthetic tests. It never touches a real server.
+- `test-expand-terrain.py` holds 28 synthetic tests. It never touches a real server.
 
 ## Install (server stopped)
 
@@ -22,7 +22,9 @@ rests 2 minutes between them, and a "Can't keep up ... N ticks behind" warning o
 (`LAG_TICKS`, `RUN_SECONDS`, `REST_SECONDS`, `LAG_REST_SECONDS` in `expand-terrain.py`). `server.properties` also gets `max-tick-time=120000` so a long
 chunk burst is not mistaken for a hang.
 
-The live job remains held until the approved structure set is installed and checked. At release, verify the hold is removed,
-the job resumes its existing selection, and it pauses when a player joins. Do not regenerate existing chunks or raise RTP early.
+Release procedure: install and verify the approved structure set before releasing the owner hold. Resume the existing
+selection and confirm player pauses. Active checks read the saved task without repeatedly pausing/restarting Chunky;
+the work-slice start time is preserved until an actual pause/resume. Do not regenerate existing chunks or raise RTP early.
 The new schedule increases theoretical working time from 60% to about 96%; actual chunks/hour depends on CPU, worldgen and lag.
-Further empty-server acceleration and temporarily pausing BlueMap rendering are planned, not enabled by this documentation.
+BlueMap retains one render worker and its existing empty-server guard. Do not raise worker counts blindly on a two-core
+host. Measure actual chunk throughput and tick lag before increasing concurrency.
