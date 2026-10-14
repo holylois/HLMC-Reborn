@@ -1,12 +1,1085 @@
-// Holy Lois: neutral for the existing world. Factor 1 and the original salts keep every structure where it already is;
-// only vanilla mineshafts are switched off in new chunks (Hopo Better Mineshaft replaces them).
+// Holy Lois: fewer structure candidates in new chunks, without changing existing generated terrain.
+// Dense MVS sets use 2x spacing; other targeted additions use 1.5x. Already rare sets,
+// vanilla progression, fishing structures, stronghold rings and tuned villages keep their placement.
 {
   "spreadFactor": 1,
   "idBasedSalt": false,
   "customSpreadFactors": [
     {
+      "structure": "epic:large_dungeons",
+      "factor": 1.5
+    },
+    {
+      "structure": "epic:large_dungeons_obelisks",
+      "factor": 1.5
+    },
+    {
+      "structure": "epic:medium_dungeons",
+      "factor": 1.5
+    },
+    {
+      "structure": "epic:small_dungeons",
+      "factor": 1.5
+    },
+    {
+      "structure": "fishofthieves:guardian_fruit_trees",
+      "factor": 1
+    },
+    {
+      "structure": "fishofthieves:seapost",
+      "factor": 1
+    },
+    {
+      "structure": "hopo:mineshafts",
+      "factor": 1.5
+    },
+    {
+      "structure": "hopo:mineshafts_biomes",
+      "factor": 1.5
+    },
+    {
+      "structure": "hopo:piglin_ruin",
+      "factor": 1.5
+    },
+    {
+      "structure": "hopo:portal_deepslate",
+      "factor": 1.5
+    },
+    {
+      "structure": "hopo:portal_dripstone",
+      "factor": 1.5
+    },
+    {
+      "structure": "hopo:portal_lush",
+      "factor": 1.5
+    },
+    {
+      "structure": "hopo:portal_ruined",
+      "factor": 1.5
+    },
+    {
+      "structure": "hopo:underwater_city",
+      "factor": 1.5
+    },
+    {
+      "structure": "hopo:underwater_fossils",
+      "factor": 1.5
+    },
+    {
+      "structure": "hopo:underwater_small_ruins",
+      "factor": 1.5
+    },
+    {
+      "structure": "hopo:underwater_warm_small_ruins",
+      "factor": 1.5
+    },
+    {
+      "structure": "mes:astral_hideaway",
+      "factor": 1.5
+    },
+    {
+      "structure": "mes:astral_meteorite",
+      "factor": 1.5
+    },
+    {
+      "structure": "mes:ender_spire",
+      "factor": 1.5
+    },
+    {
+      "structure": "mes:enderbloom_grove",
+      "factor": 1.5
+    },
+    {
+      "structure": "mes:enderkeep_courtyard",
+      "factor": 1.5
+    },
+    {
+      "structure": "mes:enderpin_spikes",
+      "factor": 1.5
+    },
+    {
+      "structure": "mes:enderskog",
+      "factor": 1.5
+    },
+    {
+      "structure": "mes:enderwatch_tower",
+      "factor": 1.5
+    },
+    {
+      "structure": "mes:endscraps",
+      "factor": 1.5
+    },
+    {
+      "structure": "mes:manuscript_shrine",
+      "factor": 1.5
+    },
+    {
+      "structure": "mes:mega_ship",
+      "factor": 1
+    },
+    {
+      "structure": "mes:mega_ship_basic",
+      "factor": 1
+    },
+    {
+      "structure": "mes:mega_ship_crashed",
+      "factor": 1
+    },
+    {
+      "structure": "mes:mega_ship_crashed_2",
+      "factor": 1
+    },
+    {
+      "structure": "mes:mega_ship_crashed_deepslate",
+      "factor": 1
+    },
+    {
+      "structure": "mes:mega_ship_deepslate",
+      "factor": 1
+    },
+    {
+      "structure": "mes:mega_ship_deepslate_2",
+      "factor": 1
+    },
+    {
+      "structure": "mes:mega_ship_deepslate_3",
+      "factor": 1
+    },
+    {
+      "structure": "mes:monolith",
+      "factor": 1.5
+    },
+    {
+      "structure": "mes:mystical_archway",
+      "factor": 1.5
+    },
+    {
+      "structure": "mes:mythic_garden",
+      "factor": 1.5
+    },
+    {
+      "structure": "mes:phantom_citadel",
+      "factor": 1.5
+    },
+    {
+      "structure": "mes:placid_prairie",
+      "factor": 1.5
+    },
+    {
+      "structure": "mes:ruined_pillar",
+      "factor": 1.5
+    },
+    {
+      "structure": "mes:starlight_voyager",
+      "factor": 1.5
+    },
+    {
+      "structure": "minecraft:abandoned_camp",
+      "factor": 1
+    },
+    {
+      "structure": "minecraft:ancient_cities",
+      "factor": 1
+    },
+    {
+      "structure": "minecraft:buried_treasures",
+      "factor": 1
+    },
+    {
+      "structure": "minecraft:desert_pyramids",
+      "factor": 1
+    },
+    {
+      "structure": "minecraft:end_cities",
+      "factor": 1
+    },
+    {
+      "structure": "minecraft:igloos",
+      "factor": 1
+    },
+    {
+      "structure": "minecraft:jungle_temples",
+      "factor": 1
+    },
+    {
       "structure": "minecraft:mineshafts",
       "factor": 0
+    },
+    {
+      "structure": "minecraft:nether_complexes",
+      "factor": 1
+    },
+    {
+      "structure": "minecraft:nether_fossils",
+      "factor": 1
+    },
+    {
+      "structure": "minecraft:ocean_monuments",
+      "factor": 1
+    },
+    {
+      "structure": "minecraft:ocean_ruins",
+      "factor": 1
+    },
+    {
+      "structure": "minecraft:pillager_outposts",
+      "factor": 1
+    },
+    {
+      "structure": "minecraft:ruined_portals",
+      "factor": 1
+    },
+    {
+      "structure": "minecraft:shipwrecks",
+      "factor": 1
+    },
+    {
+      "structure": "minecraft:strongholds",
+      "factor": 1
+    },
+    {
+      "structure": "minecraft:swamp_huts",
+      "factor": 1
+    },
+    {
+      "structure": "minecraft:trail_ruins",
+      "factor": 1
+    },
+    {
+      "structure": "minecraft:trial_chambers",
+      "factor": 1
+    },
+    {
+      "structure": "minecraft:villages",
+      "factor": 1
+    },
+    {
+      "structure": "minecraft:woodland_mansions",
+      "factor": 1
+    },
+    {
+      "structure": "mvs:acacia_log_pile",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:acacia_tree",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:azelea_house",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:barn",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:beach_bar",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:bee_dome",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:bench",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:big_oak_tree",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:birch_log_pile",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:birch_tree",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:boulder",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:campsite",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:cart",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:cartographer_tower",
+      "factor": 1
+    },
+    {
+      "structure": "mvs:castle_ruins",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:cathedral",
+      "factor": 1
+    },
+    {
+      "structure": "mvs:cherry_tree",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:crimson_enchanting_table",
+      "factor": 1
+    },
+    {
+      "structure": "mvs:crystal",
+      "factor": 1
+    },
+    {
+      "structure": "mvs:dark_oak_log_pile",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:dark_oak_tree",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:dead_tree_acacia",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:dead_tree_birch",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:dead_tree_cherry",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:dead_tree_dark_oak",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:dead_tree_jungle",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:dead_tree_mangrove",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:dead_tree_oak",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:dead_tree_spruce",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:deepslate_house",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:desert_house",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:desert_pump",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:diorite_and_deepslate_house",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:diorite_tower",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:duck",
+      "factor": 1
+    },
+    {
+      "structure": "mvs:fire_camp",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:floating_islands",
+      "factor": 1
+    },
+    {
+      "structure": "mvs:flower_hole",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:fox_hut",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:gallows",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:haystack",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:horse_campsite",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:horse_pen",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:house",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:jungle_log_pile",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:jungle_palm_tree",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:jungle_tower",
+      "factor": 1
+    },
+    {
+      "structure": "mvs:jungle_tree",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:lamp_chest",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:large_cart_1",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:large_cart_2",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:large_floating_island",
+      "factor": 1
+    },
+    {
+      "structure": "mvs:large_mushroom",
+      "factor": 1
+    },
+    {
+      "structure": "mvs:large_warped_tower",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:lecturn_garden",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:lil_house",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:log_ruin",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:medium_bamboo_cart",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:medium_igloo_1",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:medium_igloo_2",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:medium_oak_lantern",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:mine_with_campsite",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:mud_brick_house_1",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:mushroom_pond",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:mushroom_statue",
+      "factor": 1
+    },
+    {
+      "structure": "mvs:mushroom_well",
+      "factor": 1
+    },
+    {
+      "structure": "mvs:nether_devil",
+      "factor": 1
+    },
+    {
+      "structure": "mvs:nether_well",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:oak_log_pile",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:oak_tree",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:ocean_tower",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:other_wells",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:out_house",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:paths",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:pile",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:prismarine_house_1",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:prismarine_house_2",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:railway",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:rare_well",
+      "factor": 1
+    },
+    {
+      "structure": "mvs:red_tower",
+      "factor": 1
+    },
+    {
+      "structure": "mvs:ruined_beacon",
+      "factor": 1
+    },
+    {
+      "structure": "mvs:shed",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:small_acacia_lantern",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:small_bamboo_lantern",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:small_birch_lantern",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:small_campfire_lantern",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:small_cherry_lantern",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:small_dark_oak_lantern",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:small_igloo",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:small_jungle_lantern",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:small_mangrove_lantern",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:small_oak_lantern",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:small_oak_pond",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:small_pillager_tower",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:small_ruin",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:small_ship",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:small_spruce_lantern",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:small_swamp_house",
+      "factor": 1
+    },
+    {
+      "structure": "mvs:small_tower_well",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:snowy_dog_hut",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:snowy_fossil",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:spruce_log_pile",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:spruce_tree",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:stalls",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:statue_ruins",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:stone_fountain",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:stone_pillars",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:stone_rock",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:sunzi_gate",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:tall_house",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:tree_monument",
+      "factor": 1
+    },
+    {
+      "structure": "mvs:villager_statue",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:warped_house",
+      "factor": 1.5
+    },
+    {
+      "structure": "mvs:wheat_grain_bin",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:windmill",
+      "factor": 2
+    },
+    {
+      "structure": "mvs:wooden_wheat_farm",
+      "factor": 2
+    },
+    {
+      "structure": "nova_structures:badlands_miner_outpost",
+      "factor": 1.5
+    },
+    {
+      "structure": "nova_structures:badlands_miner_outpost_mineshafts",
+      "factor": 1.5
+    },
+    {
+      "structure": "nova_structures:common_remnants",
+      "factor": 1.5
+    },
+    {
+      "structure": "nova_structures:crypts",
+      "factor": 1.5
+    },
+    {
+      "structure": "nova_structures:desert_structures",
+      "factor": 1.5
+    },
+    {
+      "structure": "nova_structures:end_castle",
+      "factor": 1
+    },
+    {
+      "structure": "nova_structures:end_lighthouses",
+      "factor": 1.5
+    },
+    {
+      "structure": "nova_structures:end_ship",
+      "factor": 1.5
+    },
+    {
+      "structure": "nova_structures:firewatch_towers",
+      "factor": 1.5
+    },
+    {
+      "structure": "nova_structures:illager_barracks",
+      "factor": 1.5
+    },
+    {
+      "structure": "nova_structures:illager_camps",
+      "factor": 1.5
+    },
+    {
+      "structure": "nova_structures:illager_hideout",
+      "factor": 1
+    },
+    {
+      "structure": "nova_structures:illager_manor",
+      "factor": 1
+    },
+    {
+      "structure": "nova_structures:jungle_ruins",
+      "factor": 1.5
+    },
+    {
+      "structure": "nova_structures:mangrove_witch_hut",
+      "factor": 1.5
+    },
+    {
+      "structure": "nova_structures:nether_encampments",
+      "factor": 1.5
+    },
+    {
+      "structure": "nova_structures:nether_structures",
+      "factor": 1.5
+    },
+    {
+      "structure": "nova_structures:ocean_structures",
+      "factor": 1
+    },
+    {
+      "structure": "nova_structures:conduit_ruin",
+      "factor": 1.5
+    },
+    {
+      "structure": "nova_structures:pale_residence",
+      "factor": 1.5
+    },
+    {
+      "structure": "nova_structures:remnants",
+      "factor": 1.5
+    },
+    {
+      "structure": "nova_structures:ruin_town",
+      "factor": 1.5
+    },
+    {
+      "structure": "nova_structures:shrine_tower",
+      "factor": 1
+    },
+    {
+      "structure": "nova_structures:shrines",
+      "factor": 1.5
+    },
+    {
+      "structure": "nova_structures:small_cave_structures",
+      "factor": 1.5
+    },
+    {
+      "structure": "nova_structures:small_overworld_dungeons",
+      "factor": 1.5
+    },
+    {
+      "structure": "nova_structures:stray_big_structures",
+      "factor": 1
+    },
+    {
+      "structure": "nova_structures:strongholds_bunker",
+      "factor": 1
+    },
+    {
+      "structure": "nova_structures:bunker",
+      "factor": 1.5
+    },
+    {
+      "structure": "nova_structures:swamp_structure",
+      "factor": 1.5
+    },
+    {
+      "structure": "nova_structures:taverns",
+      "factor": 1.5
+    },
+    {
+      "structure": "nova_structures:trident_trial_monument",
+      "factor": 1
+    },
+    {
+      "structure": "nova_structures:villages",
+      "factor": 1
+    },
+    {
+      "structure": "nova_structures:wells",
+      "factor": 1.5
+    },
+    {
+      "structure": "nova_structures:wild_ruin",
+      "factor": 1.5
+    },
+    {
+      "structure": "repurposed_structures:abandoned_camp_nether",
+      "factor": 1.5
+    },
+    {
+      "structure": "repurposed_structures:ancient_cities_end",
+      "factor": 1.5
+    },
+    {
+      "structure": "repurposed_structures:ancient_cities_nether",
+      "factor": 1
+    },
+    {
+      "structure": "repurposed_structures:ancient_cities_overworld",
+      "factor": 1
+    },
+    {
+      "structure": "repurposed_structures:bastions_overworld",
+      "factor": 1
+    },
+    {
+      "structure": "repurposed_structures:cities_nether",
+      "factor": 1
+    },
+    {
+      "structure": "repurposed_structures:cities_overworld",
+      "factor": 1
+    },
+    {
+      "structure": "repurposed_structures:fortresses_overworld",
+      "factor": 1.5
+    },
+    {
+      "structure": "repurposed_structures:igloos_overworld",
+      "factor": 1.5
+    },
+    {
+      "structure": "repurposed_structures:mansions_dappled",
+      "factor": 1.5
+    },
+    {
+      "structure": "repurposed_structures:mansions_mangrove",
+      "factor": 1
+    },
+    {
+      "structure": "repurposed_structures:mansions_overworld",
+      "factor": 1
+    },
+    {
+      "structure": "repurposed_structures:mineshafts_end",
+      "factor": 1
+    },
+    {
+      "structure": "repurposed_structures:mineshafts_nether",
+      "factor": 1
+    },
+    {
+      "structure": "repurposed_structures:mineshafts_ocean",
+      "factor": 1
+    },
+    {
+      "structure": "repurposed_structures:mineshafts_overworld",
+      "factor": 1
+    },
+    {
+      "structure": "repurposed_structures:monuments_nether",
+      "factor": 1
+    },
+    {
+      "structure": "repurposed_structures:monuments_overworld",
+      "factor": 1.5
+    },
+    {
+      "structure": "repurposed_structures:outposts_end",
+      "factor": 1.5
+    },
+    {
+      "structure": "repurposed_structures:outposts_nether",
+      "factor": 1.5
+    },
+    {
+      "structure": "repurposed_structures:outposts_ocean",
+      "factor": 1.5
+    },
+    {
+      "structure": "repurposed_structures:outposts_overworld",
+      "factor": 1.5
+    },
+    {
+      "structure": "repurposed_structures:pyramids_end",
+      "factor": 1.5
+    },
+    {
+      "structure": "repurposed_structures:pyramids_mushroom",
+      "factor": 1.5
+    },
+    {
+      "structure": "repurposed_structures:pyramids_nether",
+      "factor": 1.5
+    },
+    {
+      "structure": "repurposed_structures:pyramids_overworld",
+      "factor": 1.5
+    },
+    {
+      "structure": "repurposed_structures:ruined_portals_end",
+      "factor": 1.5
+    },
+    {
+      "structure": "repurposed_structures:ruins_nether",
+      "factor": 1.5
+    },
+    {
+      "structure": "repurposed_structures:ruins_overworld",
+      "factor": 1.5
+    },
+    {
+      "structure": "repurposed_structures:shipwrecks_end",
+      "factor": 1.5
+    },
+    {
+      "structure": "repurposed_structures:shipwrecks_nether",
+      "factor": 1.5
+    },
+    {
+      "structure": "repurposed_structures:strongholds_end",
+      "factor": 1
+    },
+    {
+      "structure": "repurposed_structures:strongholds_nether",
+      "factor": 1
+    },
+    {
+      "structure": "repurposed_structures:temples_nether",
+      "factor": 1.5
+    },
+    {
+      "structure": "repurposed_structures:temples_overworld",
+      "factor": 1.5
+    },
+    {
+      "structure": "repurposed_structures:villages_dappled",
+      "factor": 1.5
+    },
+    {
+      "structure": "repurposed_structures:villages_mushroom",
+      "factor": 1.5
+    },
+    {
+      "structure": "repurposed_structures:villages_nether",
+      "factor": 1.5
+    },
+    {
+      "structure": "repurposed_structures:villages_overworld",
+      "factor": 1.5
+    },
+    {
+      "structure": "repurposed_structures:villages_pale_garden",
+      "factor": 1.5
+    },
+    {
+      "structure": "repurposed_structures:witch_huts_overworld",
+      "factor": 1.5
+    },
+    {
+      "structure": "structory:mid_rare_ruin",
+      "factor": 1.5
+    },
+    {
+      "structure": "structory:old_manor",
+      "factor": 1.5
+    },
+    {
+      "structure": "structory:outcast_villager",
+      "factor": 1.5
+    },
+    {
+      "structure": "structory:ruin",
+      "factor": 1.5
+    },
+    {
+      "structure": "structory:ruin_quiet",
+      "factor": 1.5
+    },
+    {
+      "structure": "structory_towers:end_towers",
+      "factor": 1.5
+    },
+    {
+      "structure": "structory_towers:nether_towers",
+      "factor": 1.5
+    },
+    {
+      "structure": "structory_towers:rare_towers",
+      "factor": 1.5
+    },
+    {
+      "structure": "structory_towers:towers",
+      "factor": 1.5
+    },
+    {
+      "structure": "structory_towers:ultra_rare_towers",
+      "factor": 1.5
+    },
+    {
+      "structure": "towns_and_towers:other",
+      "factor": 1.5
+    },
+    {
+      "structure": "towns_and_towers:towers",
+      "factor": 1.5
+    },
+    {
+      "structure": "towns_and_towers:towns",
+      "factor": 1
+    },
+    {
+      "structure": "villagesandpillages:village_witch",
+      "factor": 1.5
     }
   ]
 }
