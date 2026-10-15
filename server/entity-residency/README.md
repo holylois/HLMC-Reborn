@@ -43,3 +43,18 @@ The post-deployment native sample with one player online recorded 399 entities,
 zero without terrain holders, and 33.1 ms average tick time (50 ms target budget).
 This is a short live sample, not a guarantee against every future source of lag.
 Pregeneration remained paused with a player online. Raw native reports remain private.
+
+## 1.1.0: Runeforged attribute throttle
+
+Runeforged 0.2.4 recomputes every player's weapon/armor attribute modifiers at the end of each player tick
+(`ArpgPlayerAttributeService.apply`). With multi-affix gear this re-decodes item data for every stat and was the largest
+single server cost in the 2026-10-15 spark profile (16.9% of the server thread with one player).
+
+`AttributeThrottle` (server players only, clients unchanged) skips that recompute while its inputs are unchanged: the
+held weapon, the four armor slots (component identity) and active effects. It recomputes on any change, after any
+`applyWeapon` outside the regular pass (off-hand attacks), and at least every 20 ticks. The mixin config is optional,
+so a server without Runeforged still starts; a changed Runeforged signature fails loudly at startup.
+
+`NativeThrottleTest` (fixture jar only) checks with real stat affixes: 5 recomputes per 100 unchanged ticks, and exact
+Runeforged values after chest/weapon swaps, removed boots, in-place durability change, Slowness, Health Boost and an
+off-hand weapon apply. `throttle-native-receipt.json` pins the tested jar.

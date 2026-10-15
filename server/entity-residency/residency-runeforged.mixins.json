@@ -1,0 +1,1 @@
+{"required":false,"minVersion":"0.8","package":"holylois.residency.runeforged","compatibilityLevel":"JAVA_25","mixins":["RuneforgedAttributeMixin"],"injectors":{"defaultRequire":1}}

@@ -1,0 +1,13 @@
+{
+  "result": "pass",
+  "gear_changes_attributes": true,
+  "steady_full": 5,
+  "steady_skipped": 95,
+  "skip_path_us": 30.5,
+  "original_us_per_tick": 30975.25,
+  "throttled_us_per_tick": 1038.74,
+  "candidate_sha256": "3729bf2f1ac08f06c808516fb589cee9683c0f9096a53b6718871cb0765cefb1",
+  "live_pid_unchanged": true,
+  "live_data_copied": false,
+  "note": "Isolated loopback 25566, full live 67-mod set, flat generated world, CPUQuota 35%; timings are per call under that cap"
+}
