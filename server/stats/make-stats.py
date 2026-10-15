@@ -30,7 +30,7 @@ def mask(name):
 
 def hidden_names():
     hidden = {line.strip().lower() for line in HIDDEN_FILE.read_text().splitlines() if line.strip()} if HIDDEN_FILE.exists() else set()
-    hidden.update({'pjampjam', 'pjamtest'})
+    hidden.update({'pjampjam', 'pjamtest', 'pjanpjan'})
     hidden.update(name.lower() for name in read(HIDDEN_CONFIG, {}).get('names', []) if isinstance(name, str))
     return hidden
 

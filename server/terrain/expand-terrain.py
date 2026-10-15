@@ -203,7 +203,10 @@ def request_pause(state):
             task_snapshot()
         except CheckpointIncomplete:
             pass
-    if state.get('running', True) and not state.get('pause_pending'):
+    if not state.get('running', True) and not state.get('pause_pending'):
+        # Already paused and checkpointed: no console command every 15 seconds while players are online.
+        return
+    if not state.get('pause_pending'):
         state['pause_baseline'] = TASK.stat().st_mtime_ns if TASK.exists() else -1
         state['pause_requested_at'] = time.time()
         state['pause_pending'] = True
@@ -247,6 +250,17 @@ def rest_needed(state, now, lag):
     return 0
 
 
+def chunky_idle_since(since):
+    """True when Chunky answered "No tasks to pause" after the pause request. Nothing is running (for example after a
+    server restart), so the checkpoint already on disk is final and will never be rewritten."""
+    try:
+        done = subprocess.run(['journalctl', '-u', 'minecraft', '--since', '@%d' % int(since), '-o', 'cat', '--no-pager'],
+                              capture_output=True, text=True, timeout=30)
+        return '[Chunky] No tasks to pause' in (getattr(done, 'stdout', '') or '')
+    except (OSError, subprocess.SubprocessError, ValueError):
+        return False
+
+
 def checkpoint(state):
     # PauseCommand uses stop(false); it returns before the checkpoint is saved.
     # Wait for the changed file, rather than trusting an arbitrary one-second nap.
@@ -279,6 +293,15 @@ def checkpoint(state):
                 save(state)
                 return task
         time.sleep(0.25)
+    if TASK.exists() and chunky_idle_since(state['pause_requested_at']):
+        try:
+            task = task_snapshot()
+        except (OSError, ValueError):
+            task = None
+        if task:
+            state.update(running=False, pause_pending=False)
+            save(state)
+            return task
     if time.time() - state['pause_requested_at'] > CHECKPOINT_DEADLINE:
         raise RuntimeError('Owned Chunky pause was not checkpointed within 120 seconds; inspect the server log')
     print('Generation held while waiting for the owned Chunky pause checkpoint.')

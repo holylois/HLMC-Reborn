@@ -235,13 +235,38 @@ class TerrainJobTests(unittest.TestCase):
                                     sleep=lambda seconds: setattr(clock, 'now', clock.now + seconds))
         state = {'started': True, 'running': True, 'pause_pending': True,
                  'pause_baseline': self.task_path.stat().st_mtime_ns, 'pause_requested_at': 1000}
-        with mock.patch.object(job, 'time', fake_time), mock.patch.object(job, 'CHECKPOINT_TIMEOUT', 0.5):
+        with mock.patch.object(job, 'time', fake_time), mock.patch.object(job, 'CHECKPOINT_TIMEOUT', 0.5), \
+                mock.patch.object(job, 'chunky_idle_since', return_value=False):
             with mock.patch.object(job, 'command') as command:
                 self.assertIsNone(job.checkpoint(state))
                 command.assert_not_called()
                 state['pause_requested_at'] = 800
                 with self.assertRaisesRegex(RuntimeError, 'within 120 seconds'):
                     job.checkpoint(state)
+
+    def test_no_running_task_reply_accepts_the_saved_checkpoint(self):
+        # After a restart Chunky has no task: "No tasks to pause" never rewrites the file, so the saved one is final.
+        write_task(self.task_path, task(cancelled='false', chunks=3))
+        clock = SimpleNamespace(now=0)
+        fake_time = SimpleNamespace(monotonic=lambda: clock.now, time=lambda: 1000 + clock.now,
+                                    sleep=lambda seconds: setattr(clock, 'now', clock.now + seconds))
+        state = {'started': True, 'running': True, 'pause_pending': True,
+                 'pause_baseline': self.task_path.stat().st_mtime_ns, 'pause_requested_at': 800}
+        log = '[03:27:51] [Server thread/INFO]: System chat: [Chunky] No tasks to pause.' + chr(10)
+        with mock.patch.object(job, 'time', fake_time), mock.patch.object(job, 'CHECKPOINT_TIMEOUT', 0.5), \
+                mock.patch.object(job.subprocess, 'run', return_value=SimpleNamespace(stdout=log)), \
+                mock.patch.object(job, 'command') as command:
+            actual = job.checkpoint(state)
+            command.assert_not_called()
+        self.assertEqual(actual['chunks'], '3')
+        self.assertFalse(state['running'])
+        self.assertFalse(state['pause_pending'])
+
+    def test_paused_job_sends_no_repeated_pause_commands(self):
+        state = {'started': True, 'running': False, 'pause_pending': False}
+        with mock.patch.object(job, 'command') as command:
+            job.request_pause(state)
+            command.assert_not_called()
 
     def test_completed_and_blocked_states_disable_timer(self):
         with mock.patch.object(job.subprocess, 'run') as process:
