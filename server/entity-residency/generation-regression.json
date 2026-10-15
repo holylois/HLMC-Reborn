@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "production_guard_sha256": "4db717ebacfc451115a6f5ede8dacfa6e31165ad39b504cea219c503459e85a4",
+  "same_live_66_mod_baseline": true,
+  "same_workload_bytecode_sha256": "876c6cdde08dc22ebc805c2a5f9fb9bb9ca2eed4afd70a26e8b21d1685cef2c1",
+  "chunks_completed_each_run": 441,
+  "observation_ticks_each_run": 2400,
+  "modernfix_enabled_orphans": 442,
+  "modernfix_disabled_orphans": 442,
+  "guard_enabled_orphans": 0,
+  "live_pid_unchanged": true,
+  "live_data_copied": false,
+  "original_producer_identified": false
+}

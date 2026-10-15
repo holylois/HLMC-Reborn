@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "orphan_unloaded": true,
+  "resident_preserved": true,
+  "same_uuid_reloaded": true,
+  "name_preserved": true,
+  "equipment_preserved": true,
+  "pending_unload_protected": true,
+  "terrain_not_loaded": true,
+  "candidate_sha256": "4db717ebacfc451115a6f5ede8dacfa6e31165ad39b504cea219c503459e85a4",
+  "console_sha256": "6ecbd3225bde61bd2e3dc625eda8defa5536fa2bf38f2e44b4a8142d030516ee",
+  "elapsed_seconds": 288.1,
+  "live_pid_unchanged": true,
+  "live_data_copied": false
+}

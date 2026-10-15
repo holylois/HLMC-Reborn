@@ -1,0 +1,1 @@
+{"required":true,"minVersion":"0.8","package":"holylois.residency.mixin","compatibilityLevel":"JAVA_25","mixins":["LevelAccess","ChunkAccess","ManagerAccess"],"injectors":{"defaultRequire":1}}

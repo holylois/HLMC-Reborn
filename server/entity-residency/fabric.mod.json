@@ -1,0 +1,7 @@
+{
+  "schemaVersion":1,"id":"holylois-entity-residency","version":"1.0.0",
+  "name":"Holy Lois Entity Residency","environment":"server","license":"MIT",
+  "entrypoints":{"main":["holylois.residency.ResidencyGuard"]},
+  "mixins":["residency.mixins.json"],
+  "depends":{"minecraft":"26.3","java":">=25","fabricloader":">=0.19.5","fabric-api":"*"}
+}

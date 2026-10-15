@@ -1,0 +1,61 @@
+{
+  "deployment": {
+    "live": true,
+    "server_only": true,
+    "silent": true,
+    "client_pack_changed": false,
+    "candidate_sha256": "4db717ebacfc451115a6f5ede8dacfa6e31165ad39b504cea219c503459e85a4",
+    "full_backup_verified": true,
+    "rollback_available": true,
+    "terrain_hold_preserved": true
+  },
+  "backup": {
+    "comparison_exit": 0,
+    "required_trees": true,
+    "archive_bytes": 21131612160,
+    "archive_sha256": "96b0b1cdd2505014c27123a1f13cb21ddd40bdcb1441f4c897fc88dee1534024"
+  },
+  "live_sample": {
+    "candidate_sha256": "4db717ebacfc451115a6f5ede8dacfa6e31165ad39b504cea219c503459e85a4",
+    "captured_utc": "2026-10-14T22:44:44Z",
+    "dimensions": {
+      "minecraft/the_end": {
+        "entities": 0,
+        "terrain_holder_records": 0,
+        "entities_without_terrain_holder": 0,
+        "tracked_sections": 0
+      },
+      "minecraft/the_nether": {
+        "entities": 0,
+        "terrain_holder_records": 0,
+        "entities_without_terrain_holder": 0,
+        "tracked_sections": 0
+      },
+      "minecraft/overworld": {
+        "entities": 399,
+        "terrain_holder_records": 2601,
+        "entities_without_terrain_holder": 0,
+        "tracked_sections": 33
+      }
+    },
+    "total_entities": 399,
+    "entities_without_terrain_holder": 0,
+    "average_tick_ms": 33.119518,
+    "minecraft_active": true,
+    "native_report_private": true,
+    "players_online_at_sample": 1
+  },
+  "terrain_reconciliation": {
+    "owned_task_validated": true,
+    "existing_checkpoint_chunks": 589344,
+    "no_running_task_confirmed": true,
+    "stale_running_marker_reconciled": true,
+    "policy_changed": false,
+    "generation_started": false,
+    "players_online": 1
+  },
+  "first_attempt_aborted_before_install": true,
+  "first_attempt_reason": "Periodic botwall config writer changed one file during full comparison",
+  "retry_writer_paused_and_timer_restored": true,
+  "historical_backups_deleted": false
+}
