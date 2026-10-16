@@ -73,7 +73,7 @@ wanted = [
     {"name": "Holy Lois: invites and scams", "event_type": 1, "trigger_type": 1,
      "trigger_metadata": {"keyword_filter": ["*discord.gg/*", "*discord.com/invite*", "*discordapp.com/invite*", "*free nitro*", "*nitro gift*",
                                              "*steamcommunlty*", "*steamcomunity*", "*@everyone free*"],
-                          "allow_list": ["discord.gg/FzBJSZwY2c"]},
+                          "allow_list": ["discord.gg/NHgjB9rsXW", "discord.gg/FzBJSZwY2c", "holylois.com/discord"]},
      "actions": [block("Invites to other servers and scam links are not allowed here."), alert]},
 ]
 existing = {r["name"]: r for r in api("GET", f"/guilds/{gid}/auto-moderation/rules")}

@@ -31,4 +31,4 @@ restored from logs and backups where possible. Pastor has the final say.
 - Voice chat is not recorded. Nothing is sold.
 - Public statistics show game numbers and head images from selected server skins. Owner/test and configured hidden accounts are excluded; game progress is kept. Player privacy commands remain planned.
 
-Questions or a ban appeal: `/support MESSAGE` in game, or message Pastor on Discord (https://discord.gg/FzBJSZwY2c).
+Questions or a ban appeal: `/support MESSAGE` in game, or message Pastor on Discord (https://holylois.com/discord).
