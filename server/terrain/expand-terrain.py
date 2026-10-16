@@ -32,6 +32,8 @@ RTP_RADIUS = 5000
 MIN_FREE_BYTES = 6 * 1024**3
 CHECKPOINT_TIMEOUT = 8
 CHECKPOINT_DEADLINE = 120
+# A pause sent while the server boots is only answered once it finishes loading (about 2-3 minutes on the A1).
+BOOT_GRACE = 600
 COMPLETION_GRACE = 120
 VERIFY_CHUNKS = 4096
 VERIFY_SECONDS = 6
@@ -316,10 +318,12 @@ def checkpoint(state):
             state.update(running=False, pause_pending=False)
             save(state)
             return task
-    if time.time() - state['pause_requested_at'] > CHECKPOINT_DEADLINE:
-        if server_started_at() > state['pause_requested_at']:
-            # The server restarted after the request: pause commands sent while it booted got no reply. Restart the clock.
-            state['pause_requested_at'] = time.time()
+    if time.time() - max(state['pause_requested_at'], state.get('pause_deadline_from', 0)) > CHECKPOINT_DEADLINE:
+        started = server_started_at()
+        if started > state['pause_requested_at'] - BOOT_GRACE and state.get('deadline_reset_for') != started:
+            # The server (re)started around the request, so the pause waited for the boot. Restart the clock once per
+            # boot; pause_requested_at stays so the "No tasks to pause" search still covers the whole wait.
+            state.update(pause_deadline_from=time.time(), deadline_reset_for=started)
             save(state)
             print('Generation held while waiting for the owned Chunky pause checkpoint.')
             return None
