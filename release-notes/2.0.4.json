@@ -1,0 +1,39 @@
+{
+  "version": "2.0.4",
+  "date": "2026-10-17",
+  "locales": {
+    "en": {
+      "summary": "Pick a name with confidence: the launcher now checks it while you type.",
+      "teaser": "Your name, checked",
+      "added": [
+        "Free play name check: green means the name is free and stays yours on Holy Lois once you join, orange means it is a bought Minecraft account's name, red means someone already plays with it."
+      ],
+      "changed": [
+        "Smoother chat animation update with new translations.",
+        "Crash and start help in the launcher now point to Pastor on Discord."
+      ]
+    },
+    "ru": {
+      "summary": "Выбирай имя спокойно: лаунчер проверяет его, пока ты печатаешь.",
+      "teaser": "Твоё имя проверено",
+      "added": [
+        "Проверка имени для игры без лицензии: зелёный значит имя свободно и останется твоим на Holy Lois, как только ты зайдёшь; оранжевый значит это имя купленного аккаунта Minecraft; красный значит с этим именем уже кто-то играет."
+      ],
+      "changed": [
+        "Обновление плавной анимации чата с новыми переводами.",
+        "Помощь при вылете и запуске в лаунчере теперь направляет к Pastor в Discord."
+      ]
+    },
+    "lv": {
+      "summary": "Izvēlies vārdu droši: palaidējs to pārbauda, kamēr raksti.",
+      "teaser": "Tavs vārds pārbaudīts",
+      "added": [
+        "Vārda pārbaude spēlei bez licences: zaļš nozīmē, ka vārds ir brīvs un paliks tavs Holy Lois, tiklīdz pievienosies; oranžs nozīmē, ka tas ir nopirkta Minecraft konta vārds; sarkans nozīmē, ka ar to jau kāds spēlē."
+      ],
+      "changed": [
+        "Vienmērīgas čata animācijas atjauninājums ar jauniem tulkojumiem.",
+        "Palīdzība avārijas un palaišanas gadījumā palaidējā tagad norāda uz Pastor Discord."
+      ]
+    }
+  }
+}
