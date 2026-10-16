@@ -236,13 +236,26 @@ class TerrainJobTests(unittest.TestCase):
         state = {'started': True, 'running': True, 'pause_pending': True,
                  'pause_baseline': self.task_path.stat().st_mtime_ns, 'pause_requested_at': 1000}
         with mock.patch.object(job, 'time', fake_time), mock.patch.object(job, 'CHECKPOINT_TIMEOUT', 0.5), \
-                mock.patch.object(job, 'chunky_idle_since', return_value=False):
+                mock.patch.object(job, 'chunky_idle_since', return_value=False),                 mock.patch.object(job, 'server_started_at', return_value=500):
             with mock.patch.object(job, 'command') as command:
                 self.assertIsNone(job.checkpoint(state))
                 command.assert_not_called()
                 state['pause_requested_at'] = 800
                 with self.assertRaisesRegex(RuntimeError, 'within 120 seconds'):
                     job.checkpoint(state)
+
+    def test_restart_after_pause_request_restarts_the_deadline(self):
+        # Pause commands sent while the server booted got no reply; that is not a stuck task.
+        write_task(self.task_path, task(cancelled='false'))
+        clock = SimpleNamespace(now=0)
+        fake_time = SimpleNamespace(monotonic=lambda: clock.now, time=lambda: 1000 + clock.now,
+                                    sleep=lambda seconds: setattr(clock, 'now', clock.now + seconds))
+        state = {'started': True, 'running': True, 'pause_pending': True,
+                 'pause_baseline': self.task_path.stat().st_mtime_ns, 'pause_requested_at': 800}
+        with mock.patch.object(job, 'time', fake_time), mock.patch.object(job, 'CHECKPOINT_TIMEOUT', 0.5),                 mock.patch.object(job, 'chunky_idle_since', return_value=False),                 mock.patch.object(job, 'server_started_at', return_value=850),                 mock.patch.object(job, 'command'):
+            self.assertIsNone(job.checkpoint(state))
+        self.assertGreater(state['pause_requested_at'], 850)
+        self.assertTrue(state['pause_pending'])
 
     def test_no_running_task_reply_accepts_the_saved_checkpoint(self):
         # After a restart Chunky has no task: "No tasks to pause" never rewrites the file, so the saved one is final.

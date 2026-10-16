@@ -250,6 +250,20 @@ def rest_needed(state, now, lag):
     return 0
 
 
+def server_started_at():
+    """Wall-clock start of the current Minecraft process, 0 when unknown."""
+    try:
+        pid = subprocess.run(['systemctl', 'show', 'minecraft', '--property=MainPID', '--value'],
+                             capture_output=True, text=True, timeout=30).stdout.strip()
+        if not pid or pid == '0':
+            return 0
+        ticks = int(Path('/proc/%s/stat' % pid).read_text().rsplit(')', 1)[1].split()[19])
+        boot = next(int(line.split()[1]) for line in Path('/proc/stat').read_text().splitlines() if line.startswith('btime '))
+        return boot + ticks / os.sysconf('SC_CLK_TCK')
+    except (OSError, subprocess.SubprocessError, ValueError, IndexError, StopIteration):
+        return 0
+
+
 def chunky_idle_since(since):
     """True when Chunky answered "No tasks to pause" after the pause request. Nothing is running (for example after a
     server restart), so the checkpoint already on disk is final and will never be rewritten."""
@@ -303,6 +317,12 @@ def checkpoint(state):
             save(state)
             return task
     if time.time() - state['pause_requested_at'] > CHECKPOINT_DEADLINE:
+        if server_started_at() > state['pause_requested_at']:
+            # The server restarted after the request: pause commands sent while it booted got no reply. Restart the clock.
+            state['pause_requested_at'] = time.time()
+            save(state)
+            print('Generation held while waiting for the owned Chunky pause checkpoint.')
+            return None
         raise RuntimeError('Owned Chunky pause was not checkpointed within 120 seconds; inspect the server log')
     print('Generation held while waiting for the owned Chunky pause checkpoint.')
     return None
