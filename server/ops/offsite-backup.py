@@ -56,15 +56,24 @@ def newest_world_files():
     return [full] + diffs[-1:]
 
 
+def volatile(path):
+    # spark's profiler writes and deletes temp files constantly; they are not configuration.
+    return path.relative_to(ROOT).parts[:3] == ("config", "spark", "tmp")
+
+
 def server_archive():
     """Deterministic content fingerprint first; build the tarball only when something changed."""
     digest, files = hashlib.sha256(), []
     for entry in SERVER_PATHS:
         base = ROOT / entry
         for path in sorted([base] if base.is_file() else base.rglob("*") if base.is_dir() else []):
-            if path.is_file() and not path.is_symlink():
+            if path.is_file() and not path.is_symlink() and not volatile(path):
+                try:
+                    content = path.read_bytes()
+                except FileNotFoundError:
+                    continue
                 files.append(path)
-                digest.update(str(path.relative_to(ROOT)).encode() + b"\0" + hashlib.sha256(path.read_bytes()).digest())
+                digest.update(str(path.relative_to(ROOT)).encode() + b"\0" + hashlib.sha256(content).digest())
     return digest.hexdigest(), files
 
 
@@ -73,7 +82,10 @@ def upload_server(files, stamp):
     buffer = io.BytesIO()
     with tarfile.open(fileobj=buffer, mode="w:gz") as tar:
         for path in files:
-            tar.add(path, arcname=str(path.relative_to(ROOT)))
+            try:
+                tar.add(path, arcname=str(path.relative_to(ROOT)))
+            except FileNotFoundError:
+                continue  # removed since the fingerprint; the next run picks up the new state
     temporary = Path("/var/lib/holylois") / name
     temporary.write_bytes(buffer.getvalue())
     temporary.chmod(0o600)
