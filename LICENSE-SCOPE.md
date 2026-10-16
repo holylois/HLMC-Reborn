@@ -1,6 +1,6 @@
 # License scope and third-party material
 
-The root MIT license applies to original Holy Lois source code and documentation authored by pjampjam. It does not relicense dependencies or assets owned by other authors.
+The root MIT license applies to original Holy Lois source code and documentation authored by the Holy Lois team. It does not relicense dependencies or assets owned by other authors.
 
 - Downloaded mods, resource packs, shader packs, Minecraft/Java/.NET binaries and copied third-party source keep their original licenses and notices. A signed manifest authenticates a download; it does not grant copyright permissions.
 - The Holy Lois name, logo and crown are reserved branding. See BRAND.md in the launcher repository. The code license does not grant permission to impersonate the project or use its branding as your own.

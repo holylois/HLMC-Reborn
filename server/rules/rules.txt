@@ -2,10 +2,10 @@
 <yellow>1.</yellow> Be kind. No harassment, hate speech or slurs in chat, voice, signs, names or builds.
 <yellow>2.</yellow> No griefing or stealing. Claim land on the map (J, right-click a chunk); /claims shows your allowance.
 <yellow>3.</yellow> No cheats: hacked clients, x-ray, duping or bug abuse. Use the launcher pack; extra mods are refused.
-<yellow>4.</yellow> No lag machines. Ask pjampjam before huge farms or redstone clocks.
+<yellow>4.</yellow> No lag machines. Ask Pastor before huge farms or redstone clocks.
 <yellow>5.</yellow> PvP and pranks only with consent.
 <yellow>6.</yellow> No spam, advertising or begging.
 <yellow>7.</yellow> Never share anyone's personal information.
 <yellow>8.</yellow> One account per person. Never share your password.
-<gray>Breaking rules: warning, temporary ban or permanent ban. pjampjam has the final say.</gray>
+<gray>Breaking rules: warning, temporary ban or permanent ban. Pastor has the final say.</gray>
 <gray>Full rules and privacy: holylois.com/rules</gray>

@@ -10,9 +10,9 @@ to these rules. In game, type `/rules` to see the short version.
 2. **No griefing or stealing.** Do not break, take, move or change anything other players made or own, claimed or
    not. Claim your land on the world map (press J, right-click a chunk); `/claims` shows how much you have.
 3. **No cheating.** No hacked clients, x-ray (mods, resource packs or shaders), item duplication, or abusing bugs and
-   exploits. Report bugs to pjampjam instead. Play with the mods that come with the launcher and nothing else: the server checks your mod list when you join and turns extra mods away. Shaders and resource packs are your choice as long as they are not x-ray.
+   exploits. Report bugs to Pastor instead. Play with the mods that come with the launcher and nothing else: the server checks your mod list when you join and turns extra mods away. Shaders and resource packs are your choice as long as they are not x-ray.
 4. **No lag machines.** Huge redstone clocks, giant mob farms and anything that keeps hundreds of entities loaded slow
-   the server down for everyone. Ask pjampjam before building something big.
+   the server down for everyone. Ask Pastor before building something big.
 5. **PvP and pranks only with consent.** Fighting, trapping or pranking someone who did not agree is griefing.
 6. **No spam, advertising or begging** in game chat, Discord or voice.
 7. **Respect privacy.** Never share someone else's personal information, photos or voice recordings.
@@ -20,7 +20,7 @@ to these rules. In game, type `/rules` to see the short version.
 9. **Keep it friendly for everyone.** No sexual or extremely graphic content.
 
 **Consequences:** depending on how serious it is, a warning, a temporary ban or a permanent ban. Griefed builds are
-restored from logs and backups where possible. pjampjam has the final say.
+restored from logs and backups where possible. Pastor has the final say.
 
 ## What the server keeps
 
@@ -31,4 +31,4 @@ restored from logs and backups where possible. pjampjam has the final say.
 - Voice chat is not recorded. Nothing is sold.
 - Public statistics show game numbers and head images from selected server skins. Owner/test and configured hidden accounts are excluded; game progress is kept. Player privacy commands remain planned.
 
-Questions or a ban appeal: `/support MESSAGE` in game, or message pjampjam on Discord (https://discord.gg/FzBJSZwY2c).
+Questions or a ban appeal: `/support MESSAGE` in game, or message Pastor on Discord (https://discord.gg/FzBJSZwY2c).

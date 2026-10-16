@@ -4,7 +4,7 @@ Guide for pack 1.9.4 and launcher 1.4.2. Start with the [download and setup step
 
 Click **Play** in the Holy Lois launcher. With a player name, Minecraft opens straight from the launcher and joins Holy Lois by itself. With a bought Minecraft account, Minecraft Launcher opens: pick **Holy Lois: Reborn**, press Play, and the game joins by itself too. For singleplayer, turn off **Join Holy Lois on start** in Settings.
 
-If the game does not start or crashes, the launcher shows what happened. **Settings > Help and diagnostics** copies a report (your Windows user name, login details and IP addresses are removed) to send to pjampjam on Discord.
+If the game does not start or crashes, the launcher shows what happened. **Settings > Help and diagnostics** copies a report (your Windows user name, login details and IP addresses are removed) to send to Pastor on Discord.
 
 ## Joining
 
@@ -153,7 +153,7 @@ Hitting another player, or being hit by one, puts you both **in combat for 20 se
 
 ## Help, reports and donations
 
-- `/support MESSAGE`: pjampjam gets it on Discord right away and replies in game. Start with `bug`, `help` or `grief` if it fits.
+- `/support MESSAGE`: Pastor gets it on Discord right away and replies in game. Start with `bug`, `help` or `grief` if it fits.
 - `/report NAME REASON`: report a player privately.
 - `/donate`: crypto wallets if you want to help pay for the server. Donations never buy anything in game.
 
