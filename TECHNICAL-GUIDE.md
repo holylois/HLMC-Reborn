@@ -14,7 +14,7 @@ Example paths use `%USERPROFILE%`. Configure your SSH host and user privately, n
 | Launcher source and owner tools | This guide's folder, alongside `maintainer` |
 | Server JAR staging | `%USERPROFILE%\Downloads\server-mods` |
 | Running server | `/opt/minecraft` on your server |
-| Pack releases | <https://github.com/pjampjam/HLMC-Reborn/releases> |
+| Pack releases | <https://github.com/holylois/HLMC-Reborn/releases> |
 
 Keep the publisher's `private/release-private.pem` and your SSH key private. Neither belongs in GitHub, Discord, a client pack or a friend-facing installer.
 
@@ -62,7 +62,7 @@ Changing the mods or shaders needs a new pack release, but does not require rebu
 
 ## Publish the prepared release
 
-1. Sign in to your [GitHub releases page](https://github.com/pjampjam/HLMC-Reborn/releases).
+1. Sign in to your [GitHub releases page](https://github.com/holylois/HLMC-Reborn/releases).
 2. Choose **Draft a new release**. Create a new tag `pack-v1.4.2`, substituting your version.
 3. Give it a clear title, such as `Holy Lois: Reborn - Pack 1.4.2`, and short notes describing changes and any required server update.
 4. Upload `defaults.zip`. Any Holy Lois-owned helper JAR referenced by this release must also exist at its exact versioned URL. Third-party JARs remain at their authors' URLs.

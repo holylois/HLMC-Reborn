@@ -15,7 +15,7 @@ HIDDEN_FILE = Path('/etc/holylois/stats-hidden.txt')
 HIDDEN_CONFIG = ROOT / 'config/holylois-stats-hidden.json'
 SLURS = re.compile(r'n[i1!]gg|f[a@]gg?[o0]t|f[a@]g$|r[e3]t[a@]rd|p[i1]d[o0a]r|п[иі]д[оа]р|k[i1]ke|ch[i1]nk|tr[a@]nny', re.I)
 TOP = 5
-PACK_FEED = 'https://github.com/pjampjam/HLMC-Reborn/releases/download/pack-stable/pack.json'
+PACK_FEED = 'https://github.com/holylois/HLMC-Reborn/releases/download/pack-stable/pack.json'
 
 
 def read(path, default=None):

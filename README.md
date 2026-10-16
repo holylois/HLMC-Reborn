@@ -10,7 +10,7 @@ The Holy Lois Journal collects world firsts, your fish, places and creature defe
 
 ## Download and play
 
-[Download HolyLoisReborn.exe](https://github.com/pjampjam/HLMC-Reborn-Packaging-Lab/releases/latest/download/HolyLoisReborn.exe) - about 66 MB, for Windows x64. Its runtime is included, so no separate .NET installation is needed.
+[Download HolyLoisReborn.exe](https://github.com/holylois/HLMC-Reborn-Packaging-Lab/releases/latest/download/HolyLoisReborn.exe) - about 66 MB, for Windows x64. Its runtime is included, so no separate .NET installation is needed.
 
 1. Open the EXE. The three-step setup asks how you play: **Play with a name** (type the name you want in the game) or **I own Minecraft** (you bought Minecraft), then your optional Desktop and Start menu shortcuts.
 2. Close Minecraft and your Minecraft launcher, then click **Install** beneath the logo.
@@ -52,7 +52,7 @@ Updates preserve worlds, personal voice-device choices and extra client mods or 
 
 Use **Holy Lois Admin** to choose your tested CurseForge profile, prepare a new version, deploy server-required changes and publish the update. Follow the [admin guide](ADMIN-GUIDE.md); use [technical notes](TECHNICAL-GUIDE.md) for the detailed workflow and [test guide](TEST-GUIDE.md) before promotion. The trusted-friends setup does not need an additional anti-cheat addon.
 
-This repository holds the signed pack channel and admin documentation. Current launcher source and app releases live in the [launcher repository](https://github.com/pjampjam/HLMC-Reborn-Packaging-Lab). Its [setup and reset guide](https://github.com/pjampjam/HLMC-Reborn-Packaging-Lab/blob/main/RESET-AND-TEST.md) covers clean installation tests and app removal. Use the launcher repository to build the current player app. The legacy companion source archive remains historical; current launcher and add-on source lives in the launcher repository.
+This repository holds the signed pack channel and admin documentation. Current launcher source and app releases live in the [launcher repository](https://github.com/holylois/HLMC-Reborn-Packaging-Lab). Its [setup and reset guide](https://github.com/holylois/HLMC-Reborn-Packaging-Lab/blob/main/RESET-AND-TEST.md) covers clean installation tests and app removal. Use the launcher repository to build the current player app. The legacy companion source archive remains historical; current launcher and add-on source lives in the launcher repository.
 
 ## Release and privacy notes
 
