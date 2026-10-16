@@ -4,7 +4,7 @@
   "list_header": [
     "",
     "<color #FFFF55><bold>HOLY LOIS: REBORN</bold></color>",
-    "<color #6E717A><strikethrough>                      </strikethrough></color> <white>%server:online%</white><dark_gray>/</dark_gray><gray>%holylois:slots%</gray> <gray>online</gray> <color #6E717A><strikethrough>                      </strikethrough></color>",
+    "<color #6E717A><strikethrough>                      </strikethrough></color> <white>%holylois:online%</white><dark_gray>/</dark_gray><gray>%holylois:slots%</gray> <gray>online</gray> <color #6E717A><strikethrough>                      </strikethrough></color>",
     ""
   ],
   "list_footer": {

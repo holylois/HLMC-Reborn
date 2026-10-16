@@ -65,10 +65,10 @@ def varint(value):
 
 
 def ping():
-    """Server list ping on localhost: (online, max, names, version) or None."""
+    """Server list ping on localhost as the public sees it (play.holylois.com: staff hidden): (online, names, version) or None."""
     try:
         with socket.create_connection(("127.0.0.1", 25565), timeout=5) as s:
-            host = b"localhost"
+            host = b"play.holylois.com"
             packet = b"\x00" + varint(0) + varint(len(host)) + host + struct.pack(">H", 25565) + b"\x01"
             s.sendall(varint(len(packet)) + packet + b"\x01\x00")
             data, deadline = b"", time.time() + 5

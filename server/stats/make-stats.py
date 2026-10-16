@@ -56,7 +56,7 @@ def names():
 
 
 def online_now():
-    """Players online right now, from a status ping to the local server (None if it does not answer)."""
+    """Players online right now as the public sees them (staff hidden: the ping names play.holylois.com), None if no answer."""
     import socket, struct
     def varint(n):
         out = b''
@@ -66,7 +66,7 @@ def online_now():
             if not n: return out
     try:
         with socket.create_connection(('127.0.0.1', 25565), 5) as s:
-            hello = b'\x00' + varint(770) + varint(9) + b'localhost' + struct.pack('>H', 25565) + varint(1)
+            hello = b'\x00' + varint(770) + varint(17) + b'play.holylois.com' + struct.pack('>H', 25565) + varint(1)
             s.sendall(varint(len(hello)) + hello + b'\x01\x00')
             data = b''
             while chunk := s.recv(65536):
@@ -122,6 +122,17 @@ def visible_advancements():
 def when(text):
     try: return datetime.datetime.strptime(text, '%Y-%m-%d %H:%M:%S %z').astimezone(datetime.timezone.utc)
     except (TypeError, ValueError): return None
+
+
+def taken_names():
+    """Every name the server already knows (joined names, renamed accounts' old and new names, staff), lower case. Written next to
+    stats.json but never served whole: stats-web only answers "is this one name taken" for the launcher's name check."""
+    profiles = read(WORLD / 'holylois' / 'account-profile-names.json', {})
+    taken = {e.get('name', '').lower() for e in read(ROOT / 'usercache.json', []) if isinstance(e, dict)}
+    taken.update(n.lower() for n in profiles.get('names', {}).values() if isinstance(n, str))
+    taken.update(a.lower() for a in profiles.get('aliases', {}) if isinstance(a, str))
+    taken.update(hidden_names())
+    return sorted(n for n in taken if re.fullmatch(r'[a-z0-9_]{3,16}', n))
 
 
 def main():
@@ -252,6 +263,9 @@ def main():
     OUT.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.NamedTemporaryFile('w', dir=OUT.parent, delete=False, encoding='utf-8') as temp: temp.write(text)
     os.chmod(temp.name, 0o644); os.replace(temp.name, OUT)
+    taken = OUT.parent / 'taken-names.json'
+    with tempfile.NamedTemporaryFile('w', dir=OUT.parent, delete=False, encoding='utf-8') as temp: json.dump({'names': taken_names()}, temp)
+    os.chmod(temp.name, 0o644); os.replace(temp.name, taken)
     print(f'{OUT}: {len(people)} players, {len(leaderboards)} boards, {len(earned)}/{len(defined)} achievements earned, {len(firsts)} world firsts')
 
 
