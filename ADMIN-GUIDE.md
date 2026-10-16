@@ -120,6 +120,13 @@ Backups live on Google Drive (`Holy Lois Backups`), not on the VM disk (owner de
 
 Check `df -h /` now and then; the world and BlueMap tiles are what grows.
 
+## Quiet pack 2.0.3 and server lag fix
+
+Pack 2.0.3 (2026-10-16) updates Fabric API 0.163.0, Puzzles Lib 26.3.15, EMF 3.3.12 and ETF 7.2.6; public history is
+unchanged. The server-only `server/entity-residency` mod 1.1.0 also skips Runeforged's per-tick gear attribute recompute
+while a player's weapon, armor and effects are unchanged (recompute on change and at least once a second). The pregen
+controller accepts Chunky's "No tasks to pause" reply and restarts its pause deadline after a server restart.
+
 ## Pack 1.9.4
 
 Published 2026-10-11, client only (Extras 1.7.4). Fishing cinematic: while waiting for a bite, each shot is Ji's FishingShot with the next of its five presets (CinematicManagerMixin + CinematicShotsMixin drive evaluateFrame on our own clock); on a bite the mod's own focus holds until the catch or escape; 3 s after reeling in the normal shots return. Ji's CinematicMusicManager and vanilla MusicManager stay silent while BoomboxPulse.musicNearby(). Server unchanged (Extras 1.7.1).
