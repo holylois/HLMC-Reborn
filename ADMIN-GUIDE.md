@@ -120,6 +120,12 @@ Backups live on Google Drive (`Holy Lois Backups`), not on the VM disk (owner de
 
 Check `df -h /` now and then; the world and BlueMap tiles are what grows.
 
+## Server release for pack 2.1.0 and launcher 1.5.0
+
+Deployed 2026-10-18 with `server/ops/hl-deploy.py` (plan `~/hl-210/plan.json`, loopback rehearsal receipt next to it, jars/config backup in `/opt/minecraft-backups/maintenance/release-210-*`). Swaps: OPAC 0.33.0, Liteminer 4.5.2, Amber 11.7.0, JEB 1.2.0.9, MidnightLib 1.10.0, Repurposed Structures 7.8.4, EconomyCraft 1.11.0 (its config.json converts to sections on first boot), Extras 1.8.0 to 1.8.3 (colossal fish). Files: revised `config/economycraft/prices.json` (enchantments 6% of the old sell value, at least 4; tools, weapons and armor half), OPAC `playerClaimsExpirationTime = 720` with `playerClaimsConvertExpiredClaims = false` (claims of players inactive for 30 days return to wilderness), MiniMOTD headline.
+
+**Free-play name rule (owner 2026-10-18):** a free-play account that took a bought account's name (the launcher asks the player to confirm) is moved into the backup folder when the premium owner first joins: move its player data, stats, advancements, claims and homes like the 1.7.3 profile cleanup and remove its login with `auth remove NAME`. A free-play name registered before the name was bought stays locked. A player who owns both asks on Discord to move their progress. Enforcement is manual until the auth add-on stores the Mojang lookup at /register.
+
 ## Quiet pack 2.0.3 and server lag fix
 
 Pack 2.0.3 (2026-10-16) updates Fabric API 0.163.0, Puzzles Lib 26.3.15, EMF 3.3.12 and ETF 7.2.6; public history is
