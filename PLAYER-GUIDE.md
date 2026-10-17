@@ -1,10 +1,10 @@
 # Playing Holy Lois: Reborn
 
-Guide for pack 2.0.4 and launcher 1.4.7. Start with the [download and setup steps](README.md#download-and-play). The server is already saved in Multiplayer (**play.holylois.com**, **mc.holylois.com** is an alias).
+Guide for pack 2.1.0 and launcher 1.5.0. Start with the [download and setup steps](README.md#download-and-play). The server is already saved in Multiplayer (**play.holylois.com**, **mc.holylois.com** is an alias).
 
 Click **Play** in the Holy Lois launcher. With a player name, Minecraft opens straight from the launcher and joins Holy Lois by itself. With a bought Minecraft account, Minecraft Launcher opens: pick **Holy Lois: Reborn**, press Play, and the game joins by itself too. For singleplayer, turn off **Join Holy Lois on start** in Settings.
 
-When you type a player name, the launcher checks it: **green** means it is free and stays yours on Holy Lois once you join, even if someone buys it later; **orange** means it belongs to a bought Minecraft account (you can still take it, but then its owner cannot join with it; if it is your account, play with Minecraft Launcher instead); **red** means someone already plays with it, so log in with your server password if it is yours or pick another name.
+When you type a player name, the launcher checks it: **green** means it is free and stays yours on Holy Lois once you join, even if someone buys it later; **orange** means it belongs to a bought Minecraft account (you can still take it after confirming, but when its owner joins Holy Lois your free-play account is moved to backup and the name goes to the owner; if it is your account, play with Minecraft Launcher instead). A free name you took before somebody bought it stays yours; if you bought Minecraft with your own free-play name later, ask on Discord to move your progress; **red** means someone already plays with it, so log in with your server password if it is yours or pick another name.
 
 If the game does not start or crashes, the launcher shows what happened. **Settings > Help and diagnostics** copies a report (your Windows user name, login details and IP addresses are removed) to send to Pastor on Discord.
 
@@ -33,7 +33,7 @@ On your first registration, wait for the arrival screen to finish while the serv
 
 Map keys are added only where the key was free, and Holy Lois fixes known clashes when the pack updates. If one does nothing, open **Options > Controls > Key Binds**: the search bar and the conflict filter show what shares a key. Jade shows a small label for whatever you look at, including crop growth.
 
-If your body clips through the view, press **Page Down** to use the simpler view while keeping animated arms. Shaders start off; choose a supplied shader in Minecraft's video settings when ready. **Disable shaders** in Holy Lois is available if rendering causes trouble.
+If your body clips through the view, press **Page Down** to use the simpler view while keeping animated arms. Shaders start off. On new installs from pack 2.1.0, **F7** turns them on or off and **I** opens the shader list (older installs keep **K**). **Disable shaders** in Holy Lois is available if rendering causes trouble.
 
 ## Homes
 
@@ -75,6 +75,8 @@ Land is claimed in whole chunks (16 x 16 blocks, from bedrock to sky) with **Ope
 You don't need a team to claim. Everyone, admins included, claims under the same limits.
 
 **How much land?** Everyone gets **16 chunks free**, earns **1 more for every 2 hours played** (up to 48), and can buy more with coins: `/claims` shows your numbers, `/claims buy` buys the next chunk (500 coins, each next one 15% more) and `/claims sell` sells one back for half price.
+
+**Unused land:** land of a player who has not played for **30 days** goes back to wilderness, so nobody can sit on chunks forever.
 
 **Teams:** `/party create`, then `/party invite NAME`. Team members can build on each other's land. When you walk into someone's land, the zone title at the top of the screen says whose it is; outside claims it says **Wilderness**.
 
@@ -249,7 +251,7 @@ the pack's vein mining. Available from pack 2.0.0.
 
 First discoveries have plain yellow names, with a star in their description. Legendary item names and outlines keep their gold color with a white shine; Mythic keeps its moving gradient. REI favorites are hidden by default, including the add button and left panel; saved favorites remain available if you re-enable the setting. To open a fishing crate, place it and break it with a suitable tool in Survival.
 
-`/journal` always works without a key. The Journal also has a control in Options, Controls: it only takes **K** if K is free, and the shipped shader toggle already uses K, so most players bind their own key. Existing bindings and deliberately unbound controls stay yours. Personal records belong to your profile and stay with you after an approved name change.
+`/journal` always works without a key. New installs from pack 2.1.0 open it with **K** (the shader toggle moved to **F7**). Older installs keep their keys: the Journal only took K if it was free, so bind your own key in Options, Controls if you want one. Existing bindings and deliberately unbound controls stay yours. Personal records belong to your profile and stay with you after an approved name change.
 
 The first defeat of each hostile creature type appears as a compact gold world-first line. Passive kills remain personal. Ordinary hostile creatures do not play a server-wide chime; major boss and elite firsts keep their celebration.
 

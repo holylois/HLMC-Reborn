@@ -2,11 +2,11 @@
 
 An adventure-focused modded Minecraft survival server for friends: claim land on the map, explore dungeons, earn achievements and Runeforged runes, trade in the auction house and play radio with a boombox. A Windows launcher installs the pack and keeps it updated.
 
-**Launcher 1.4.7 / pack 2.0.4 / Minecraft 26.3 / Fabric 0.19.5 / Java 25**
+**Launcher 1.5.0 / pack 2.1.0 / Minecraft 26.3 / Fabric 0.19.5 / Java 25**
 
-## Latest update: launcher 1.4.7 and pack 2.0.4
+## Latest update: launcher 1.5.0 and pack 2.1.0
 
-Launcher 1.4.7 fixes Russian and Latvian texts, shows the newest notes in your language and makes the name check calmer. Since launcher 1.4.6 it checks a player name while you type: green means it is free and stays yours on Holy Lois once you join, orange means it belongs to a bought Minecraft account, red means someone already plays with it. Chat Animation got new translations.
+The loud patch. Colossal Mythic fish up to 255 kg, and heavier fish look bigger everywhere. A friendlier land claims menu (Open Parties and Claims 0.33), safer vein mining, and fair selling prices: enchanted books and gear count every enchantment at new lower prices, tools, weapons and armor sell for half. Land of a player who has not played for 30 days goes back to wilderness. New installs get **K** for the Journal and **F7** for shaders. Launcher 1.5.0 downloads several files at once, lets you choose Minecraft's memory, checks free disk space first, explains errors instead of closing, and asks before you take a bought account's name (that free-play account is moved to backup when the real owner joins).
 
 The big update before it, pack 2.0.0, brought the Holy Lois Journal (world firsts, your fish, places and creature defeats with waypoints and map links), notable-item cards, Easy Anvils/Magic, the Smelting pickaxe enchantment and more structures in new land. See [CHANGELOG.md](CHANGELOG.md) for everything.
 

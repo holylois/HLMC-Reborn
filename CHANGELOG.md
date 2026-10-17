@@ -2,6 +2,31 @@
 
 Historical player notes, retained from the README. Current setup and play instructions are in [README.md](README.md).
 
+## What's new in pack 2.1.0 and launcher 1.5.0
+
+The loud patch: colossal fish, a friendlier claims menu, fair prices and a faster launcher.
+
+**Added**
+
+- Land claims menu overhaul: a search bar, option categories, tooltips that explain every setting and a quick sub-claim menu.
+- Colossal Mythic fish: a tiny share of Mythics weigh 100 to 255 kg.
+- Launcher: choose how much memory Minecraft gets in Settings, and a free disk space check before every download.
+
+**Changed**
+
+- Heavier trophy fish look bigger all the way up, in your hands, on the ground and in item frames.
+- New installs: K opens the Journal and F7 turns shaders on or off. Existing keys stay as you set them.
+- Selling: enchanted books and gear count every enchantment they carry, at new lower enchantment prices. Tools, weapons and armor sell for half as much.
+- Land of a player who has not played for 30 days goes back to wilderness.
+- Free-play names: a bought Minecraft account's name can still be used, but that free-play account is moved to backup when the real owner joins. The launcher asks first.
+- Launcher: pack files download several at a time.
+- Vein mining no longer breaks blocks in spawn protection or past the world border, and the block that breaks your tool drops its items.
+
+**Fixed**
+
+- Right-clicking with the vein mining key no longer strips or tills blocks your tool cannot change.
+- Launcher: a slow connection no longer shows Cancelled, and an unexpected error shows a message instead of closing the app.
+
 ## What's new in launcher 1.4.7
 
 Clearer texts in every language.
