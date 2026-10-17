@@ -1,4 +1,4 @@
-"""Tests for the deploy kit, the monitor lag watch and the off-site volatile-file handling (Linux: needs tar).
+"""Tests for the deploy kit, the thread guard, the monitor lag watch and the off-site volatile-file handling (Linux: needs tar).
 
   python3 test-ops.py
 """
@@ -21,6 +21,7 @@ def module(name, file):
 kit = module('hl_deploy', 'hl-deploy.py')
 alert = module('discord_alert', 'discord-alert.py')
 offsite = module('offsite_backup', 'offsite-backup.py')
+guard = module('thread_guard', 'thread-guard.py')
 real_run = kit.run
 
 
@@ -180,6 +181,50 @@ class OffsiteVolatile(unittest.TestCase):
             _, files = offsite.server_archive()
         names = [str(p.relative_to(root)) for p in files]
         self.assertEqual(names, ['config/real.json'])
+
+
+class ThreadGuard(unittest.TestCase):
+    def test_decisions(self):
+        d, now = guard.decide, 10_000
+        self.assertEqual(d(7900, 13008, 0, 0, now), 'restart-quiet')
+        self.assertEqual(d(7700, 13008, 0, 0, now), 'ok')
+        self.assertEqual(d(9000, 13008, 2, 0, now), 'ok')
+        self.assertEqual(d(11100, 13008, 2, 0, now), 'restart-countdown')
+        self.assertTrue(d(11100, 13008, 2, now - 60, now).startswith('wait'))
+        self.assertTrue(d(11100, 13008, None, 0, now).startswith('wait'))
+        self.assertTrue(d(None, None, 0, 0, now).startswith('wait'))
+
+    def fake_kit(self, start_fails=False):
+        temp = Path(tempfile.mkdtemp())
+        calls = []
+        def start(base, plan):
+            calls.append('start')
+            if start_fails:
+                raise RuntimeError('Startup failure')
+        hl = SimpleNamespace(MAINTENANCE=temp / 'maintenance', helper=lambda: None, start=start,
+                             countdown=lambda base, plan: calls.append('countdown:' + plan['reason']),
+                             console=lambda *c: calls.append('console:' + ' '.join(c)),
+                             run=lambda *a: calls.append('run:' + ' '.join(a)))
+        return hl, calls
+
+    def test_quiet_restart_skips_the_countdown_and_resumes_the_pregen_timer(self):
+        hl, calls = self.fake_kit()
+        with mock.patch.object(guard.subprocess, 'run') as run, mock.patch.object(guard.time, 'sleep'):
+            guard.restart(hl, countdown=False)
+        self.assertFalse(any(c.startswith('countdown') for c in calls))
+        self.assertIn('console:save-all flush', calls)
+        self.assertIn('start', calls)
+        self.assertFalse(hl.MAINTENANCE.exists())
+        self.assertEqual(run.call_args_list[-1].args[0], ['systemctl', 'start', 'holylois-terrain-expansion.timer'])
+
+    def test_countdown_with_players_and_cleanup_after_a_failed_start(self):
+        hl, calls = self.fake_kit(start_fails=True)
+        with mock.patch.object(guard.subprocess, 'run') as run, mock.patch.object(guard.time, 'sleep'):
+            with self.assertRaises(RuntimeError):
+                guard.restart(hl, countdown=True)
+        self.assertEqual(calls[0], 'countdown:' + guard.REASON)
+        self.assertFalse(hl.MAINTENANCE.exists())
+        self.assertEqual(run.call_args_list[-1].args[0], ['systemctl', 'start', 'holylois-terrain-expansion.timer'])
 
 
 if __name__ == '__main__':

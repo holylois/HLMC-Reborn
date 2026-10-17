@@ -1,0 +1,7 @@
+[Unit]
+Description=Holy Lois thread guard (clean restart before the thread limit)
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /usr/local/lib/holylois/thread-guard.py check
+TimeoutStartSec=15min
