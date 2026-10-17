@@ -249,7 +249,7 @@ the pack's vein mining. Available from pack 2.0.0.
 
 First discoveries have plain yellow names, with a star in their description. Legendary item names and outlines keep their gold color with a white shine; Mythic keeps its moving gradient. REI favorites are hidden by default, including the add button and left panel; saved favorites remain available if you re-enable the setting. To open a fishing crate, place it and break it with a suitable tool in Survival.
 
-The Journal has a control in Options, Controls. It uses **K** on first installation if K is free; existing bindings and deliberately unbound controls stay yours. `/journal` always works without a key. Personal records belong to your profile and stay with you after an approved name change.
+`/journal` always works without a key. The Journal also has a control in Options, Controls: it only takes **K** if K is free, and the shipped shader toggle already uses K, so most players bind their own key. Existing bindings and deliberately unbound controls stay yours. Personal records belong to your profile and stay with you after an approved name change.
 
 The first defeat of each hostile creature type appears as a compact gold world-first line. Passive kills remain personal. Ordinary hostile creatures do not play a server-wide chime; major boss and elite firsts keep their celebration.
 
