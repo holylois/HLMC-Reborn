@@ -2,11 +2,13 @@
 
 An adventure-focused modded Minecraft survival server for friends: claim land on the map, explore dungeons, earn achievements and Runeforged runes, trade in the auction house and play radio with a boombox. A Windows launcher installs the pack and keeps it updated.
 
-**Launcher 1.4.4 / pack 2.0.3 / Minecraft 26.3 / Fabric 0.19.5 / Java 25**
+**Launcher 1.4.7 / pack 2.0.4 / Minecraft 26.3 / Fabric 0.19.5 / Java 25**
 
-## Pack 2.0.0
+## Latest update: launcher 1.4.7 and pack 2.0.4
 
-The Holy Lois Journal collects world firsts, your fish, places and creature defeats, with personal waypoints and map links. The batch also brings notable-item cards, fish bite frames, Easy Anvils/Magic, the Smelting pickaxe enchantment and more structures in new land. Update through the launcher before joining the server.
+Launcher 1.4.7 fixes Russian and Latvian texts, shows the newest notes in your language and makes the name check calmer. Since launcher 1.4.6 it checks a player name while you type: green means it is free and stays yours on Holy Lois once you join, orange means it belongs to a bought Minecraft account, red means someone already plays with it. Chat Animation got new translations.
+
+The big update before it, pack 2.0.0, brought the Holy Lois Journal (world firsts, your fish, places and creature defeats with waypoints and map links), notable-item cards, Easy Anvils/Magic, the Smelting pickaxe enchantment and more structures in new land. See [CHANGELOG.md](CHANGELOG.md) for everything.
 
 ## Download and play
 
@@ -15,30 +17,11 @@ The Holy Lois Journal collects world firsts, your fish, places and creature defe
 1. Open the EXE. The three-step setup asks how you play: **Play with a name** (type the name you want in the game) or **I own Minecraft** (you bought Minecraft), then your optional Desktop and Start menu shortcuts.
 2. Close Minecraft and your Minecraft launcher, then click **Install** beneath the logo.
 3. The same button becomes **Play**. With **Play with a name**, **fast start** opens Minecraft straight from the Holy Lois launcher (the first start downloads Java and Minecraft once) and the game joins Holy Lois by itself. With **I own Minecraft**, Minecraft Launcher opens: select **Holy Lois: Reborn** and press Play, and the game joins Holy Lois by itself too.
-4. The server is **play.holylois.com** (**mc.holylois.com** works too) and is already saved in Multiplayer. Website: https://holylois.com, Discord: https://discord.gg/FzBJSZwY2c
+4. The server is **play.holylois.com** (**mc.holylois.com** works too) and is already saved in Multiplayer. Website: https://holylois.com, Discord: https://holylois.com/discord
 
 SKlauncher is no longer needed. Players who already use it keep their name, worlds and settings, and **Settings** can switch Play back to opening SKlauncher. **Settings** also has the player name with its history, **Join Holy Lois on start** (turn it off for singleplayer) and **Help and diagnostics** for a crash report to send on Discord. English is the default, with Russian and Latvian available on the main screen.
 
 See the [player guide](PLAYER-GUIDE.md) for joining, voice chat, maps, cooking, furniture, homes, teleporting, claims and shops.
-
-## Latest update: pack 1.9.4
-
-A fishing cinematic with real camera work, and boombox music without anything playing over it.
-
-**Changed**
-
-- Minecraft's background music pauses while boombox or music disc music reaches you, like it does for a jukebox.
-
-**Fixed**
-
-- While fishing, the cinematic no longer repeats one shot on a loop: every shot is a new angle on you and your bobber until a fish bites, then it stays on the catch until you reel it in or it gets away, and changes angle 3 seconds after you reel in.
-- The cinematic no longer starts its own soundtrack over a playing boombox or music disc, so that music plays clearly in your ears.
-
-Earlier: pack 1.9.3 (boombox swing and notes), 1.9.2, launcher 1.4.2 and 1.9.1. See [CHANGELOG.md](CHANGELOG.md).
-
-## Release history
-
-See [CHANGELOG.md](CHANGELOG.md) for earlier pack and launcher updates.
 
 ## Updates
 

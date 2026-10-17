@@ -2,6 +2,79 @@
 
 Historical player notes, retained from the README. Current setup and play instructions are in [README.md](README.md).
 
+## What's new in launcher 1.4.7
+
+Clearer texts in every language.
+
+**Fixed**
+
+- Russian and Latvian release notes for the newest pack now show in your language instead of English.
+- The uninstall text no longer calls the app a test launcher, and the repair hint names the real Check files button.
+- The name check says "could not check" when Holy Lois does not answer, instead of guessing, and no longer makes the window jump while you type.
+
+## What's new in pack 2.0.4 and launcher 1.4.6
+
+Pick a name with confidence: the launcher now checks it while you type.
+
+**Added**
+
+- Free play name check: green means the name is free and stays yours on Holy Lois once you join, orange means it is a bought Minecraft account's name, red means someone already plays with it.
+
+**Changed**
+
+- Smoother chat animation update with new translations.
+- Crash and start help in the launcher now point to Pastor on Discord.
+
+## Quiet updates: pack 2.0.1 to 2.0.3 and launchers 1.4.3 to 1.4.5
+
+Small fixes without a public note: client fixes for the Journal and fishing screens (2.0.1, 2.0.2), updated libraries with a server lag fix (2.0.3, 2026-10-16), and launchers that embed the newer pack and follow the move to the holylois GitHub organization (1.4.3 to 1.4.5).
+
+## What's new in pack 2.0.0
+
+Holy Lois 2.0: your adventure journal, trophy fishing and more dungeons to explore.
+
+**Added**
+
+- My journal records your strongest confirmed creature defeats. Living creatures, including Witches, have rotating previews with Pause and saved gear. Named elite traits stay in the details, with a matching persistent aura around the preview. New world firsts preserve the original defeat. Creature icons use familiar drops; details scroll only when needed.
+- Open /journal for your fish collection, visited places and lifetime creature defeats. Search entries and add a personal waypoint or open their recorded location on the map.
+- World firsts has its own Journal tab: first discoveries, bosses, elites and the first defeat of each hostile creature type. Passive kills stay in your personal history.
+- Fish collections keep separate Heaviest and Rarest catches, with their own model, date and map location. Rarity and Shiny break record ties. Earlier counts and weight records stay intact; missing historical appearances and locations are never invented.
+- Earn A Myth on the Line, A Shining Legend and A Shining Myth for your first real Mythic, Shiny Legendary and Shiny Mythic catches. Gifts and command-generated items do not award these milestones. The existing Legendary achievement stays unchanged.
+- A quiet Journal notice marks your first fish species, creature type or notable place. Nearby updates combine; repeated catches and defeats stay quiet. Use /journalalerts on or off to choose.
+- Notable pickups get a short item card. Use /itemcards on or off to choose whether to show them.
+- Easy Anvils and Easy Magic keep items in their blocks and improve repairs and enchanting. Enchantment re-rolls have a cost.
+- More mineshafts, ruins, towers, towns and other structures await in newly generated land. Their treasure chests can hold legends and Runeforged loot.
+- Smelting is a new pickaxe enchantment, available from enchanting tables and librarian books. Mined iron, copper and gold become ingots, and ancient debris becomes netherite scrap. Fortune stays useful; Silk Touch is incompatible.
+
+**Changed**
+
+- Journal models keep a stable idle pose, spiders fit their leg span, and Witches no longer use their recorded potion. Fish entries preview the heaviest catch in a swimming pose; new catches save Fish of Thieves variants without inventing old appearances.
+- Fish and fillets have a thin rarity outline around their inventory picture. Legendary stays gold with a white shine; Mythic keeps its moving colour gradient.
+- Fish tooltips omit colour swatches and variant labels. Fish of Thieves fish shrink bite by bite while eaten, and large meals start their eating feedback promptly.
+- Fish tooltips separate eaten effects from held bonuses, with catcher/date last. Matching Uncommon pickups merge into older stacks. Treasure maps have a readable name and numbered inscription. New world-first kills preserve their first defeated level.
+- Vanilla trophy fish also have useful held bonuses: Cod armor scales with rarity and weight, starting at 10 for Mythic; Salmon movement speed and Tropical Fish swimming. Cooked whole fish retain stronger eaten effects but have half the raw held bonus. Placed boombox notes are half as large; handheld notes are 1.5 times their previously reduced size.
+- Wooden, Iron and Golden Crates share the fish rarity palette as Uncommon, Rare and Legendary. Their cards show the name once; loot contents are unchanged.
+- Cooked trophy fish give stronger, longer effects; fillets can be eaten even when you are full. Rarer trophy fish take longer to eat.
+- Swimming and shoal fish keep their rarity and Fish of Thieves variant when caught. Common and Uncommon stack without weight; Uncommon has short effects and a green outline. Rare and above keep trophy weights. Bigger fish swim in wider circles, natural shoals include vanilla fish, and catches fly from the hook toward you before pickup.
+- Explorer maps use the proper holding pose and first-person map view. Held boomboxes sway more gently.
+- Held boombox music notes are smaller. Disabled Holy Lois buttons keep the ordinary cursor, and selected Journal tabs are easier to read.
+- Empty Journal categories explain how to start a collection. Clipped names have tooltips, and entry dates say what happened.
+- World-first discovery names are plain yellow, with a star in the description and a personal firsts filter. Creature icons use familiar drops; long fish details scroll. Refreshing keeps the previous list visible.
+- REI's favorite button and left panel are hidden by default without deleting saved favorites. Crate tooltips explain how to place and break them for loot.
+- Use /cinematic on or off and /cinematic fishing on or off to control the idle and fishing cameras.
+- Shader names are shorter and sorted from light to heavy. Required animation packs stay enabled while your own resource packs remain available.
+- The website has a cleaner background, and daily-coins help now explains that coins arrive when you join.
+- Updated stable libraries, including Puzzles Lib and Polymer. Your existing keybinds and settings stay yours.
+
+**Fixed**
+
+- Placing a one-item fish back into its slot no longer leaves it stuck on your cursor after a quick double-click.
+- Login and registration forms hide the game HUD until the transition finishes.
+- The Journal no longer gets stuck after a resize or quick filter change. If the server does not respond, Retry lets you try again.
+- Delayed Journal replies no longer reopen a closed menu or replace newer results.
+- Fish and item cards remain visible over the cinematic camera; /cinematiccards on|off is your choice. Journal notices wait until visible, then show quiet outlined text near chat. Use /journalalerts motion off to stop their pop and Journal text shine.
+- Uploaded song links must contain real MP3 or WAV audio. BlueMap's updated renderer fixes lost low-resolution tile writes.
+
 ## What's new in pack 1.9.4
 
 A fishing cinematic with real camera work, and boombox music without anything playing over it.

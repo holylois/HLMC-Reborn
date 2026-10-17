@@ -14,15 +14,15 @@ Backup scope (owner decision 2026-10-16): "jars" backs up mods/ and config/ only
 snapshot and its off-site copy); "world" takes a complete stopped archive without the rebuildable bluemap/ tiles.
 Online players get the owner-approved one-minute countdown. Any failure restores the backed-up trees and restarts.
 """
-import argparse, datetime, fcntl, hashlib, importlib.util, json, os, shutil, stat, subprocess, sys, tarfile, time
+import argparse, datetime, fcntl, hashlib, json, os, shutil, socket, stat, struct, subprocess, sys, tarfile, time
 from pathlib import Path
+from types import SimpleNamespace
 
 ROOT = Path('/opt/minecraft')
 BACKUPS = Path('/opt/minecraft-backups/maintenance')
 MAINTENANCE = Path('/run/holylois-maintenance')
 HOLD = Path('/opt/minecraft-backups/terrain-expansion/hold')
 FIFO = '/run/minecraft-console.fifo'
-STATUS_HELPER = '/home/ubuntu/hl-170/deploy-release-170.py'
 FATAL = ('Failed to start', 'Crash report', 'Incompatible mods', 'Failed to load datapacks', 'Mixin apply failed',
          'InvalidMixinException', 'Critical injection failure', 'Encountered an unexpected exception')
 TIMERS = ('holylois-stats.timer', 'holylois-terrain-expansion.timer', 'holylois-offsite-backup.timer', 'holylois-botwall.timer')
@@ -77,11 +77,39 @@ def changes(plan):
     return out
 
 
+def varint(value):
+    out = bytearray()
+    while True:
+        b = value & 127; value >>= 7
+        out.append(b | (128 if value else 0))
+        if not value: return bytes(out)
+
+
+def online_players():
+    # "localhost" from 127.0.0.1: the real count, staff included (onboarding Hidden keeps staff out of public pings only).
+    with socket.create_connection(('127.0.0.1', 25565), timeout=5) as s:
+        host = b'localhost'
+        packet = b'\x00' + varint(0) + varint(len(host)) + host + struct.pack('>H', 25565) + b'\x01'
+        s.sendall(varint(len(packet)) + packet + b'\x01\x00')
+        data = b''; s.settimeout(5)
+        while True:
+            chunk = s.recv(65536)
+            if not chunk: break
+            data += chunk
+            start = data.find(b'{')
+            if start >= 0:
+                try: return json.loads(data[start:].decode('utf-8'))['players']['online']
+                except ValueError: continue
+    raise IOError('No status reply')
+
+
+def journal(since):
+    return subprocess.run(['journalctl', '-u', 'minecraft', '--since', since, '--no-pager', '-o', 'cat'],
+                          capture_output=True, text=True, errors='replace').stdout
+
+
 def helper():
-    spec = importlib.util.spec_from_file_location('hl_status', STATUS_HELPER)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
+    return SimpleNamespace(online_players=online_players, journal=journal)
 
 
 def console(*commands):
