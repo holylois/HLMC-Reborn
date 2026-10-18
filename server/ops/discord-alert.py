@@ -136,7 +136,8 @@ def restart_count():
 
 
 LAG_WINDOW, LAG_STALLS, LAG_QUIET, SPARK_QUIET, BOOT_GRACE = 600, 3, 3600, 6 * 3600, 300
-SPARK_LINK = re.compile(r"https://spark\.lucko\.me/[A-Za-z0-9]+")
+# Profile links only: spark also prints https://spark.lucko.me/docs/... help links, which once got posted instead.
+SPARK_LINK = re.compile(r"https://spark\.lucko\.me/(?!docs\b)[A-Za-z0-9]{6,}\b")
 
 
 def post_staff(title, description, color, fields=()):
@@ -174,9 +175,10 @@ def lag_watch(state, players):
     now = time.time()
     spark_at = state.get("spark_at")
     if spark_at and not state.get("spark_posted") and now - spark_at > 140:
-        link = SPARK_LINK.search(stalls(spark_at)[2])
+        links = SPARK_LINK.findall(stalls(spark_at)[2])
+        link = links[-1] if links else None
         if link or now - spark_at > 600:
-            post_staff("Holy Lois lag profile", f"Automatic spark profile from the lag alert: {link.group(0)}" if link
+            post_staff("Holy Lois lag profile", f"Automatic spark profile from the lag alert: {link}" if link
                        else "The automatic spark profile produced no link; run /spark profiler start --timeout 120 in game.", GOLD)
             state["spark_posted"] = True
     if not players or now - service_started() < BOOT_GRACE or now - state.get("lag_alert_at", 0) < LAG_QUIET:
