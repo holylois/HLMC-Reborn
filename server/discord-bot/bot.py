@@ -20,7 +20,13 @@ TOKEN = Path("/etc/holylois/discord-bot-token").read_text().strip()
 STATE = Path("/var/lib/holylois/discord-bot.json")
 FIFO = "/run/minecraft-console.fifo"
 ADDRESS, WEBSITE, MAP = "play.holylois.com", "https://holylois.com", "https://map.holylois.com"
-CATEGORY, STATUS_CHANNEL, CHAT_CHANNEL, RULES_CHANNEL, WELCOME_CHANNEL = "📌 INFO", "server-status", "minecraft-chat", "rules", "welcome"
+CATEGORY, STATUS_CHANNEL, CHAT_CHANNEL, RULES_CHANNEL, WELCOME_CHANNEL = "📌 START HERE", "server-status", "minecraft-chat", "rules", "welcome"
+ROLES_CHANNEL = "roles"
+# Reactions that hand out roles: ✅ under the rules unlocks the server (setup_revamp.py --gate), the rest are opt-in pings in #roles.
+VERIFY, PINGS = ("✅", "Member"), [("📢", "Updates", "new releases and big news"), ("🎉", "Events", "events on the server"),
+                                   ("🔄", "Restarts", "restarts and downtime")]
+# Locked voice channels in 📊 SERVER STATS renamed by the bot (Discord allows 2 renames per 10 minutes per channel).
+ONLINE_PREFIX, MEMBERS_PREFIX = "🟢 Online: ", "👥 Members: "
 RULES_FILE = Path("/opt/holylois-bot/RULES.md")
 GOLD, GREEN, RED = 0xF4C542, 0x34D27B, 0xC2362F
 
@@ -34,6 +40,11 @@ NAME = re.compile(r"^[A-Za-z0-9_]{3,16}$")
 # Names from the add-on's config/holylois-quiet.json: no joins, leaves, advancements, discoveries or deaths in Discord, and not in the player list.
 QUIET_FILE = Path("/opt/minecraft/config/holylois-quiet.json")
 _quiet = {"stamp": None, "names": {"pjampjam"}}
+
+
+def text(guild, base):
+    """A text channel by its base name, plain ("rules") or with an emoji prefix ("📜・rules")."""
+    return next((c for c in guild.text_channels if c.name == base or c.name.endswith("・" + base)), None)
 
 
 def quiet_names():
@@ -172,6 +183,7 @@ class HolyLoisBot(discord.Client):
         self.support_channel = await self.ensure_support(guild)
         await self.post_rules(guild)
         await self.post_welcome(guild)
+        await self.post_roles(guild)
         self.tree.copy_global_to(guild=guild)
         await self.tree.sync(guild=guild)
         print(f"Ready in {guild.name}: #{self.status_channel.name}, #{self.chat_channel.name}", flush=True)
@@ -180,23 +192,25 @@ class HolyLoisBot(discord.Client):
             self.loop.create_task(self.status_loop())
             self.loop.create_task(self.log_loop())
             self.loop.create_task(self.retention_loop())
+            self.loop.create_task(self.counter_loop(guild))
 
     async def on_guild_join(self, guild):
         await self.on_ready()
 
     async def ensure_channels(self, guild):
-        category = discord.utils.get(guild.categories, name=CATEGORY) or await guild.create_category(CATEGORY)
-        status = discord.utils.get(guild.text_channels, name=STATUS_CHANNEL)
+        status, chat = text(guild, STATUS_CHANNEL), text(guild, CHAT_CHANNEL)
+        if status and chat: return status, chat
+        category = discord.utils.get(guild.categories, name=CATEGORY) or discord.utils.get(guild.categories, name="📌 INFO") or await guild.create_category(CATEGORY)
         if status is None:
             overwrites = {guild.default_role: discord.PermissionOverwrite(send_messages=False), guild.me: discord.PermissionOverwrite(send_messages=True)}
             status = await guild.create_text_channel(STATUS_CHANNEL, category=category, overwrites=overwrites, topic=f"Live status of {ADDRESS}")
-        chat = discord.utils.get(guild.text_channels, name=CHAT_CHANNEL) or await guild.create_text_channel(
+        chat = chat or await guild.create_text_channel(
             CHAT_CHANNEL, category=category, topic="Talk with players in game. Messages here appear in Minecraft chat.")
         return status, chat
 
     async def ensure_support(self, guild):
         """Private #support in the STAFF category: in-game /support and /report land here."""
-        channel = discord.utils.get(guild.text_channels, name=SUPPORT_CHANNEL)
+        channel = text(guild, SUPPORT_CHANNEL)
         staff = discord.utils.get(guild.categories, name=STAFF_CATEGORY)
         if channel is None and staff is not None:
             channel = await guild.create_text_channel(SUPPORT_CHANNEL, category=staff, topic="Help requests and reports from in game (/support, /report)")
@@ -287,7 +301,7 @@ class HolyLoisBot(discord.Client):
             "#minecraft-chat - talk with players in game\n#help - launcher or game problems\n#suggestions - ideas for the server"))
         embed.add_field(name="Bot commands", inline=False, value="/status - /players - /ip - /map")
         embed.set_footer(text="Holy Lois: Reborn")
-        channel = discord.utils.get(guild.text_channels, name=WELCOME_CHANNEL)
+        channel = text(guild, WELCOME_CHANNEL)
         if channel is None:
             category = discord.utils.get(guild.categories, name=CATEGORY)
             overwrites = {guild.default_role: discord.PermissionOverwrite(send_messages=False), guild.me: discord.PermissionOverwrite(send_messages=True)}
@@ -322,8 +336,9 @@ class HolyLoisBot(discord.Client):
                 merged.append(line.strip())
         lines = merged
         embed = discord.Embed(title="Holy Lois: Reborn - Server rules", description="\n".join(lines).strip()[:4000], color=GOLD)
-        embed.set_footer(text=f"Short version in game: /rules  |  {WEBSITE}/rules")
-        channel = discord.utils.get(guild.text_channels, name=RULES_CHANNEL)
+        gated = discord.utils.get(guild.roles, name=VERIFY[1]) is not None
+        embed.set_footer(text=(f"React {VERIFY[0]} below to agree and unlock the server  |  " if gated else "") + f"Short version in game: /rules  |  {WEBSITE}/rules")
+        channel = text(guild, RULES_CHANNEL)
         if channel is None:
             category = discord.utils.get(guild.categories, name=CATEGORY)
             overwrites = {guild.default_role: discord.PermissionOverwrite(send_messages=False), guild.me: discord.PermissionOverwrite(send_messages=True)}
@@ -336,6 +351,63 @@ class HolyLoisBot(discord.Client):
         else:
             message = await channel.send(embed=embed)
             self.state["rules_message"] = message.id; save_state(self.state)
+        if gated and not any(str(r.emoji) == VERIFY[0] for r in message.reactions): await message.add_reaction(VERIFY[0])
+
+    async def post_roles(self, guild):
+        """#roles: react to get pinged for updates, events or restarts (exists once setup_revamp.py has run)."""
+        channel = text(guild, ROLES_CHANNEL)
+        if channel is None: return
+        embed = discord.Embed(title="Pick your pings", color=GOLD, description="React below to get a ping, react again to stop.\n\n"
+                              + "\n".join(f"{emoji} **{role}** - {what}" for emoji, role, what in PINGS))
+        embed.set_footer(text="Holy Lois: Reborn")
+        message = None
+        if self.state.get("roles_message"):
+            try: message = await channel.fetch_message(self.state["roles_message"])
+            except discord.NotFound: message = None
+        if message: await message.edit(embed=embed)
+        else:
+            message = await channel.send(embed=embed)
+            self.state["roles_message"] = message.id; save_state(self.state)
+        for emoji, _, _ in PINGS:
+            if not any(str(r.emoji) == emoji for r in message.reactions): await message.add_reaction(emoji)
+
+    def reaction_role(self, payload):
+        """The role a reaction on the rules or #roles message stands for, or None."""
+        guild = self.get_guild(payload.guild_id) if payload.guild_id else None
+        if guild is None or payload.user_id == self.user.id: return None, None
+        emoji = str(payload.emoji)
+        if payload.message_id == self.state.get("rules_message") and emoji == VERIFY[0]: name = VERIFY[1]
+        elif payload.message_id == self.state.get("roles_message"): name = next((r for e, r, _ in PINGS if e == emoji), None)
+        else: name = None
+        return guild, discord.utils.get(guild.roles, name=name) if name else None
+
+    async def on_raw_reaction_add(self, payload):
+        guild, role = self.reaction_role(payload)
+        if role is None: return
+        member = payload.member or await guild.fetch_member(payload.user_id)
+        try: await member.add_roles(role, reason="Reaction role")
+        except discord.HTTPException as error: print("Reaction role failed:", error)
+
+    async def on_raw_reaction_remove(self, payload):
+        guild, role = self.reaction_role(payload)
+        if role is None: return
+        try: await (await guild.fetch_member(payload.user_id)).remove_roles(role, reason="Reaction role removed")
+        except discord.HTTPException as error: print("Reaction role removal failed:", error)
+
+    async def counter_loop(self, guild):
+        """Keeps the 🟢 Online and 👥 Members counter channels current (every 10 minutes, only when a number changed)."""
+        while not self.is_closed():
+            try:
+                result = visible(await asyncio.to_thread(ping))
+                counts = await self.fetch_guild(guild.id, with_counts=True)
+                wanted = {ONLINE_PREFIX: ONLINE_PREFIX + (str(result[0]) if result else "offline"),
+                          MEMBERS_PREFIX: MEMBERS_PREFIX + str(counts.approximate_member_count or guild.member_count)}
+                for channel in guild.voice_channels:
+                    for prefix, name in wanted.items():
+                        if channel.name.startswith(prefix) and channel.name != name: await channel.edit(name=name, reason="Counter")
+            except Exception as error:
+                print("Counter update failed:", error)
+            await asyncio.sleep(600)
 
     def status_embed(self):
         result = visible(ping())

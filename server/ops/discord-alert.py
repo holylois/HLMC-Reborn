@@ -34,18 +34,27 @@ def bot_api(path, body=None):
 
 
 def status_channel():
-    """The id of #server-status in the bot's guild."""
+    """The id of #server-status in the bot's guild (plain or with an emoji prefix like "🟢・server-status")."""
     guild = bot_api("/users/@me/guilds")[0]
-    return next(c["id"] for c in bot_api(f"/guilds/{guild['id']}/channels") if c["name"] == STATUS_CHANNEL)
+    return next(c["id"] for c in bot_api(f"/guilds/{guild['id']}/channels") if c["name"] == STATUS_CHANNEL or c["name"].endswith("・" + STATUS_CHANNEL))
 
 
-def post(title, description, color, fields=()):
+def restarts_role():
+    """The opt-in "Restarts" ping role from #roles, or None."""
+    guild = bot_api("/users/@me/guilds")[0]
+    return next((r["id"] for r in bot_api(f"/guilds/{guild['id']}/roles") if r["name"] == "Restarts"), None)
+
+
+def post(title, description, color, fields=(), ping=False):
     embed = {"title": title, "description": description[:3900], "color": color,
              "fields": [{"name": n, "value": v[:1000] or "-", "inline": False} for n, v in fields],
              "footer": {"text": "Holy Lois: Reborn server monitor"}}
     if BOT_TOKEN.exists():
         try:
-            bot_api(f"/channels/{status_channel()}/messages", {"embeds": [embed], "allowed_mentions": {"parse": []}})
+            role = restarts_role() if ping else None
+            body = {"embeds": [embed], "allowed_mentions": {"parse": [], "roles": [role] if role else []}}
+            if role: body["content"] = f"<@&{role}>"
+            bot_api(f"/channels/{status_channel()}/messages", body)
             return
         except Exception as error:
             print("Bot post failed (" + type(error).__name__ + "); using the webhook.")
@@ -218,7 +227,7 @@ def report_down(state, reason):
     status, crash, health, tail = diagnostics()
     post("Holy Lois server is DOWN", f"{reason}\nSince {time.strftime('%d.%m %H:%M UTC', time.gmtime(state['down_since']))}.", RED,
          [("Service", status), ("Crash report", crash or "No recent crash report."), ("Recent errors", f"```{tail[-900:]}```"),
-          ("Health", health), ("What to do", advice(crash, health))])
+          ("Health", health), ("What to do", advice(crash, health))], ping=True)
 
 
 def main():
@@ -236,7 +245,7 @@ def main():
             try: reason = MAINTENANCE.read_text(encoding="utf-8").strip()
             except OSError: reason = ""
             reason = reason or "Planned maintenance"
-            post("Holy Lois server is restarting for an update", f"{reason}. Back in a few minutes.", GOLD)
+            post("Holy Lois server is restarting for an update", f"{reason}. Back in a few minutes.", GOLD, ping=True)
             state.update(maintenance=reason, maintenance_since=time.time()); save(state)
         print("Planned maintenance; alerts paused.")
         return
