@@ -273,7 +273,7 @@ Per-mob firsts use `mob:NAMESPACE:TYPE` keys. Repeated kills can raise their hig
 - **Leaderboards** come from the vanilla stats files, refreshed every two minutes off the main thread.
 - **Discoveries** are stored in `world/holylois/discoveries.json`. Never edit the file while the service is running; back it up before any reviewed correction.
 - **Weekly recap**: `holylois-weekly-recap.timer` posts on Sundays at 19:00 Riga time. A week with no play posts nothing.
-- **Restart call**: every restart, planned or not, is announced once in Discord with "Maaarek nahhul!".
+- **Restart notes**: every restart, planned or not, is announced once in Discord #server-status.
 - **Daily gifts and events**: `world/holylois/daily.json` (streaks) and `world/holylois/events.json` (holiday gifts, day counter). Time and weather pause while the server is empty, so the day counter follows real play. `/dailytest <1-7>` (operators) previews the reward card for that streak day; it gives nothing and changes no streak.
 - **Economy**: EconomyCraft with the admin shop and sidebar scoreboard off (`config/economycraft/config.json`). Item prices are in `prices.json`.
 - **Boombox stations**: `config/holylois-boombox.json`, then `/boombox reload`. Plain MP3 streams only; at most 6 play at once (held and placed together), and at most 6 placed speakers per chunk by default (`maxPlayingPerChunk`, 1-6; a config saved before 1.9.0 may still say 2). Controls follow effective OPAC access. Placed boomboxes that are switched on are listed in `world/holylois/boomboxes.json`.

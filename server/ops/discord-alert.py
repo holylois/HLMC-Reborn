@@ -4,7 +4,7 @@
   discord-alert.py failure   OnFailure= hook of minecraft.service: immediate crash report
   discord-alert.py test      sends a test message
   discord-alert.py message TEXT
-Every restart, planned or not, is announced once with the group's restart call: "Maaarek nahhul!".
+Every restart, planned or not, is announced once.
 
 Players read #server-status, so alerts go there through the bot (token /etc/holylois/discord-bot-token, root 600). The old
 webhook in /etc/holylois/discord-webhook points at a staff channel and is used only when the bot cannot post.
@@ -24,7 +24,6 @@ STATE = Path("/var/lib/holylois/discord-alert.json")
 MAINTENANCE = Path("/run/holylois-maintenance")
 ROOT = Path("/opt/minecraft")
 GOLD, RED, GREEN = 0xF4C542, 0xC2362F, 0x34D27B
-MEME = "**Maaarek nahhul!**"
 
 
 def bot_api(path, body=None):
@@ -252,18 +251,18 @@ def main():
         restarted = state.get("invocation") not in (None, run)
         if state.get("maintenance"):
             minutes = int((time.time() - state.get("maintenance_since", time.time())) / 60)
-            post("Holy Lois server is back online", MEME + f"\nUpdate done: {state['maintenance']}. Down for about {minutes} minute(s). {players} player(s) online.", GREEN)
+            post("Holy Lois server is back online", f"Update done: {state['maintenance']}. Down for about {minutes} minute(s). {players} player(s) online.", GREEN)
         elif not state["up"] and state.get("alerted"):
             minutes = int((time.time() - (state["down_since"] or time.time())) / 60)
-            post("Holy Lois server is back online", f"{MEME}\nDown for about {minutes} minute(s). {players} player(s) online.", GREEN)
+            post("Holy Lois server is back online", f"Down for about {minutes} minute(s). {players} player(s) online.", GREEN)
         elif restarts > state.get("restarts", restarts):
             # A crash that restarted between two checks: report it once, with its crash report.
             status, crash, health, tail = diagnostics()
-            post("Holy Lois server crashed and restarted itself", f"{MEME}\nIt is back up with {players} player(s) online.", GOLD,
+            post("Holy Lois server crashed and restarted itself", f"It is back up with {players} player(s) online.", GOLD,
                  [("Crash report", crash or "No recent crash report."), ("Recent errors", f"```{tail[-900:]}```"), ("Health", health)])
         elif restarted:
             # Planned restarts (updates, the owner's restart button) get a short friendly note.
-            post("Holy Lois server restarted", f"{MEME}\nBack up with {players} player(s) online.", GREEN)
+            post("Holy Lois server restarted", f"Back up with {players} player(s) online.", GREEN)
         fresh = {"up": True, "failures": 0, "down_since": None, "restarts": restarts, "invocation": run,
                  **{k: state[k] for k in ("lag_alert_at", "spark_at", "spark_posted") if k in state}}
         try:
