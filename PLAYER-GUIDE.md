@@ -229,6 +229,12 @@ Fish history shows every tier up to your highest catch. If your first catch is E
 
 Swimming fish and the fish shown in circling shoals keep their assigned rarity and appearance when reeled in. Bigger fish swim in wider circles, and casts near the visible circle's edge can reach them. Natural shoals include vanilla fish suited to the water: Cod, Salmon, Tropical Fish or Pufferfish. The caught item flies from the hook toward you before pickup. Common and Uncommon meals stack and show no weight. Uncommon fish have a green outline and short species effects, without a held bonus. Rare and above retain individual trophy weights and stay separate.
 
+A bite catches the fish you see: when a wild fish swims within about two and a half blocks of your bobber as it bites, you land that exact fish, with its size and rarity, instead of a random catch. Fish released from a bucket and name-tagged fish never count, and a shoal at the bobber keeps its own catch.
+
+Every item uses the same rarity colours as fish: Uncommon green, Rare blue, Epic purple, Legendary gold with a shine and Mythic red. Enchanting lifts an item one tier, and Runeforged magic, rare and legendary gear shows as Uncommon, Rare and Legendary. Names, chat links, item outlines and tooltip frames all use these colours. Epic and better items sparkle on the ground, and pickup cards chime brighter for higher tiers.
+
+`/played` shows your total, active and AFK time, time spent fishing and listening to boomboxes, how far you walked and sailed, mobs defeated and deaths. Fishing and boombox time count from pack 2.2.0 on and never while you are AFK.
+
 Vanilla trophies now also have useful main-hand bonuses: Cod gives armor, Salmon movement speed, and Tropical Fish swimming efficiency; Pufferfish keeps armor. Eat Cod to get Haste for mining. Cod armor starts at 2 Rare, 4 Epic, 6 Legendary and 10 Mythic, with a bounded extra bonus for weight (up to 14 for a heavy non-Shiny Mythic). Shiny increases it by half. Cooking a whole trophy keeps the stronger eaten effects, but halves its held bonus. Common/Uncommon and fillets have no held bonus. Placed boombox music notes are half as large; handheld notes are 1.5 times their previously reduced size.
 
 My journal now saves your strongest confirmed defeat of each creature: level, maximum health, gear appearances, affixes,
