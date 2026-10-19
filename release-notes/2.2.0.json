@@ -4,7 +4,7 @@
   "locales": {
     "en": {
       "summary": "Catch the fish you see, one set of rarity colours for every item and a new /played command.",
-      "teaser": "Catch the fish you see",
+      "teaser": "Catch the fish you see and much more!",
       "added": [
         "A bite catches the fish swimming right at your bobber: you land that exact fish, with its size and rarity.",
         "/played shows your total, active and AFK time, plus time spent fishing and listening to boomboxes.",
@@ -31,7 +31,7 @@
     },
     "ru": {
       "summary": "Лови рыбу, которую видишь, единые цвета редкости для всех предметов и новая команда /played.",
-      "teaser": "Лови рыбу, которую видишь",
+      "teaser": "Лови рыбу, которую видишь, и многое другое!",
       "added": [
         "Поклёвка ловит рыбу, которая плывёт прямо у поплавка: ты вытаскиваешь именно её, с её размером и редкостью.",
         "/played показывает всё твоё время, активное и AFK, а ещё время на рыбалке и у бумбоксов.",
@@ -58,7 +58,7 @@
     },
     "lv": {
       "summary": "Noķer zivi, ko redzi, vienādas retuma krāsas visiem priekšmetiem un jauna komanda /played.",
-      "teaser": "Noķer zivi, ko redzi",
+      "teaser": "Noķer zivi, ko redzi, un daudz kas cits!",
       "added": [
         "Kodiens noķer zivi, kas peld tieši pie pludiņa: tu izvelc tieši to zivi, ar tās izmēru un retumu.",
         "/played rāda tavu kopējo, aktīvo un AFK laiku, kā arī laiku makšķerējot un klausoties bumboksus.",
