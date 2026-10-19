@@ -14,7 +14,7 @@ A deliberate stop (systemctl stop, no crash) is announced as a shutdown by an ad
 Lag watch: 3+ "Can't keep up" spikes in 10 minutes with players online sends one admin note per hour (staff webhook) and
 starts a 2-minute spark profile at most every 6 hours; the profile link follows on a later check.
 """
-import glob, json, os, re, shutil, socket, struct, subprocess, sys, time, urllib.request
+import glob, json, os, re, shutil, socket, struct, subprocess, sys, time, urllib.error, urllib.request
 from pathlib import Path
 
 WEBHOOK = Path("/etc/holylois/discord-webhook")
@@ -27,10 +27,18 @@ GOLD, RED, GREEN = 0xF4C542, 0xC2362F, 0x34D27B
 
 
 def bot_api(path, body=None):
-    request = urllib.request.Request("https://discord.com/api/v10" + path, data=None if body is None else json.dumps(body).encode(),
-        headers={"Authorization": "Bot " + BOT_TOKEN.read_text().strip(), "User-Agent": "HolyLoisMonitor/1.1", "Content-Type": "application/json"},
-        method="GET" if body is None else "POST")
-    return json.load(urllib.request.urlopen(request, timeout=15))
+    # Discord rate limits per route (429 with retry_after, usually under a second): wait and retry instead of
+    # falling back to the staff webhook (the terrain-fix notice of 2026-10-19 landed there this way).
+    for _ in range(5):
+        request = urllib.request.Request("https://discord.com/api/v10" + path, data=None if body is None else json.dumps(body).encode(),
+            headers={"Authorization": "Bot " + BOT_TOKEN.read_text().strip(), "User-Agent": "HolyLoisMonitor/1.1", "Content-Type": "application/json"},
+            method="GET" if body is None else "POST")
+        try:
+            return json.load(urllib.request.urlopen(request, timeout=15))
+        except urllib.error.HTTPError as error:
+            if error.code != 429: raise
+            time.sleep(min(10.0, float(json.loads(error.read() or b"{}").get("retry_after", 1))) + 0.25)
+    raise IOError("Discord kept rate limiting")
 
 
 def status_channel():
