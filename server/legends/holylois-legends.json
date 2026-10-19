@@ -131,7 +131,7 @@
       "items": [
         {
           "id": "first_rune_hammer",
-          "item": "minecraft:iron_axe",
+          "item": "minecraft:mace",
           "name": "First Rune Hammer",
           "lore": [
             "Every rune you will ever find was struck here first."
@@ -139,7 +139,7 @@
           "where": "chests",
           "weight": 2,
           "enchantments": {
-            "minecraft:efficiency": 3
+            "minecraft:density": 2
           }
         },
         {
