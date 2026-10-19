@@ -20,7 +20,7 @@
       "changed": [
         "Journal models keep a stable idle pose, spiders fit their leg span, and Witches no longer use their recorded potion. Fish entries preview the heaviest catch in a swimming pose; new catches save Fish of Thieves variants without inventing old appearances.",
         "Fish and fillets have a thin rarity outline around their inventory picture. Legendary stays gold with a white shine; Mythic keeps its moving colour gradient.",
-        "Fish tooltips omit colour swatches and variant labels. Fish of Thieves fish shrink bite by bite while eaten, and large meals start their eating feedback promptly.",
+        "Fish tooltips are cleaner, without colour squares or variant names. Fish of Thieves fish shrink bite by bite while eaten, and large meals start their eating feedback promptly.",
         "Fish tooltips separate eaten effects from held bonuses, with catcher/date last. Matching Uncommon pickups merge into older stacks. Treasure maps have a readable name and numbered inscription. New world-first kills preserve their first defeated level.",
         "Vanilla trophy fish also have useful held bonuses: Cod armor scales with rarity and weight, starting at 10 for Mythic; Salmon movement speed and Tropical Fish swimming. Cooked whole fish retain stronger eaten effects but have half the raw held bonus. Placed boombox notes are half as large; handheld notes are 1.5 times their previously reduced size.",
         "Wooden, Iron and Golden Crates share the fish rarity palette as Uncommon, Rare and Legendary. Their cards show the name once; loot contents are unchanged.",
@@ -34,15 +34,15 @@
         "Use /cinematic on or off and /cinematic fishing on or off to control the idle and fishing cameras.",
         "Shader names are shorter and sorted from light to heavy. Required animation packs stay enabled while your own resource packs remain available.",
         "The website has a cleaner background, and daily-coins help now explains that coins arrive when you join.",
-        "Updated stable libraries, including Puzzles Lib and Polymer. Your existing keybinds and settings stay yours."
+        "Background mod libraries were updated. Your keybinds and settings stay yours."
       ],
       "fixed": [
         "Placing a one-item fish back into its slot no longer leaves it stuck on your cursor after a quick double-click.",
         "Login and registration forms hide the game HUD until the transition finishes.",
         "The Journal no longer gets stuck after a resize or quick filter change. If the server does not respond, Retry lets you try again.",
-        "Delayed Journal replies no longer reopen a closed menu or replace newer results.",
+        "The Journal no longer pops back open or shows old results when the server answers late.",
         "Fish and item cards remain visible over the cinematic camera; /cinematiccards on|off is your choice. Journal notices wait until visible, then show quiet outlined text near chat. Use /journalalerts motion off to stop their pop and Journal text shine.",
-        "Uploaded song links must contain real MP3 or WAV audio. BlueMap's updated renderer fixes lost low-resolution tile writes."
+        "Uploaded song links must contain real MP3 or WAV audio. The live map no longer misses parts of its zoomed-out view."
       ]
     },
     "ru": {
@@ -63,7 +63,7 @@
       "changed": [
         "Модели журнала сохраняют спокойную позу, лапы пауков помещаются в рамку, а ведьмы больше не используют сохранённое зелье. Рыбы показывают самый тяжёлый улов в позе плавания; новые уловы сохраняют варианты Fish of Thieves без выдумывания старого внешнего вида.",
         "У рыб и филе тонкая рамка редкости вокруг картинки в инвентаре. Легендарные остаются золотыми с белым блеском, а мифические сохраняют движущийся цветовой градиент.",
-        "Подсказки рыб не показывают цветные квадраты и название варианта. Рыба Fish of Thieves уменьшается с каждым укусом, а звуки и частицы большой еды начинаются сразу.",
+        "Подсказки рыб стали чище: без цветных квадратов и названий вариантов. Рыба Fish of Thieves уменьшается с каждым укусом, а звуки и частицы большой еды начинаются сразу.",
         "Подсказки рыб отделяют эффекты еды от бонусов в руке; имя рыболова и дата идут последними. Одинаковые необычные уловы складываются со старыми. Карты сокровищ получили понятное название и надпись с номером. Новые первые победы сохраняют уровень первого побеждённого существа.",
         "Трофейные рыбы Minecraft тоже дают полезные бонусы в руке: броня трески зависит от редкости и веса, начиная с 10 у мифической; лосось даёт скорость, тропическая рыба - плавание. Приготовленная целая рыба сохраняет усиленные эффекты еды, но бонус в руке вдвое слабее сырого. Ноты установленного бумбокса вдвое меньше; ноты в руке в 1,5 раза больше предыдущего уменьшенного размера.",
         "Деревянные, железные и золотые ящики используют палитру рыб: необычный, редкий и легендарный. Карточки показывают название один раз; содержимое не изменилось.",
@@ -77,15 +77,15 @@
         "Команды /cinematic on|off и /cinematic fishing on|off управляют кинокамерой в покое и при рыбалке.",
         "Названия шейдеров короче, список идёт от лёгких к тяжёлым. Обязательные пакеты анимаций остаются включёнными, а свои ресурс-паки можно добавлять.",
         "Фон сайта стал чище, а помощь по ежедневным монетам объясняет, что они приходят при входе.",
-        "Обновлены стабильные библиотеки, включая Puzzles Lib и Polymer. Ваши клавиши и настройки сохраняются."
+        "Обновлены фоновые библиотеки модов. Твои клавиши и настройки сохраняются."
       ],
       "fixed": [
         "Быстрый двойной клик больше не оставляет одиночную рыбу на курсоре при возврате в слот.",
         "Формы входа и регистрации скрывают игровой интерфейс до завершения перехода.",
         "Журнал больше не зависает после изменения размера окна или быстрой смены фильтра. Если сервер не ответил, кнопка «Повторить» отправит запрос снова.",
-        "Запоздавшие ответы журнала больше не открывают закрытое меню и не заменяют новые результаты.",
+        "Журнал больше не открывается сам и не показывает старые результаты, если сервер ответил с задержкой.",
         "Карточки рыб и предметов видны поверх кинокамеры; настройка: /cinematiccards on|off. Уведомления журнала ждут видимого кадра и появляются тихим текстом у чата. /journalalerts motion off отключает увеличение уведомления и перелив текста журнала.",
-        "Ссылки на песни должны содержать настоящий звук MP3 или WAV. Обновлённый BlueMap исправляет потерю записей плиток низкого разрешения."
+        "Ссылки на песни должны содержать настоящий звук MP3 или WAV. Живая карта больше не теряет участки при отдалении."
       ]
     },
     "lv": {
@@ -106,7 +106,7 @@
       "changed": [
         "Žurnāla modeļi saglabā mierīgu pozu, zirnekļu kājas ietilpst rāmī, un raganas vairs neizmanto saglabāto dziru. Zivju ieraksti rāda smagāko lomu peldēšanas pozā; jauni lomi saglabā Fish of Thieves variantus, neizdomājot veco izskatu.",
         "Zivīm un filejām ir plāna retuma kontūra ap attēlu inventārā. Leģendārie paliek zeltaini ar baltu spīdumu, bet mītiskie saglabā kustīgo krāsu gradientu.",
-        "Zivju apraksti nerāda krāsu kvadrātus un varianta nosaukumu. Fish of Thieves zivis ēdot sarūk ar katru kumosu, un lielām maltītēm skaņas un daļiņas sākas uzreiz.",
+        "Zivju apraksti ir tīrāki: bez krāsu kvadrātiem un variantu nosaukumiem. Fish of Thieves zivis ēdot sarūk ar katru kumosu, un lielām maltītēm skaņas un daļiņas sākas uzreiz.",
         "Zivju aprakstos ēšanas efekti ir atdalīti no rokā turēšanas bonusiem; makšķernieks un datums ir beigās. Vienādi neparastie lomi apvienojas ar vecākiem krājumiem. Dārgumu kartēm ir saprotams nosaukums un numura uzraksts. Jaunas pirmās uzvaras saglabā pirmā uzveiktā radījuma līmeni.",
         "Minecraft trofeju zivīm arī ir noderīgi bonusi rokā: mencas bruņas atkarīgas no retuma un svara, mītiskajai sākot no 10; lasim kustības ātrums, tropiskajai zivij peldēšana. Ceptām veselām zivīm paliek spēcīgākie ēšanas efekti, bet bonuss rokā ir puse no jēlās zivs. Novietota bumboksa notis ir uz pusi mazākas; rokā turētā notis ir 1,5 reizes lielākas par iepriekš samazināto izmēru.",
         "Koka, dzelzs un zelta kastes izmanto zivju retuma paleti: neparasta, reta un leģendāra. Kartītes rāda nosaukumu vienreiz; saturs nav mainīts.",
@@ -120,15 +120,15 @@
         "Komandas /cinematic on|off un /cinematic fishing on|off vada kameru dīkstāvē un makšķerējot.",
         "Īsāki šeideru nosaukumi, saraksts no viegliem līdz smagiem. Obligātās animāciju pakotnes paliek ieslēgtas; savas resursu pakotnes var pievienot.",
         "Vietnes fons ir tīrāks, un ikdienas monētu palīdzība skaidro, ka tās pienāk, pievienojoties spēlei.",
-        "Atjauninātas stabilās bibliotēkas, tostarp Puzzles Lib un Polymer. Tavi taustiņi un iestatījumi saglabājas."
+        "Atjauninātas fona modu bibliotēkas. Tavi taustiņi un iestatījumi saglabājas."
       ],
       "fixed": [
         "Ātrs dubultklikšķis vairs neatstāj vienu zivi uz kursora, ieliekot to atpakaļ vietā.",
         "Pieteikšanās un reģistrācijas logi slēpj spēles saskarni līdz pārejas beigām.",
         "Žurnāls vairs neiestrēgst pēc loga izmēra maiņas vai ātras filtra maiņas. Ja serveris neatbild, poga «Mēģināt vēlreiz» nosūta jaunu pieprasījumu.",
-        "Novēlotas žurnāla atbildes vairs neatver aizvērtu izvēlni un neaizstāj jaunākos rezultātus.",
+        "Žurnāls vairs neatveras pats un nerāda vecus rezultātus, ja serveris atbild ar nokavēšanos.",
         "Zivju un priekšmetu kartītes paliek redzamas virs kino kameras; iestatījums: /cinematiccards on|off. Žurnāla paziņojumi gaida redzamu kadru un parādās kā kluss teksts pie čata. /journalalerts motion off izslēdz paziņojuma palielinājumu un žurnāla teksta mirdzēšanu.",
-        "Dziesmu saitēm jāsatur īsts MP3 vai WAV audio. Atjauninātais BlueMap novērš zemas izšķirtspējas karšu daļu ierakstīšanas zudumus."
+        "Dziesmu saitēm jāsatur īsts MP3 vai WAV audio. Dzīvā karte tālinātā skatā vairs nezaudē daļas."
       ]
     }
   }

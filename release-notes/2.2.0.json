@@ -1,0 +1,81 @@
+{
+  "version": "2.2.0",
+  "date": "2026-10-19",
+  "locales": {
+    "en": {
+      "summary": "Catch the fish you see, one set of rarity colours for every item and a new /played command.",
+      "teaser": "Catch the fish you see",
+      "added": [
+        "A bite catches the fish swimming right at your bobber: you land that exact fish, with its size and rarity.",
+        "/played shows your total, active and AFK time, plus time spent fishing and listening to boomboxes.",
+        "Gear on dungeon shelves sometimes comes out as a Runeforged piece.",
+        "Relics look like themselves: their own icons, the Staff of Quiet Roads as a real staff in hand, and the Bell-Keeper's Hook gives +1 luck for rarer fish.",
+        "Every trophy fish now helps while held in either hand: Pondie adds health, Plentifin luck for better catches, Devilfish shortens burning, Stormfish softens falls, and a Pufferfish hurts whoever hits you."
+      ],
+      "changed": [
+        "Every item uses the same rarity colours as fish: Uncommon green, Rare blue, Epic purple, Legendary gold with a shine, Mythic red. Enchanted gear moves up one tier, and Runeforged gear, stones and gems use the same tiers. Alien-Cursed gear and Cursed elites are Mythic, other Cursed gear has its own violet tier, and elite name tags use the same colours. Charged gem weapons are Rare, and a Sealed stone is as rare as the affix sealed in it.",
+        "Legendary, Mythic and Cursed tooltips get gold, red and violet frames, other tooltips keep the plain look, and item names sit centred without the item picture. Epic and better items sparkle on the ground, and pickup cards chime brighter for higher tiers.",
+        "Trophy fish only glint when Mythic or Shiny, and heavy fish look clearly bigger the more they weigh.",
+        "The Journal shows mobs with their Fresh Animations look and idle motion on a bigger preview, without a jittering spider body or flopping fish.",
+        "The Holy Lootbox has a new gold block look.",
+        "3D Skin Layers 1.11.4 fixes skin textures piling up in memory.",
+        "Fresh Animations 1.11 gives polar bears and pandas full animations, and baby mobs get their own look.",
+        "Crickets chirp near rivers again, and grass sounds better match the ground you walk on.",
+        "Distant Horizons now draws 64 chunks far instead of 128, so laptops run smoother. If you changed that distance yourself, your setting stays."
+      ],
+      "fixed": [
+        "Mining no longer shows a \"Run /amber doctor\" hint that players cannot use."
+      ]
+    },
+    "ru": {
+      "summary": "Лови рыбу, которую видишь, единые цвета редкости для всех предметов и новая команда /played.",
+      "teaser": "Лови рыбу, которую видишь",
+      "added": [
+        "Поклёвка ловит рыбу, которая плывёт прямо у поплавка: ты вытаскиваешь именно её, с её размером и редкостью.",
+        "/played показывает всё твоё время, активное и AFK, а ещё время на рыбалке и у бумбоксов.",
+        "Снаряжение на полках в подземельях иногда оказывается предметом Runeforged.",
+        "У реликвий свой вид: собственные иконки, Staff of Quiet Roads в руке как настоящий посох, а Bell-Keeper's Hook даёт +1 к удаче для более редкой рыбы.",
+        "Каждая трофейная рыба теперь помогает в любой руке: Pondie добавляет здоровье, Plentifin удачу для лучшего улова, Devilfish сокращает горение, Stormfish смягчает падения, а иглобрюх ранит того, кто тебя бьёт."
+      ],
+      "changed": [
+        "Все предметы используют те же цвета редкости, что и рыба: необычный зелёный, редкий синий, эпический фиолетовый, легендарный золотой с блеском, мифический красный. Зачарованное снаряжение поднимается на одну ступень, а снаряжение, камни и самоцветы Runeforged используют те же ступени. Alien-Cursed снаряжение и проклятые элитные мобы мифические, остальное проклятое снаряжение имеет свою фиолетовую ступень, а таблички элитных мобов используют те же цвета. Заряженное оружие с самоцветами редкое, а запечатанный камень так же редок, как запечатанное в нём свойство.",
+        "Легендарные, мифические и проклятые подсказки получают золотые, красные и фиолетовые рамки, остальные остаются простыми, а название предмета стоит по центру без картинки. Эпические и более редкие предметы искрятся на земле, а карточки подбора звенят ярче для высоких ступеней.",
+        "Трофейная рыба блестит, только если она мифическая или Shiny, а тяжёлая рыба выглядит заметно больше, чем больше она весит.",
+        "Журнал показывает мобов в стиле Fresh Animations с анимацией покоя на большем превью, без дёргающегося тела паука и прыгающей рыбы.",
+        "У Holy Lootbox новый вид золотого блока.",
+        "3D Skin Layers 1.11.4 больше не копит текстуры скинов в памяти.",
+        "Fresh Animations 1.11 даёт белым медведям и пандам полные анимации, а у детёнышей мобов появился свой вид.",
+        "Сверчки снова стрекочут у рек, а звуки травы лучше подходят к земле под ногами.",
+        "Distant Horizons теперь рисует на 64 чанка вместо 128, чтобы ноутбукам было легче. Если ты менял эту дальность сам, твоя настройка остаётся."
+      ],
+      "fixed": [
+        "Добыча больше не показывает подсказку \"Run /amber doctor\", которой игроки не могут воспользоваться."
+      ]
+    },
+    "lv": {
+      "summary": "Noķer zivi, ko redzi, vienādas retuma krāsas visiem priekšmetiem un jauna komanda /played.",
+      "teaser": "Noķer zivi, ko redzi",
+      "added": [
+        "Kodiens noķer zivi, kas peld tieši pie pludiņa: tu izvelc tieši to zivi, ar tās izmēru un retumu.",
+        "/played rāda tavu kopējo, aktīvo un AFK laiku, kā arī laiku makšķerējot un klausoties bumboksus.",
+        "Ekipējums uz pazemju plauktiem dažreiz izrādās Runeforged priekšmets.",
+        "Relikvijām ir savs izskats: savas ikonas, Staff of Quiet Roads rokā kā īsts spieķis, un Bell-Keeper's Hook dod +1 veiksmi retākām zivīm.",
+        "Katra trofejas zivs tagad palīdz jebkurā rokā: Pondie dod veselību, Plentifin veiksmi labākam lomam, Devilfish saīsina degšanu, Stormfish mīkstina kritienus, bet pūšļzivs ievaino to, kas tevi sit."
+      ],
+      "changed": [
+        "Visiem priekšmetiem ir tās pašas retuma krāsas kā zivīm: neparasts zaļš, rets zils, episks violets, leģendārs zelts ar spīdumu, mītisks sarkans. Apburtais ekipējums paceļas par vienu pakāpi, un Runeforged ekipējums, akmeņi un dārgakmeņi izmanto tās pašas pakāpes. Alien-Cursed ekipējums un nolādētie elites radījumi ir mītiski, pārējam nolādētajam ekipējumam ir sava violeta pakāpe, un elites radījumu vārdi izmanto tās pašas krāsas. Uzlādēti dārgakmeņu ieroči ir reti, un aizzīmogots akmens ir tikpat rets kā tajā aizzīmogotā īpašība.",
+        "Leģendāriem, mītiskiem un nolādētiem padomiem ir zelta, sarkani un violeti rāmji, pārējie paliek vienkārši, un priekšmeta nosaukums ir centrā bez attēla. Episki un vēl retāki priekšmeti dzirkstī uz zemes, un pacelšanas kartītes skan gaišāk augstākām pakāpēm.",
+        "Trofejas zivis mirdz tikai tad, ja tās ir mītiskas vai Shiny, un smagas zivis izskatās manāmi lielākas, jo vairāk tās sver.",
+        "Žurnāls rāda radības Fresh Animations izskatā ar miera kustībām lielākā priekšskatījumā, bez raustīga zirnekļa ķermeņa un lēkājošām zivīm.",
+        "Holy Lootbox ir jauns zelta bloka izskats.",
+        "3D Skin Layers 1.11.4 vairs nekrāj skinu tekstūras atmiņā.",
+        "Fresh Animations 1.11 dod polārlāčiem un pandām pilnas animācijas, un radību mazuļiem ir savs izskats.",
+        "Sienāži atkal sisina pie upēm, un zāles skaņas labāk atbilst zemei, pa kuru ej.",
+        "Distant Horizons tagad zīmē 64 gabalus tālu, nevis 128, lai klēpjdatori strādātu vienmērīgāk. Ja tu pats mainīji šo attālumu, tavs iestatījums paliek."
+      ],
+      "fixed": [
+        "Rakšana vairs nerāda padomu \"Run /amber doctor\", ko spēlētāji nevar izmantot."
+      ]
+    }
+  }
+}

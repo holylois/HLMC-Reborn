@@ -2,13 +2,13 @@
 
 An adventure-focused modded Minecraft survival server for friends: claim land on the map, explore dungeons, earn achievements and Runeforged runes, trade in the auction house and play radio with a boombox. A Windows launcher installs the pack and keeps it updated.
 
-**Launcher 1.5.0 / pack 2.1.0 / Minecraft 26.3 / Fabric 0.19.5 / Java 25**
+**Launcher 1.6.0 / pack 2.2.0 / Minecraft 26.3 / Fabric 0.19.5 / Java 25**
 
-## Latest update: launcher 1.5.0 and pack 2.1.0
+## Latest update: launcher 1.6.0 and pack 2.2.0
 
-The loud patch. Colossal Mythic fish up to 255 kg, and heavier fish look bigger everywhere. A friendlier land claims menu (Open Parties and Claims 0.33), safer vein mining, and fair selling prices: enchanted books and gear count every enchantment at new lower prices, tools, weapons and armor sell for half. Land of a player who has not played for 30 days goes back to wilderness. New installs get **K** for the Journal and **F7** for shaders. Launcher 1.5.0 downloads several files at once, lets you choose Minecraft's memory, checks free disk space first, explains errors instead of closing, and asks before you take a bought account's name (that free-play account is moved to backup when the real owner joins).
+Catch the fish you see: when a wild fish swims right at your bobber as it bites, you land that exact fish. Every item now uses the same rarity colours as fish, from Uncommon green to Mythic red, with gold, red and violet tooltip frames for Legendary, Mythic and Cursed gear, and sparkles and brighter pickup chimes for the good stuff. Trophy fish help in either hand, relics have their own icons and look in hand, and `/played` shows your time online, fishing and listening to boomboxes. Launcher 1.6.0 splits Settings into sections and appears in Windows Installed apps.
 
-The big update before it, pack 2.0.0, brought the Holy Lois Journal (world firsts, your fish, places and creature defeats with waypoints and map links), notable-item cards, Easy Anvils/Magic, the Smelting pickaxe enchantment and more structures in new land. See [CHANGELOG.md](CHANGELOG.md) for everything.
+The update before it, pack 2.1.0, brought colossal Mythic fish up to 255 kg, a friendlier land claims menu and fair selling prices. See [CHANGELOG.md](CHANGELOG.md) for everything.
 
 ## Download and play
 

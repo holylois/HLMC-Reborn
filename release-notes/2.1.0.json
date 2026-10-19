@@ -3,69 +3,60 @@
   "date": "2026-10-18",
   "locales": {
     "en": {
-      "summary": "The loud patch: colossal fish, a friendlier claims menu, fair prices and a faster launcher.",
-      "teaser": "Colossal fish and a faster launcher",
+      "summary": "Bigger trophy fish, a new claims menu and fairer selling prices.",
+      "teaser": "Colossal fish and a new claims menu",
       "added": [
-        "Land claims menu overhaul: a search bar, option categories, tooltips that explain every setting and a quick sub-claim menu.",
-        "Colossal Mythic fish: a tiny share of Mythics weigh 100 to 255 kg. Good luck landing one.",
-        "Launcher: choose how much memory Minecraft gets in Settings, and a free disk space check before every download."
+        "Land claims menu: a search bar, option categories, a tooltip for every setting and a quick sub-claim menu.",
+        "Colossal Mythic fish: a tiny share of Mythics weigh 100 to 255 kg."
       ],
       "changed": [
-        "Heavier trophy fish now look bigger all the way up, in your hands, on the ground and in item frames.",
-        "New installs: K opens the Journal and F7 turns shaders on or off. Your existing keys stay as you set them.",
-        "Selling: enchanted books and gear now count every enchantment they carry, at new lower enchantment prices. Tools, weapons and armor sell for half as much.",
+        "Heavier trophy fish look bigger all the way up, in your hands, on the ground and in item frames.",
+        "New installs: K opens the Journal and F7 turns shaders on or off. Your own keys stay as you set them.",
+        "Selling: enchanted books and gear count every enchantment they carry, at new lower enchantment prices. Tools, weapons and armor sell for half as much.",
         "Land of a player who has not played for 30 days goes back to wilderness.",
-        "Free-play names: a bought Minecraft account's name can still be used, but that free-play account is moved to backup when the real owner joins. The launcher asks first.",
-        "Launcher: pack files download several at a time, so installs and updates finish faster.",
-        "Vein mining no longer breaks blocks in spawn protection or past the world border, and the block that breaks your tool now drops its items."
+        "Free-play names: you can still use a bought Minecraft account's name, but that free-play account is moved to backup when the real owner joins.",
+        "Vein mining no longer breaks blocks in spawn protection or past the world border, and the block that breaks your tool drops its items."
       ],
       "fixed": [
-        "Right-clicking with the vein mining key no longer strips or tills blocks your tool cannot change.",
-        "Launcher: a slow connection no longer shows Cancelled, and an unexpected error shows a message instead of closing the app."
+        "Right-clicking with the vein mining key no longer strips or tills blocks your tool cannot change."
       ]
     },
     "ru": {
-      "summary": "Громкий патч: колоссальные рыбы, удобное меню приватов, честные цены и быстрый лаунчер.",
-      "teaser": "Колоссальные рыбы и быстрый лаунчер",
+      "summary": "Более крупные трофейные рыбы, новое меню приватов и честные цены продажи.",
+      "teaser": "Колоссальные рыбы и новое меню приватов",
       "added": [
-        "Новое меню приватов: поиск, категории настроек, подсказки к каждой настройке и быстрое меню подзон.",
-        "Колоссальные мифические рыбы: крошечная доля мифических весит от 100 до 255 кг. Удачи в поимке.",
-        "Лаунчер: в настройках можно выбрать, сколько памяти получает Minecraft, а перед каждой загрузкой проверяется свободное место на диске."
+        "Меню приватов: поиск, категории настроек, подсказка к каждой настройке и быстрое меню подзон.",
+        "Колоссальные мифические рыбы: крошечная доля мифических весит от 100 до 255 кг."
       ],
       "changed": [
-        "Тяжёлые трофейные рыбы теперь выглядят крупнее до самого верха: в руках, на земле и в рамках.",
+        "Тяжёлые трофейные рыбы выглядят крупнее до самого верха: в руках, на земле и в рамках.",
         "Новые установки: K открывает журнал, F7 включает и выключает шейдеры. Твои клавиши остаются как есть.",
-        "Продажа: зачарованные книги и снаряжение теперь учитывают все свои чары по новым, более низким ценам. Инструменты, оружие и броня продаются вдвое дешевле.",
+        "Продажа: зачарованные книги и снаряжение учитывают все свои чары по новым, более низким ценам. Инструменты, оружие и броня продаются вдвое дешевле.",
         "Земля игрока, который не заходил 30 дней, снова становится дикой.",
-        "Бесплатные имена: имя купленного аккаунта Minecraft можно взять, но этот бесплатный аккаунт переносится в резервную копию, когда зайдёт настоящий владелец. Лаунчер сначала спрашивает.",
-        "Лаунчер: файлы сборки скачиваются по несколько сразу, поэтому установка и обновления проходят быстрее.",
-        "Жилковая добыча больше не ломает блоки в защите спавна и за границей мира, а блок, на котором ломается инструмент, теперь выпадает."
+        "Бесплатные имена: имя купленного аккаунта Minecraft всё ещё можно взять, но этот бесплатный аккаунт переносится в резервную копию, когда зайдёт настоящий владелец.",
+        "Жилковая добыча больше не ломает блоки в защите спавна и за границей мира, а блок, на котором ломается инструмент, выпадает."
       ],
       "fixed": [
-        "Правый клик с клавишей жилковой добычи больше не обтёсывает и не вспахивает блоки, которые инструмент не может изменить.",
-        "Лаунчер: медленное соединение больше не показывает «Отменено», а неожиданная ошибка показывает сообщение вместо закрытия приложения."
+        "Правый клик с клавишей жилковой добычи больше не обтёсывает и не вспахивает блоки, которые инструмент не может изменить."
       ]
     },
     "lv": {
-      "summary": "Skaļais ielāps: milzu zivis, ērtāka zemes izvēlne, godīgas cenas un ātrāks palaidējs.",
-      "teaser": "Milzu zivis un ātrāks palaidējs",
+      "summary": "Lielākas trofeju zivis, jauna zemes izvēlne un godīgākas pārdošanas cenas.",
+      "teaser": "Milzu zivis un jauna zemes izvēlne",
       "added": [
-        "Jauna zemes izvēlne: meklēšana, iestatījumu kategorijas, paskaidrojumi katram iestatījumam un ātrā apakšzemju izvēlne.",
-        "Milzu mītiskās zivis: niecīga daļa mītisko sver no 100 līdz 255 kg. Veiksmi tās noķert.",
-        "Palaidējs: iestatījumos var izvēlēties, cik atmiņas saņem Minecraft, un pirms katras lejupielādes tiek pārbaudīta brīvā vieta diskā."
+        "Zemes izvēlne: meklēšana, iestatījumu kategorijas, paskaidrojums katram iestatījumam un ātrā apakšzemju izvēlne.",
+        "Milzu mītiskās zivis: niecīga daļa mītisko sver no 100 līdz 255 kg."
       ],
       "changed": [
-        "Smagākās trofeju zivis tagad izskatās lielākas līdz pašai augšai: rokās, uz zemes un rāmjos.",
+        "Smagākās trofeju zivis izskatās lielākas līdz pašai augšai: rokās, uz zemes un rāmjos.",
         "Jaunās instalācijas: K atver žurnālu, F7 ieslēdz vai izslēdz ēnotājus. Tavi taustiņi paliek, kā tos iestatīji.",
-        "Pārdošana: apburtās grāmatas un ekipējums tagad ieskaita visas savas burvestības pēc jaunām, zemākām cenām. Rīki, ieroči un bruņas pārdodas par pusi lētāk.",
+        "Pārdošana: apburtās grāmatas un ekipējums ieskaita visas savas burvestības pēc jaunām, zemākām cenām. Rīki, ieroči un bruņas pārdodas par pusi lētāk.",
         "Spēlētāja zeme, kurš nav spēlējis 30 dienas, atkal kļūst par savvaļu.",
-        "Bezmaksas vārdi: nopirkta Minecraft konta vārdu var izmantot, bet šis bezmaksas konts tiek pārvietots rezerves kopijā, kad pievienojas īstais īpašnieks. Palaidējs vispirms pajautā.",
-        "Palaidējs: pakas faili lejupielādējas pa vairākiem uzreiz, tāpēc instalēšana un atjauninājumi notiek ātrāk.",
-        "Dzīslu rakšana vairs nelauž blokus spawn aizsardzībā vai aiz pasaules robežas, un bloks, uz kura salūzt rīks, tagad izmet savus priekšmetus."
+        "Bezmaksas vārdi: nopirkta Minecraft konta vārdu joprojām var izmantot, bet šis bezmaksas konts tiek pārvietots rezerves kopijā, kad pievienojas īstais īpašnieks.",
+        "Dzīslu rakšana vairs nelauž blokus spawn aizsardzībā vai aiz pasaules robežas, un bloks, uz kura salūzt rīks, izmet savus priekšmetus."
       ],
       "fixed": [
-        "Labais klikšķis ar dzīslu rakšanas taustiņu vairs nenomizo un neuzar blokus, kurus rīks nevar mainīt.",
-        "Palaidējs: lēns savienojums vairs nerāda Atcelts, un negaidīta kļūda parāda ziņu, nevis aizver lietotni."
+        "Labais klikšķis ar dzīslu rakšanas taustiņu vairs nenomizo un neuzar blokus, kurus rīks nevar mainīt."
       ]
     }
   }

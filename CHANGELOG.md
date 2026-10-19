@@ -2,6 +2,40 @@
 
 Historical player notes, retained from the README. Current setup and play instructions are in [README.md](README.md).
 
+## What's new in pack 2.2.0 and launcher 1.6.0
+
+Catch the fish you see, one set of rarity colours for every item and a new /played command.
+
+**Added**
+
+- A bite catches the fish swimming right at your bobber: you land that exact fish, with its size and rarity.
+- /played shows your total, active and AFK time, plus time spent fishing and listening to boomboxes.
+- Gear on dungeon shelves sometimes comes out as a Runeforged piece.
+- Relics look like themselves: their own icons, the Staff of Quiet Roads as a real staff in hand, and the Bell-Keeper's Hook gives +1 luck for rarer fish.
+- Every trophy fish now helps while held in either hand: Pondie adds health, Plentifin luck for better catches, Devilfish shortens burning, Stormfish softens falls, and a Pufferfish hurts whoever hits you.
+- Launcher: Holy Lois: Reborn appears in Windows Installed apps, so you can remove it from there and choose to keep your data.
+- Launcher: Settings is split into sections: Player and launch, Graphics and memory, Help and diagnostics, Shortcuts and links, Advanced.
+
+**Changed**
+
+- Every item uses the same rarity colours as fish: Uncommon green, Rare blue, Epic purple, Legendary gold with a shine, Mythic red. Enchanted gear moves up one tier, and Runeforged gear, stones and gems use the same tiers. Alien-Cursed gear and Cursed elites are Mythic, other Cursed gear has its own violet tier, and elite name tags use the same colours. Charged gem weapons are Rare, and a Sealed stone is as rare as the affix sealed in it.
+- Legendary, Mythic and Cursed tooltips get gold, red and violet frames, other tooltips keep the plain look, and item names sit centred without the item picture. Epic and better items sparkle on the ground, and pickup cards chime brighter for higher tiers.
+- Trophy fish only glint when Mythic or Shiny, and heavy fish look clearly bigger the more they weigh.
+- The Journal shows mobs with their Fresh Animations look and idle motion on a bigger preview, without a jittering spider body or flopping fish.
+- The Holy Lootbox has a new gold block look.
+- 3D Skin Layers 1.11.4 fixes skin textures piling up in memory.
+- Fresh Animations 1.11 gives polar bears and pandas full animations, and baby mobs get their own look.
+- Crickets chirp near rivers again, and grass sounds better match the ground you walk on.
+- Distant Horizons now draws 64 chunks far instead of 128, so laptops run smoother. If you changed that distance yourself, your setting stays.
+- Launcher: What changed shows the pack and the launcher as separate entries.
+- Launcher: The main window opens larger on big screens and still fits small laptops.
+- Launcher: Installing again after a removal shows the first-time setup again.
+- Launcher: Pack updates keep your own values in settings files that use sections (TOML), changing only what the pack changed.
+
+**Fixed**
+
+- Mining no longer shows a "Run /amber doctor" hint that players cannot use.
+
 ## What's new in pack 2.1.0 and launcher 1.5.0
 
 The loud patch: colossal fish, a friendlier claims menu, fair prices and a faster launcher.
