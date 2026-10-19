@@ -1,0 +1,3 @@
+# Server scripts run on Linux: a CRLF upload once turned every path into a name ending in a carriage return.
+server/** text=auto eol=lf
+*.sh text eol=lf

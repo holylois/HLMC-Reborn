@@ -39,6 +39,12 @@ CHAT = re.compile(r"\]: (?:\[Not Secure\] )?<([A-Za-z0-9_]{3,16})> (.+)$")
 LOGIN = re.compile(r"\]: ([A-Za-z0-9_]{3,16})\[/[^\]]+\] logged in with entity id")
 SYSTEM = re.compile(r"\]: System chat: (.+)$")
 NAME = re.compile(r"^[A-Za-z0-9_]{3,16}$")
+# Same filter and fixed-length mask as the website (server/stats/make-stats.py): keep the row, never the word.
+SLURS = re.compile(r'n[i1!|l][g6q9]{2}|f[a@4][g6q9]{1,2}[o0]t|f[a@4][g6q9]$|r[e3]t[a@4]rd|p[i1!]d[o0a]r|k[i1!]ke|ch[i1!]nk|tr[a@4]nn(?:y|ie)|п[иі]д[оа]р', re.I)
+
+
+def shown(name):
+    return name[0].upper() + "*****" if SLURS.search(name) else name
 # Names from the add-on's config/holylois-quiet.json: no joins, leaves, advancements, discoveries or deaths in Discord, and not in the player list.
 QUIET_FILE = Path("/opt/minecraft/config/holylois-quiet.json")
 _quiet = {"stamp": None, "names": {"pjampjam"}}
@@ -183,14 +189,14 @@ class HolyLoisBot(discord.Client):
         guild = self.guilds[0]
         self.status_channel, self.chat_channel = await self.ensure_channels(guild)
         self.support_channel = await self.ensure_support(guild)
-        await self.post_rules(guild)
-        await self.post_welcome(guild)
-        await self.post_roles(guild)
-        self.tree.copy_global_to(guild=guild)
-        await self.tree.sync(guild=guild)
         print(f"Ready in {guild.name}: #{self.status_channel.name}, #{self.chat_channel.name}", flush=True)
         if not getattr(self, "_started", False):
             self._started = True
+            await self.post_rules(guild)
+            await self.post_welcome(guild)
+            await self.post_roles(guild)
+            self.tree.copy_global_to(guild=guild)
+            await self.tree.sync(guild=guild)
             self.loop.create_task(self.status_loop())
             self.loop.create_task(self.log_loop())
             self.loop.create_task(self.retention_loop())
@@ -298,9 +304,11 @@ class HolyLoisBot(discord.Client):
             f"3. Start Minecraft and join **{ADDRESS}**"))
         embed.add_field(name="Links", inline=False, value=(
             f"[Website and download]({WEBSITE}) - [Live map]({MAP}) - [Rules]({WEBSITE}/rules) - [How to play]({WEBSITE}/guide)"))
-        embed.add_field(name="Around here", inline=False, value=(
-            "#rules - read before playing\n#server-status - live status and who is online\n"
-            "#minecraft-chat - talk with players in game\n#help - launcher or game problems\n#suggestions - ideas for the server"))
+        around = [(RULES_CHANNEL, "read before playing"), (ROLES_CHANNEL, "pick which pings you want"),
+                  (STATUS_CHANNEL, "live status and who is online"), (CHAT_CHANNEL, "talk with players in game"),
+                  ("help", "launcher or game problems"), (SUGGESTIONS_CHANNEL, "ideas for the server, vote with 👍 or 👎")]
+        embed.add_field(name="Around here", inline=False, value="\n".join(
+            f"{c.mention if (c := text(guild, base)) else '#' + base} - {what}" for base, what in around))
         embed.add_field(name="Bot commands", inline=False, value="/status - /players - /ip - /map")
         embed.set_footer(text="Holy Lois: Reborn")
         channel = text(guild, WELCOME_CHANNEL)
@@ -436,6 +444,10 @@ class HolyLoisBot(discord.Client):
                 if self.state.get("status_message"):
                     try: message = await self.status_channel.fetch_message(self.state["status_message"])
                     except discord.NotFound: message = None
+                if message and (self.status_channel.last_message_id or 0) > message.id:
+                    try: await message.delete()
+                    except discord.HTTPException: pass
+                    message = None
                 if message: await message.edit(embed=embed)
                 else:
                     message = await self.status_channel.send(embed=embed)
@@ -451,10 +463,14 @@ class HolyLoisBot(discord.Client):
         while not self.is_closed():
             process = await asyncio.create_subprocess_exec("journalctl", "-u", "minecraft", "-f", "-n", "0", "-o", "cat",
                                                            stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.DEVNULL)
-            async for raw in process.stdout:
-                line = raw.decode("utf-8", "replace").rstrip()
-                try: await self.forward(line)
-                except Exception as error: print("Forward failed:", error)
+            try:
+                async for raw in process.stdout:
+                    line = raw.decode("utf-8", "replace").rstrip()
+                    try: await self.forward(line)
+                    except Exception as error: print("Forward failed:", error)
+            finally:
+                if process.returncode is None: process.kill()
+                await process.wait()
             await asyncio.sleep(5)
 
     async def forward(self, line):
@@ -467,11 +483,11 @@ class HolyLoisBot(discord.Client):
         if match := CHAT.search(line):
             name, text = match.groups()
             if text.startswith("/") or text.startswith("./"): return
-            await self.chat_channel.send(f"**{name}**: {safe(discord.utils.escape_markdown(text))}"[:1900])
+            await self.chat_channel.send(f"**{shown(name)}**: {safe(discord.utils.escape_markdown(text))}"[:1900])
         elif match := LOGIN.search(line):
             self.online.add(match.group(1))
             if match.group(1).lower() in quiet_names(): return
-            await self.chat_channel.send(f"➕ **{match.group(1)}** joined the server")
+            await self.chat_channel.send(f"➕ **{shown(match.group(1))}** joined the server")
         elif match := SYSTEM.search(line):
             text = match.group(1).lstrip("✦ ").strip()
             first = text.split(" ", 1)[0]
@@ -479,9 +495,10 @@ class HolyLoisBot(discord.Client):
             if first.lower() in quiet_names():
                 if text.endswith("left the game"): self.online.discard(first)
                 return
+            text = shown(first) + text[len(first):]
             if text.endswith("left the game"):
                 self.online.discard(first)
-                await self.chat_channel.send(f"➖ **{first}** left the server")
+                await self.chat_channel.send(f"➖ **{shown(first)}** left the server")
             elif "has made the advancement" in text or "has completed the challenge" in text or "has reached the goal" in text:
                 await self.chat_channel.send(f"🏆 {safe(text)}")
             elif " discovered " in text or "Holy Lootbox" in text:

@@ -233,9 +233,12 @@ def service():
 
 def report_down(state, reason):
     status, crash, health, tail = diagnostics()
-    post("Holy Lois server is DOWN", f"{reason}\nSince {time.strftime('%d.%m %H:%M UTC', time.gmtime(state['down_since']))}.", RED,
-         [("Service", status), ("Crash report", crash or "No recent crash report."), ("Recent errors", f"```{tail[-900:]}```"),
-          ("Health", health), ("What to do", advice(crash, health))], ping=True)
+    since = time.strftime('%d.%m %H:%M UTC', time.gmtime(state['down_since']))
+    # Players get the short version; logs and stack traces go to the private staff channel only.
+    post("Holy Lois server is DOWN", f"{reason}\nSince {since}. The admins are on it.", RED, ping=True)
+    post_staff("Holy Lois server is DOWN (details)", f"{reason}\nSince {since}.", RED,
+               [("Service", status), ("Crash report", crash or "No recent crash report."), ("Recent errors", f"```{tail[-900:]}```"),
+                ("Health", health), ("What to do", advice(crash, health))])
 
 
 def main():
@@ -277,8 +280,9 @@ def main():
         elif restarts > state.get("restarts", restarts):
             # A crash that restarted between two checks: report it once, with its crash report.
             status, crash, health, tail = diagnostics()
-            post("Holy Lois server crashed and restarted itself", f"It is back up with {players} player(s) online.", GOLD,
-                 [("Crash report", crash or "No recent crash report."), ("Recent errors", f"```{tail[-900:]}```"), ("Health", health)])
+            post("Holy Lois server crashed and restarted itself", f"It is back up with {players} player(s) online.", GOLD)
+            post_staff("Holy Lois crash details", f"Back up with {players} player(s) online.", GOLD,
+                       [("Crash report", crash or "No recent crash report."), ("Recent errors", f"```{tail[-900:]}```"), ("Health", health)])
         elif restarted:
             # Planned restarts (updates, the owner's restart button) get a short friendly note.
             post("Holy Lois server restarted", f"Back up with {players} player(s) online.", GREEN)

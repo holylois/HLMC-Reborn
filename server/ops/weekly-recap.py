@@ -16,6 +16,10 @@ SNAPSHOT = Path("/var/lib/holylois/weekly-stats.json")
 spec = importlib.util.spec_from_file_location("alert", "/usr/local/lib/holylois/discord-alert.py")
 alert = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(alert)
+# The website's name rules: staff/test accounts hidden, offensive names masked ("N*****"), merged account names.
+spec = importlib.util.spec_from_file_location("stats", "/usr/local/lib/holylois/make-stats.py")
+stats_names = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(stats_names)
 
 
 def numbers(stats, afk_seconds=0):
@@ -61,13 +65,15 @@ def main():
         return
     before = last["players"]
     delta = {name: {k: v - before.get(name, {}).get(k, 0) for k, v in stats.items()} for name, stats in now.items()}
-    delta = {name: d for name, d in delta.items() if d["hours"] >= 0.05}
+    _, shown = stats_names.names()  # raw name -> public name; hidden accounts are missing
+    delta = {shown[name]: d for name, d in delta.items() if d["hours"] >= 0.05 and name in shown}
     if not delta:
         print("Nobody played this week; no recap.")
         return
     found = []
     if DISCOVERIES.exists():
-        found = [f for f in json.loads(DISCOVERIES.read_text()).get("found", []) if f.get("time", 0) >= last["time"]]
+        found = [dict(f, player=shown[f.get("player")]) for f in json.loads(DISCOVERIES.read_text()).get("found", [])
+                 if f.get("time", 0) >= last["time"] and f.get("player") in shown]
     fields = []
     for title, key, unit, digits in [("Most played", "hours", " h", 1), ("Diamonds mined", "diamonds", "", 0),
                                      ("Mob kills", "kills", "", 0), ("Blocks mined", "blocks", "", 0),
@@ -80,6 +86,7 @@ def main():
         lines = [f"{f['player']} found {'an' if f['name'][0] in 'AEIOU' else 'a'} {f['name']}" for f in found[-10:]]
         fields.append((f"Discoveries ({len(found)})", "\n".join(lines)))
     total = sum(d["hours"] for d in delta.values())
+    assert not any(stats_names.SLURS.search(v) for _, v in fields), "A filtered name reached the recap"
     alert.post("Holy Lois weekly recap", f"{len(delta)} player(s) played {total:.1f} hours this week.", alert.GOLD, fields)
     print("Recap posted.")
 
