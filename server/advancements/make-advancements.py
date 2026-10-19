@@ -3,7 +3,7 @@
 Vanilla triggers cover structures, food and holiday blocks. Seats, distance, playtime, streaks, lootboxes and
 first discoveries use "minecraft:impossible" criteria that the onboarding add-on awards. Legend items, bottle messages and fish
 trophies (Holy Lois Extras 1.6.0) are found by their custom_data; the legends come from ../legends/holylois-legends.json.
-Usage: python make-advancements.py OUTPUT_DIR
+Usage: python make-advancements.py OUTPUT_DIR [LANG_DIR]
 """
 import json, shutil, sys
 from pathlib import Path
@@ -61,9 +61,28 @@ def impossible():
 
 
 ADV = {}
+# Titles and descriptions are translatable (holylois.adv.<path>.title/.description) with the English text as fallback, so the
+# server log, Discord and stats keep English while RU/LV clients read their language. The lang files land in LANG_OUT (copied
+# into Holy Lois Extras: assets/holylois_adv/lang); RU/LV text comes from translations.json keyed by the English text.
+TRANSLATIONS = json.loads(Path(__file__).with_name("translations.json").read_text(encoding="utf-8"))
+LANG = {"en_us": {}, "ru_ru": {}, "lv_lv": {}}
 
 
-def adv(path, parent, icon, title, description, criteria, frame="task", hidden=False, any_of=False, xp=0, toast=True):
+def tr(key, english, ru=None, lv=None):
+    pair = TRANSLATIONS.get(english)
+    assert pair or (ru and lv), "missing translation: " + english
+    LANG["en_us"][key] = english
+    LANG["ru_ru"][key] = ru or pair[0]
+    LANG["lv_lv"][key] = lv or pair[1]
+    return {"translate": key, "fallback": english}
+
+
+def key(path): return "holylois.adv." + path.replace("/", ".")
+
+
+def adv(path, parent, icon, title, description, criteria, frame="task", hidden=False, any_of=False, xp=0, toast=True, ru=None, lv=None):
+    title = tr(key(path) + ".title", title, ru and ru[0], lv and lv[0])
+    description = tr(key(path) + ".description", description, ru and ru[1], lv and lv[1])
     data = {"display": {"icon": {"id": icon}, "title": title, "description": description, "frame": frame,
                         "show_toast": toast, "announce_to_chat": toast, "hidden": hidden}, "criteria": criteria}
     if parent: data["parent"] = "holylois:" + parent
@@ -72,7 +91,8 @@ def adv(path, parent, icon, title, description, criteria, frame="task", hidden=F
     ADV[path] = data
 
 
-root = {"display": {"icon": {"id": "minecraft:golden_helmet"}, "title": "Holy Lois: Reborn", "description": "Welcome home. Small goals and secret challenges.",
+root = {"display": {"icon": {"id": "minecraft:golden_helmet"}, "title": tr(key("root") + ".title", "Holy Lois: Reborn"),
+                    "description": tr(key("root") + ".description", "Welcome home. Small goals and secret challenges."),
                     "frame": "task", "show_toast": False, "announce_to_chat": False, "hidden": False, "background": "minecraft:block/gilded_blackstone"},
         "criteria": {"joined": {"trigger": "minecraft:tick"}}}
 ADV["root"] = root
@@ -146,9 +166,10 @@ adv("legends/touched_by_legend", "root", "minecraft:bell", "Touched by Legend",
     frame="goal", any_of=True)
 for legend in LEGENDS["legends"]:
     count = len(legend["items"])
+    ru, lv = (t.format(name=legend["name"], count=count) for t in TRANSLATIONS["@legend"])
     adv("legends/" + legend["id"], "legends/touched_by_legend", icon_of(legend["items"][0]), legend["name"],
         f"Find all {count} pieces of the legend of {legend['name']}", {p["id"]: holding("{holylois_legend:%s}" % json.dumps(p["id"])) for p in legend["items"]},
-        frame="challenge", hidden=True, xp=300)
+        frame="challenge", hidden=True, xp=300, ru=(legend["name"], ru), lv=(legend["name"], lv))
 adv("fishing/message_in_a_bottle", "root", "minecraft:paper", "Message in a Bottle", "Fish up a message someone sent to sea", {"found": holding("{holylois_bottle:1b}")})
 adv("fishing/fish_story", "root", "minecraft:cod", "Fish Story", "Catch a Rare fish or better: it keeps its weight forever",
     {r: holding("{holylois_fish:{rarity:%s}}" % json.dumps(r)) for r in ["rare", "epic", "legendary"]}, any_of=True)
@@ -169,4 +190,10 @@ for path, data in ADV.items():
     text = json.dumps(data, indent=2, ensure_ascii=False) + "\n"
     assert "\u2014" not in text
     target.write_text(text, encoding="utf-8")
+LANG_OUT = Path(sys.argv[2]) if len(sys.argv) > 2 else Path(__file__).with_name("lang")
+LANG_OUT.mkdir(parents=True, exist_ok=True)
+for lang, entries in LANG.items():
+    body = json.dumps(dict(sorted(entries.items())), indent=2, ensure_ascii=False) + "\n"
+    assert "\u2014" not in body
+    (LANG_OUT / (lang + ".json")).write_text(body, encoding="utf-8")
 print(len(ADV), "advancements,", len(TOUR), "Grand Tour sites,", len(MEALS), "meals,", len(LEGENDS["legends"]), "legends")

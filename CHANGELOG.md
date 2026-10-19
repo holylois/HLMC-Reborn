@@ -15,6 +15,7 @@ Catch the fish you see, one set of rarity colours for every item and a new /play
 - Every trophy fish now helps while held in either hand: Pondie adds health, Plentifin luck for better catches, Devilfish shortens burning, Stormfish softens falls, and a Pufferfish hurts whoever hits you.
 - Launcher: Holy Lois: Reborn appears in Windows Installed apps, so you can remove it from there and choose to keep your data.
 - Launcher: Settings is split into sections: Player and launch, Graphics and memory, Help and diagnostics, Shortcuts and links, Advanced.
+- Launcher: Help and diagnostics has a Screenshots folder button.
 
 **Changed**
 
@@ -26,11 +27,16 @@ Catch the fish you see, one set of rarity colours for every item and a new /play
 - 3D Skin Layers 1.11.4 fixes skin textures piling up in memory.
 - Fresh Animations 1.11 gives polar bears and pandas full animations, and baby mobs get their own look.
 - Crickets chirp near rivers again, and grass sounds better match the ground you walk on.
-- Distant Horizons now draws 64 chunks far instead of 128, so laptops run smoother. If you changed that distance yourself, your setting stays.
+- Distant Horizons now draws 64 chunks far at medium detail instead of 128, so laptops run smoother, and it no longer updates itself. If you changed these settings yourself, they stay.
+- Achievements and the server login screen are in Russian and Latvian too.
+- New installs start without update and donation pop-ups from mods, and pressing R while playing no longer reloads shaders.
 - Launcher: What changed shows the pack and the launcher as separate entries.
 - Launcher: The main window opens larger on big screens and still fits small laptops.
 - Launcher: Installing again after a removal shows the first-time setup again.
 - Launcher: Pack updates keep your own values in settings files that use sections (TOML), changing only what the pack changed.
+- Launcher: Update shows only what it downloads, and Install shows how much space the game takes.
+- Launcher: Windows Installed apps shows the real size of the installation.
+- Launcher: The launcher update and removal windows use your language.
 
 **Fixed**
 

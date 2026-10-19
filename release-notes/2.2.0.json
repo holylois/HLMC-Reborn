@@ -21,7 +21,9 @@
         "3D Skin Layers 1.11.4 fixes skin textures piling up in memory.",
         "Fresh Animations 1.11 gives polar bears and pandas full animations, and baby mobs get their own look.",
         "Crickets chirp near rivers again, and grass sounds better match the ground you walk on.",
-        "Distant Horizons now draws 64 chunks far instead of 128, so laptops run smoother. If you changed that distance yourself, your setting stays."
+        "Distant Horizons now draws 64 chunks far at medium detail instead of 128, so laptops run smoother, and it no longer updates itself. If you changed these settings yourself, they stay.",
+        "Achievements and the server login screen are in Russian and Latvian too.",
+        "New installs start without update and donation pop-ups from mods, and pressing R while playing no longer reloads shaders."
       ],
       "fixed": [
         "Mining no longer shows a \"Run /amber doctor\" hint that players cannot use."
@@ -46,7 +48,9 @@
         "3D Skin Layers 1.11.4 больше не копит текстуры скинов в памяти.",
         "Fresh Animations 1.11 даёт белым медведям и пандам полные анимации, а у детёнышей мобов появился свой вид.",
         "Сверчки снова стрекочут у рек, а звуки травы лучше подходят к земле под ногами.",
-        "Distant Horizons теперь рисует на 64 чанка вместо 128, чтобы ноутбукам было легче. Если ты менял эту дальность сам, твоя настройка остаётся."
+        "Distant Horizons теперь рисует на 64 чанка вместо 128 со средней детализацией, чтобы ноутбукам было легче, и больше не обновляется сам. Если ты менял эти настройки сам, они остаются.",
+        "Достижения и экран входа на сервер теперь тоже на русском и латышском.",
+        "Новые установки начинаются без всплывающих окон обновлений и пожертвований от модов, а R во время игры больше не перезагружает шейдеры."
       ],
       "fixed": [
         "Добыча больше не показывает подсказку \"Run /amber doctor\", которой игроки не могут воспользоваться."
@@ -71,7 +75,9 @@
         "3D Skin Layers 1.11.4 vairs nekrāj skinu tekstūras atmiņā.",
         "Fresh Animations 1.11 dod polārlāčiem un pandām pilnas animācijas, un radību mazuļiem ir savs izskats.",
         "Sienāži atkal sisina pie upēm, un zāles skaņas labāk atbilst zemei, pa kuru ej.",
-        "Distant Horizons tagad zīmē 64 gabalus tālu, nevis 128, lai klēpjdatori strādātu vienmērīgāk. Ja tu pats mainīji šo attālumu, tavs iestatījums paliek."
+        "Distant Horizons tagad zīmē 64 gabalus tālu, nevis 128, ar vidēju detalizāciju, lai klēpjdatori strādātu vienmērīgāk, un vairs neatjauninās pats. Ja tu pats mainīji šos iestatījumus, tie paliek.",
+        "Sasniegumi un servera ielogošanās ekrāns tagad ir arī krievu un latviešu valodā.",
+        "Jaunas instalācijas sākas bez modu atjauninājumu un ziedojumu uznirstošajiem logiem, un R spēles laikā vairs nepārlādē šeiderus."
       ],
       "fixed": [
         "Rakšana vairs nerāda padomu \"Run /amber doctor\", ko spēlētāji nevar izmantot."

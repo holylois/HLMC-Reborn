@@ -120,6 +120,15 @@ Backups live on Google Drive (`Holy Lois Backups`), not on the VM disk (owner de
 
 Check `df -h /` now and then; the world and BlueMap tiles are what grows.
 
+## Release tools and pack 2.2.0 changes
+
+- **Preflight**: `python scripts/preflight.py` checks that the docs name the current versions, no private data, no em dash in tracked text (both public repos) and that the launcher embeds the newest release notes. Pack signatures, launcher builds and server rehearsals stay separate steps.
+- **Config drift**: copy `server/` to the host and run `sudo python3 ops/check-config-drift.py DIR`. It compares the tracked server configs (OPAC, Easy*, legends, rules, Tab, stats lists) with `/opt/minecraft`. After a release only intended changes may differ; take live-only edits back into git.
+- **Smelting** (the `autosmelt:auto_smelt` pickaxe enchantment) is built into Holy Lois Extras 1.9.0 with the same id, so old pickaxes keep it. The separate `Auto Smelt 26.3.jar` is gone from the pack and the server (Extras refuses to load next to it), and so is `holylois-glint-preload` (now inside Extras).
+- **Achievements** are translatable: `server/advancements/make-advancements.py` writes `holylois.adv.*` keys with English fallbacks (server log, Discord and stats stay English) plus lang files from `translations.json`; copy `server/advancements/lang/*.json` into `addons/extras/assets/holylois_adv/lang/` when titles change.
+- **Title panorama** lives in the `HolyLois-FishEating.zip` resource pack (`addons/fish-eating`), not in the Auth UI jar (72 KB instead of 6.5 MB).
+- **Extras mixins**: `holylois-extras.mixins.json` (vanilla targets) fails loudly on a missing injection point; `holylois-extras-compat.mixins.json` (other mods) stays optional.
+
 ## Server release for pack 2.1.0 and launcher 1.5.0
 
 Deployed 2026-10-18 with `server/ops/hl-deploy.py` (plan `~/hl-210/plan.json`, loopback rehearsal receipt next to it, jars/config backup in `/opt/minecraft-backups/maintenance/release-210-*`). Swaps: OPAC 0.33.0, Liteminer 4.5.2, Amber 11.7.0, JEB 1.2.0.9, MidnightLib 1.10.0, Repurposed Structures 7.8.4, EconomyCraft 1.11.0 (its config.json converts to sections on first boot), Extras 1.8.0 to 1.8.3 (colossal fish). Files: revised `config/economycraft/prices.json` (enchantments 6% of the old sell value, at least 4; tools, weapons and armor half), OPAC `playerClaimsExpirationTime = 720` with `playerClaimsConvertExpiredClaims = false` (claims of players inactive for 30 days return to wilderness), MiniMOTD headline.

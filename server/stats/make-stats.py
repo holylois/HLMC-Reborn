@@ -79,6 +79,10 @@ def online_now():
 
 
 def holylois_advancements():
+    # Since 2.2.0 titles are {"translate": key, "fallback": English}: the site shows the English fallback.
+    def plain(value, default):
+        if isinstance(value, dict): return value.get('fallback') or value.get('text') or default
+        return value if isinstance(value, str) else default
     base = WORLD / 'datapacks/holylois-advancements/data/holylois/advancement'
     found = {}
     for file in sorted(base.rglob('*.json')):
@@ -86,7 +90,7 @@ def holylois_advancements():
         display = data.get('display')
         path = file.relative_to(base).with_suffix('').as_posix()
         if display and path != 'root':
-            found['holylois:' + path] = {'title': display.get('title', path), 'description': display.get('description', ''),
+            found['holylois:' + path] = {'title': plain(display.get('title'), path), 'description': plain(display.get('description'), ''),
                                          'secret': bool(display.get('hidden')), 'frame': display.get('frame', 'task')}
     return found
 

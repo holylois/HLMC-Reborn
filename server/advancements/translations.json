@@ -1,0 +1,318 @@
+{
+ "Holy Lois: Reborn": [
+  "Holy Lois: Reborn",
+  "Holy Lois: Reborn"
+ ],
+ "Welcome home. Small goals and secret challenges.": [
+  "Добро пожаловать домой. Маленькие цели и тайные испытания.",
+  "Laipni lūdzam mājās. Mazi mērķi un slepeni izaicinājumi."
+ ],
+ "Off the Map": [
+  "За краем карты",
+  "Ārpus kartes"
+ ],
+ "Step into a dungeon, tavern or ruin from Dungeons and Taverns": [
+  "Зайди в подземелье, таверну или руины из Dungeons and Taverns",
+  "Ieej pazemes cietoksnī, krogā vai drupās no Dungeons and Taverns"
+ ],
+ "Discoverer": [
+  "Первооткрыватель",
+  "Atklājējs"
+ ],
+ "Be the first on the server to walk into a structure, and everyone hears your name": [
+  "Войди в постройку первым на сервере, и все услышат твоё имя",
+  "Esi pirmais serverī, kas ieiet būvē, un visi dzirdēs tavu vārdu"
+ ],
+ "Last Call": [
+  "Последний заказ",
+  "Pēdējais pasūtījums"
+ ],
+ "Walk into a tavern": [
+  "Зайди в таверну",
+  "Ieej krogā"
+ ],
+ "Crypt Keeper": [
+  "Хранитель склепа",
+  "Kapeņu sargs"
+ ],
+ "Enter a crypt or the catacombs": [
+  "Войди в склеп или катакомбы",
+  "Ieej kapenēs vai katakombās"
+ ],
+ "Lord of the Manor": [
+  "Хозяин поместья",
+  "Muižas kungs"
+ ],
+ "Find an illager manor": [
+  "Найди поместье разбойников",
+  "Atrodi laupītāju muižu"
+ ],
+ "Grand Tour": [
+  "Большое путешествие",
+  "Lielais ceļojums"
+ ],
+ "Visit every kind of dungeon, tavern and keep, in all three dimensions": [
+  "Побывай во всех видах подземелий, таверн и крепостей во всех трёх измерениях",
+  "Apmeklē visu veidu pazemes cietokšņus, krogus un pilis visās trijās dimensijās"
+ ],
+ "Dungeon Delver": [
+  "Исследователь подземелий",
+  "Pazemes pētnieks"
+ ],
+ "Step inside an underground dungeon, mossy, icy or sandy": [
+  "Спустись в подземелье: мшистое, ледяное или песчаное",
+  "Ieej pazemes cietoksnī: sūnainā, ledainā vai smilšainā"
+ ],
+ "Deeper Still": [
+  "Ещё глубже",
+  "Vēl dziļāk"
+ ],
+ "Find a large dungeon, a maze of many rooms": [
+  "Найди большое подземелье, лабиринт из множества комнат",
+  "Atrodi lielu pazemes cietoksni, daudzu istabu labirintu"
+ ],
+ "Dungeon Master": [
+  "Повелитель подземелий",
+  "Pazemes valdnieks"
+ ],
+ "Enter every dungeon: plains, ice and sand, small, medium and large": [
+  "Побывай во всех подземельях: равнинных, ледяных и песчаных, малых, средних и больших",
+  "Ieej visos pazemes cietokšņos: līdzenumu, ledus un smilšu, mazos, vidējos un lielos"
+ ],
+ "Odd Pillar": [
+  "Странный столп",
+  "Savāds stabs"
+ ],
+ "Find a lone obelisk standing in the wild": [
+  "Найди одинокий обелиск в глуши",
+  "Atrodi vientuļu obelisku savvaļā"
+ ],
+ "Burger Time": [
+  "Время бургеров",
+  "Burgeru laiks"
+ ],
+ "Eat a hamburger": [
+  "Съешь гамбургер",
+  "Apēd hamburgeru"
+ ],
+ "Sushi Night": [
+  "Вечер суши",
+  "Suši vakars"
+ ],
+ "Eat a salmon, cod or kelp roll": [
+  "Съешь ролл с лососем, треской или ламинарией",
+  "Apēd laša, mencas vai brūnaļģu rullīti"
+ ],
+ "Feast Mode": [
+  "Режим пира",
+  "Dzīres"
+ ],
+ "Eat a serving from a feast": [
+  "Съешь порцию с праздничного стола",
+  "Apēd porciju no dzīru galda"
+ ],
+ "Five-Star Chef": [
+  "Шеф на пять звёзд",
+  "Piecu zvaigžņu šefpavārs"
+ ],
+ "Eat every Farmer's Delight meal at least once": [
+  "Попробуй каждое блюдо Farmer's Delight хотя бы раз",
+  "Apēd katru Farmer's Delight ēdienu vismaz reizi"
+ ],
+ "Take a Seat": [
+  "Присаживайся",
+  "Apsēdies"
+ ],
+ "Sit on a chair or couch": [
+  "Сядь на стул или диван",
+  "Apsēdies uz krēsla vai dīvāna"
+ ],
+ "Musical Chairs": [
+  "Музыкальные стулья",
+  "Muzikālie krēsli"
+ ],
+ "Sit in every style of chair and a couch": [
+  "Посиди на стуле каждого вида и на диване",
+  "Pasēdi uz katra veida krēsla un dīvāna"
+ ],
+ "Deck the Halls": [
+  "Праздник в доме",
+  "Svētku rotājums"
+ ],
+ "Top off a Christmas tree": [
+  "Укрась верхушку ёлки",
+  "Uzliec eglītei galotni"
+ ],
+ "Long Way Home": [
+  "Долгая дорога домой",
+  "Garais ceļš mājup"
+ ],
+ "Travel 100 km in total": [
+  "Пройди всего 100 км",
+  "Kopā noceļo 100 km"
+ ],
+ "Around the World": [
+  "Вокруг света",
+  "Apkārt pasaulei"
+ ],
+ "Travel 1,000 km in total": [
+  "Пройди всего 1000 км",
+  "Kopā noceļo 1000 km"
+ ],
+ "Regular": [
+  "Завсегдатай",
+  "Pastāvīgais viesis"
+ ],
+ "Play for 24 hours on Holy Lois": [
+  "Сыграй 24 часа на Holy Lois",
+  "Spēlē 24 stundas Holy Lois"
+ ],
+ "Resident": [
+  "Местный житель",
+  "Iedzīvotājs"
+ ],
+ "Play for 100 hours on Holy Lois": [
+  "Сыграй 100 часов на Holy Lois",
+  "Spēlē 100 stundas Holy Lois"
+ ],
+ "Seven Days of Lois": [
+  "Семь дней Lois",
+  "Septiņas Lois dienas"
+ ],
+ "Log in seven days in a row": [
+  "Заходи семь дней подряд",
+  "Ienāc septiņas dienas pēc kārtas"
+ ],
+ "Unboxed": [
+  "Распаковано",
+  "Atvērts"
+ ],
+ "Open a Holy Lootbox": [
+  "Открой Holy Lootbox",
+  "Atver Holy Lootbox"
+ ],
+ "Jackpot!": [
+  "Джекпот!",
+  "Džekpots!"
+ ],
+ "Find a named tool in a Holy Lootbox": [
+  "Найди именной инструмент в Holy Lootbox",
+  "Atrodi vārdā nosauktu instrumentu Holy Lootbox"
+ ],
+ "Devoted": [
+  "Преданный",
+  "Uzticīgais"
+ ],
+ "Log in 28 days in a row": [
+  "Заходи 28 дней подряд",
+  "Ienāc 28 dienas pēc kārtas"
+ ],
+ "Pocket Speaker": [
+  "Карманная колонка",
+  "Kabatas skaļrunis"
+ ],
+ "Craft a boombox": [
+  "Скрафти бумбокс",
+  "Izgatavo bumboksu"
+ ],
+ "DJ Lois": [
+  "DJ Lois",
+  "DJ Lois"
+ ],
+ "Play music for your friends with the boombox": [
+  "Включи друзьям музыку на бумбоксе",
+  "Atskaņo draugiem mūziku ar bumboksu"
+ ],
+ "House Party": [
+  "Домашняя вечеринка",
+  "Mājas ballīte"
+ ],
+ "Set a boombox down somewhere": [
+  "Поставь где-нибудь бумбокс",
+  "Noliec kaut kur bumboksu"
+ ],
+ "Surround Sound": [
+  "Объёмный звук",
+  "Telpiskā skaņa"
+ ],
+ "Stand where two boomboxes play at once": [
+  "Встань там, где одновременно играют два бумбокса",
+  "Nostājies vietā, kur vienlaikus skan divi bumboksi"
+ ],
+ "Night Owl": [
+  "Сова",
+  "Naktspūce"
+ ],
+ "Still playing at 3 in the morning (Riga time)": [
+  "Всё ещё играешь в 3 часа ночи (по рижскому времени)",
+  "Joprojām spēlē trijos naktī (pēc Rīgas laika)"
+ ],
+ "Vārda diena": [
+  "Именины",
+  "Vārda diena"
+ ],
+ "Log in on your Latvian name day": [
+  "Зайди в свои латышские именины",
+  "Ienāc savā vārda dienā"
+ ],
+ "Touched by Legend": [
+  "Прикосновение легенды",
+  "Leģendas pieskāriens"
+ ],
+ "Find an item that once belonged to a legend. More of its kind are out there": [
+  "Найди предмет, который когда-то принадлежал легенде. Где-то есть и другие",
+  "Atrodi priekšmetu, kas reiz piederēja leģendai. Pasaulē ir vēl tādi"
+ ],
+ "Message in a Bottle": [
+  "Послание в бутылке",
+  "Vēstule pudelē"
+ ],
+ "Fish up a message someone sent to sea": [
+  "Выуди послание, которое кто-то отправил в море",
+  "Izzvejo vēstuli, ko kāds palaida jūrā"
+ ],
+ "Fish Story": [
+  "Рыбацкая байка",
+  "Zvejnieka stāsts"
+ ],
+ "Catch a Rare fish or better: it keeps its weight forever": [
+  "Поймай рыбу Rare или выше: она навсегда сохранит свой вес",
+  "Noķer Rare vai retāku zivi: tā uz visiem laikiem saglabā svaru"
+ ],
+ "The One That Didn't Get Away": [
+  "Та, что не ушла",
+  "Tā, kas neaizpeldēja"
+ ],
+ "Catch a Legendary fish": [
+  "Поймай рыбу Legendary",
+  "Noķer Legendary zivi"
+ ],
+ "A Myth on the Line": [
+  "Миф на крючке",
+  "Mīts uz āķa"
+ ],
+ "Catch your first Mythic fish": [
+  "Поймай свою первую рыбу Mythic",
+  "Noķer savu pirmo Mythic zivi"
+ ],
+ "A Shining Legend": [
+  "Сияющая легенда",
+  "Mirdzoša leģenda"
+ ],
+ "Catch your first Shiny Legendary fish": [
+  "Поймай свою первую рыбу Shiny Legendary",
+  "Noķer savu pirmo Shiny Legendary zivi"
+ ],
+ "A Shining Myth": [
+  "Сияющий миф",
+  "Mirdzošs mīts"
+ ],
+ "Catch your first Shiny Mythic fish": [
+  "Поймай свою первую рыбу Shiny Mythic",
+  "Noķer savu pirmo Shiny Mythic zivi"
+ ],
+ "@legend": [
+  "Найди все предметы легенды {name} ({count})",
+  "Atrodi visus leģendas {name} priekšmetus ({count})"
+ ]
+}
