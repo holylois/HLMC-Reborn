@@ -21,7 +21,7 @@ Catch the fish you see, one set of rarity colours for every item and a new /play
 - Every item uses the same rarity colours as fish: Uncommon green, Rare blue, Epic purple, Legendary gold with a shine, Mythic red. Enchanted gear moves up one tier, and Runeforged gear, stones and gems use the same tiers. Alien-Cursed gear and Cursed elites are Mythic, other Cursed gear has its own violet tier, and elite name tags use the same colours. Charged gem weapons are Rare, and a Sealed stone is as rare as the affix sealed in it.
 - Legendary, Mythic and Cursed tooltips get gold, red and violet frames, other tooltips keep the plain look, and item names sit centred without the item picture. Epic and better items sparkle on the ground, and pickup cards chime brighter for higher tiers.
 - Trophy fish only glint when Mythic or Shiny, and heavy fish look clearly bigger the more they weigh.
-- The Journal shows mobs with their Fresh Animations look and idle motion on a bigger preview, without a jittering spider body or flopping fish.
+- The Journal shows mobs with their Fresh Animations look and idle motion on a bigger preview.
 - The Holy Lootbox has a new gold block look.
 - 3D Skin Layers 1.11.4 fixes skin textures piling up in memory.
 - Fresh Animations 1.11 gives polar bears and pandas full animations, and baby mobs get their own look.
