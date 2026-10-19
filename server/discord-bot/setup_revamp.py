@@ -64,9 +64,10 @@ for name in ["Updates", "Events", "Restarts"]: role(name)
 deacon = role("Deacon", 0x9B59B6)
 
 
-def overwrites(read_only=False, locked_voice=False, private_to=None, hidden_until_verified=False):
+def overwrites(read_only=False, locked_voice=False, private_to=None, hidden_until_verified=False, votes_only=False):
     rules = [{"id": me, "type": 1, "allow": str(VIEW | SEND | REACT), "deny": "0"}]
-    deny = (SEND if read_only else 0) | (CONNECT if locked_voice else 0)
+    # votes_only: people can click the bot's existing reactions but not add new ones (Discord allows that without Add Reactions).
+    deny = (SEND if read_only else 0) | (CONNECT if locked_voice else 0) | (REACT if votes_only else 0)
     if private_to or hidden_until_verified: deny |= VIEW
     rules.append({"id": gid, "type": 0, "allow": "0", "deny": str(deny)})
     if private_to: rules.append({"id": private_to, "type": 0, "allow": str(VIEW | SEND | CONNECT), "deny": "0"})
@@ -131,7 +132,7 @@ place(news, 2, "🎉・events", topic="Events on the server", read_only=True, **
 place(community, 0, "💬・general", topic="Talk about anything", **hidden)
 place(community, 1, "⛏・minecraft-chat", topic="Talk with players in game. Messages here appear in Minecraft chat.", **hidden)
 place(community, 2, "📸・screenshots", topic="Builds, views and funny moments (F2 in game)", **hidden)
-place(community, 3, "💡・suggestions", topic="Ideas for the server, mods and events", **hidden)
+place(community, 3, "💡・suggestions", topic="Ideas for the server, mods and events. Vote with 👍 or 👎", votes_only=True, **hidden)
 place(community, 4, "🆘・help", topic="Stuck with the launcher or the game? Ask here", **hidden)
 
 place(voice, 0, "🔊 General", old=("General",), kind=2, **hidden)

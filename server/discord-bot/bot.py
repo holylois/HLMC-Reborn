@@ -22,6 +22,8 @@ FIFO = "/run/minecraft-console.fifo"
 ADDRESS, WEBSITE, MAP = "play.holylois.com", "https://holylois.com", "https://map.holylois.com"
 CATEGORY, STATUS_CHANNEL, CHAT_CHANNEL, RULES_CHANNEL, WELCOME_CHANNEL = "📌 START HERE", "server-status", "minecraft-chat", "rules", "welcome"
 ROLES_CHANNEL = "roles"
+# New posts in #suggestions get these votes from the bot; the channel denies Add Reactions, so they are the only choices.
+SUGGESTIONS_CHANNEL, VOTES = "suggestions", ("👍", "👎")
 # Reactions that hand out roles: ✅ under the rules unlocks the server (setup_revamp.py --gate), the rest are opt-in pings in #roles.
 VERIFY, PINGS = ("✅", "Member"), [("📢", "Updates", "new releases and big news"), ("🎉", "Events", "events on the server"),
                                    ("🔄", "Restarts", "restarts and downtime")]
@@ -519,10 +521,15 @@ class HolyLoisBot(discord.Client):
                 and message.reference.message_id is not None):
             self.support_registry.reply(message.id, message.channel.id, message.reference.message_id,
                                         message.created_at.isoformat())
+        if not message.author.bot and message.guild is not None and message.channel == text(message.guild, SUGGESTIONS_CHANNEL):
+            for emoji in VOTES:
+                try: await message.add_reaction(emoji)
+                except discord.HTTPException: pass  # deleted meanwhile or missing permission: never break the chat bridge
+            return
         if message.author.bot or self.chat_channel is None or message.channel.id != self.chat_channel.id: return
-        text = message.clean_content
-        if message.attachments: text = (text + " [attachment]").strip()
-        await asyncio.to_thread(tellraw, message.author.display_name[:24], text)
+        line = message.clean_content
+        if message.attachments: line = (line + " [attachment]").strip()
+        await asyncio.to_thread(tellraw, message.author.display_name[:24], line)
 
 
 if __name__ == "__main__":
