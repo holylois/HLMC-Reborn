@@ -13,7 +13,8 @@ OUT = Path(sys.argv[-1])
 WORLD = ROOT / 'world'
 HIDDEN_FILE = Path('/etc/holylois/stats-hidden.txt')
 HIDDEN_CONFIG = ROOT / 'config/holylois-stats-hidden.json'
-SLURS = re.compile(r'n[i1!]gg|f[a@]gg?[o0]t|f[a@]g$|r[e3]t[a@]rd|p[i1]d[o0a]r|п[иі]д[оа]р|k[i1]ke|ch[i1]nk|tr[a@]nny', re.I)
+# Number and letter swaps count too (N1663R, owner 2026-10-19). Same pattern in onboarding StatsVisibility and extras PartySupport.
+SLURS = re.compile(r'n[i1!|l][g6q9]{2}|f[a@4][g6q9]{1,2}[o0]t|f[a@4][g6q9]$|r[e3]t[a@4]rd|p[i1!]d[o0a]r|k[i1!]ke|ch[i1!]nk|tr[a@4]nn(?:y|ie)|п[иі]д[оа]р', re.I)
 TOP = 5
 PACK_FEED = 'https://github.com/holylois/HLMC-Reborn/releases/download/pack-stable/pack.json'
 
