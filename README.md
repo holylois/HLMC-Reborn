@@ -6,7 +6,7 @@ An adventure-focused modded Minecraft survival server for friends: claim land on
 
 ## Latest update: launcher 1.6.0 and pack 2.2.0
 
-Catch the fish you see: when a wild fish swims right at your bobber as it bites, you land that exact fish. Every item now uses the same rarity colours as fish, from Uncommon green to Mythic red, with gold, red and violet tooltip frames for Legendary, Mythic and Cursed gear, and sparkles and brighter pickup chimes for the good stuff. Trophy fish help in either hand, relics have their own icons and look in hand, and `/played` shows your time online, fishing and listening to boomboxes. Launcher 1.6.0 splits Settings into sections and appears in Windows Installed apps.
+Catch the fish you see: when a wild fish swims right at your bobber as it bites, you land that exact fish. Every item now uses the same rarity colours as fish, from Uncommon green to Mythic red, with gold, red and violet tooltip frames for Legendary, Mythic and Cursed gear, and sparkles and brighter pickup chimes for the good stuff. Trophy fish help in either hand, the Bell-Keeper's Hook relic gives +1 luck for rarer fish, and `/played` shows your time online, fishing and listening to boomboxes. Launcher 1.6.0 splits Settings into sections and appears in Windows Installed apps.
 
 The update before it, pack 2.1.0, brought colossal Mythic fish up to 255 kg, a friendlier land claims menu and fair selling prices. See [CHANGELOG.md](CHANGELOG.md) for everything.
 

@@ -11,7 +11,7 @@ Catch the fish you see, one set of rarity colours for every item and a new /play
 - A bite catches the fish swimming right at your bobber: you land that exact fish, with its size and rarity.
 - /played shows your total, active and AFK time, plus time spent fishing and listening to boomboxes.
 - Gear on dungeon shelves sometimes comes out as a Runeforged piece.
-- Relics look like themselves: their own icons, the Staff of Quiet Roads as a real staff in hand, and the Bell-Keeper's Hook gives +1 luck for rarer fish.
+- The Bell-Keeper's Hook relic gives +1 luck while held, so rarer fish bite more often.
 - Every trophy fish now helps while held in either hand: Pondie adds health, Plentifin luck for better catches, Devilfish shortens burning, Stormfish softens falls, and a Pufferfish hurts whoever hits you.
 - Launcher: Holy Lois: Reborn appears in Windows Installed apps, so you can remove it from there and choose to keep your data.
 - Launcher: Settings is split into sections: Player and launch, Graphics and memory, Help and diagnostics, Shortcuts and links, Advanced.

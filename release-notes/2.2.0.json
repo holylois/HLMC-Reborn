@@ -9,7 +9,7 @@
         "A bite catches the fish swimming right at your bobber: you land that exact fish, with its size and rarity.",
         "/played shows your total, active and AFK time, plus time spent fishing and listening to boomboxes.",
         "Gear on dungeon shelves sometimes comes out as a Runeforged piece.",
-        "Relics look like themselves: their own icons, the Staff of Quiet Roads as a real staff in hand, and the Bell-Keeper's Hook gives +1 luck for rarer fish.",
+        "The Bell-Keeper's Hook relic gives +1 luck while held, so rarer fish bite more often.",
         "Every trophy fish now helps while held in either hand: Pondie adds health, Plentifin luck for better catches, Devilfish shortens burning, Stormfish softens falls, and a Pufferfish hurts whoever hits you."
       ],
       "changed": [
@@ -34,7 +34,7 @@
         "Поклёвка ловит рыбу, которая плывёт прямо у поплавка: ты вытаскиваешь именно её, с её размером и редкостью.",
         "/played показывает всё твоё время, активное и AFK, а ещё время на рыбалке и у бумбоксов.",
         "Снаряжение на полках в подземельях иногда оказывается предметом Runeforged.",
-        "У реликвий свой вид: собственные иконки, Staff of Quiet Roads в руке как настоящий посох, а Bell-Keeper's Hook даёт +1 к удаче для более редкой рыбы.",
+        "Реликвия Bell-Keeper's Hook даёт +1 к удаче, пока она в руке, так что редкая рыба клюёт чаще.",
         "Каждая трофейная рыба теперь помогает в любой руке: Pondie добавляет здоровье, Plentifin удачу для лучшего улова, Devilfish сокращает горение, Stormfish смягчает падения, а иглобрюх ранит того, кто тебя бьёт."
       ],
       "changed": [
@@ -59,7 +59,7 @@
         "Kodiens noķer zivi, kas peld tieši pie pludiņa: tu izvelc tieši to zivi, ar tās izmēru un retumu.",
         "/played rāda tavu kopējo, aktīvo un AFK laiku, kā arī laiku makšķerējot un klausoties bumboksus.",
         "Ekipējums uz pazemju plauktiem dažreiz izrādās Runeforged priekšmets.",
-        "Relikvijām ir savs izskats: savas ikonas, Staff of Quiet Roads rokā kā īsts spieķis, un Bell-Keeper's Hook dod +1 veiksmi retākām zivīm.",
+        "Relikvija Bell-Keeper's Hook dod +1 veiksmi, kamēr to tur rokā, tāpēc retākas zivis kožas biežāk.",
         "Katra trofejas zivs tagad palīdz jebkurā rokā: Pondie dod veselību, Plentifin veiksmi labākam lomam, Devilfish saīsina degšanu, Stormfish mīkstina kritienus, bet pūšļzivs ievaino to, kas tevi sit."
       ],
       "changed": [
