@@ -2,9 +2,9 @@
 
 An adventure-focused modded Minecraft survival server for friends: claim land on the map, explore dungeons, earn achievements and Runeforged runes, trade in the auction house and play radio with a boombox. A Windows launcher installs the pack and keeps it updated.
 
-**Launcher 1.6.0 / pack 2.2.0 / Minecraft 26.3 / Fabric 0.19.5 / Java 25**
+**Launcher 1.6.1 / pack 2.2.0 / Minecraft 26.3 / Fabric 0.19.5 / Java 25**
 
-## Latest update: launcher 1.6.0 and pack 2.2.0
+## Latest feature update: launcher 1.6.0 and pack 2.2.0
 
 Catch the fish you see: when a wild fish swims right at your bobber as it bites, you land that exact fish. Every item now uses the same rarity colours as fish, from Uncommon green to Mythic red, with gold, red and violet tooltip frames for Legendary, Mythic and Cursed gear, and sparkles and brighter pickup chimes for the good stuff. Trophy fish help in either hand, the Bell-Keeper's Hook relic gives +1 luck for rarer fish, and `/played` shows your time online, fishing and listening to boomboxes. Launcher 1.6.0 splits Settings into sections and appears in Windows Installed apps.
 
