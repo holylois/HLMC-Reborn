@@ -3,6 +3,7 @@
 Prepared scheduler: install/enable only after explicit deploy approval including automatic sensitive uploads.
 Timer success does not authorize erasure. Future erasure workflows must synchronously verify the latest state.
 """
+import argparse
 import contextlib
 import datetime
 import fcntl
@@ -12,10 +13,11 @@ import os
 import re
 import stat
 import subprocess
+import tarfile
 import uuid
 from pathlib import Path
 from recovery_guard import Guard, ROOT, STATE
-from guard_snapshot import snapshot, verify, private_read, new_private_file
+from guard_snapshot import snapshot, verify, snapshot_contents, private_read, new_private_file
 
 BASE = Path('/var/lib/holylois/guard-checkpoints')
 REMOTE = 'gdrive:Holy Lois Backups/guard-state'
@@ -104,9 +106,19 @@ class Drive:
     def ensure(self, path, fingerprint, name):
         if not re.fullmatch('[a-f0-9]{64}', fingerprint) or name not in FILES:
             raise ValueError('Private provider target required')
-        data = private_read(path, 2_000_000)
         remote = REMOTE + '/checkpoint-' + fingerprint + '/' + name
+        data = private_read(path, 2_000_000)
         self.command('copyto', str(path), remote, '--immutable', '--checksum')
+        self.verify(path, fingerprint, name, expected=data)
+
+    def verify(self, path, fingerprint, name, expected=None):
+        """Provider reads only. Never create a missing checkpoint or refresh its index."""
+        if not re.fullmatch('[a-f0-9]{64}', fingerprint) or name not in FILES:
+            raise ValueError('Private provider target required')
+        data = private_read(path, 2_000_000)
+        if expected is not None and data != expected:
+            raise ValueError('Original changed during immutable upload')
+        remote = REMOTE + '/checkpoint-' + fingerprint + '/' + name
         row = json.loads(self.command('lsjson', remote, '--stat', '--hash'))
         hashes = {str(k).lower(): str(v).lower() for k, v in row.get('Hashes', {}).items()}
         if row.get('IsDir') is not False or row.get('Name') != name or row.get('Size') != len(data):
@@ -115,6 +127,43 @@ class Drive:
             raise ValueError('Provider differs from original checksum')
         if self.command('cat', remote, '--count', str(len(data) + 1)) != data:
             raise ValueError('Off-site readback differs from original bytes')
+
+
+def verify_current(guard, base, provider):
+    """Synchronous exact-current proof, without upload, state replacement or erasure authority."""
+    base = private_directory(base)
+    if (base.is_relative_to(guard.directory) or guard.directory.is_relative_to(base)
+            or base.is_relative_to(guard.root) or guard.root.is_relative_to(base)):
+        raise ValueError('Checkpoint must remain separate from active guard')
+    with locked(base):
+        fingerprint = pair(guard)
+        latest_raw = private_read(base / 'latest.json', 100_000)
+        latest = json.loads(latest_raw)
+        directory = private_directory(base / fingerprint)
+        receipt_raw = private_read(directory / 'receipt.json', 100_000)
+        receipt = json.loads(receipt_raw)
+        contents = snapshot_contents(directory / 'guard-state.tar', receipt)
+        if (digest(contents['ledger.json'] + b'\0' + contents['subject-key.json']) != fingerprint
+                or latest.get('schema') != 1 or latest.get('fingerprint') != fingerprint
+                or latest.get('archive_sha256') != receipt['archive_sha256']
+                or latest.get('ledger_sha256') != receipt['ledger_sha256']
+                or latest.get('offsite_verified') is not True
+                or latest.get('production_restore_authorized') is not False
+                or latest.get('expiry_eligible') is not False):
+            raise ValueError('Latest checkpoint does not protect the exact current guard')
+        originals = {name: private_read(directory / name, 2_000_000) for name in FILES}
+        if (len(originals['guard-state.tar']) != receipt['archive_bytes']
+                or digest(originals['guard-state.tar']) != receipt['archive_sha256']
+                or originals['receipt.json'] != receipt_raw):
+            raise ValueError('Original checkpoint changed before provider verification')
+        for name in FILES: provider.verify(directory / name, fingerprint, name)
+        if (pair(guard) != fingerprint or private_read(base / 'latest.json', 100_000) != latest_raw
+                or private_read(directory / 'receipt.json', 100_000) != receipt_raw
+                or any(private_read(directory / name, 2_000_000) != raw for name, raw in originals.items())):
+            raise ValueError('Guard or original evidence changed during synchronous verification')
+        return {'passed': True, 'fingerprint': fingerprint, 'offsite_verified': True,
+                'synchronous_readback': True, 'uploaded': False, 'live_state_changed': False,
+                'production_restore_authorized': False, 'deleted': 0}
 
 
 def checkpoint(guard, base, provider):
@@ -141,12 +190,18 @@ def checkpoint(guard, base, provider):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--verify-current', action='store_true', help='Read back existing exact-current protection without uploads')
+    args = parser.parse_args()
     if os.geteuid() != 0: raise ValueError('Privileged checkpoint operator required')
     os.umask(0o077)
-    print(json.dumps(checkpoint(Guard(), BASE, Drive())))
+    operation = verify_current if args.verify_current else checkpoint
+    result = operation(Guard(), BASE, Drive())
+    result.pop('fingerprint', None)  # The private pair digest is for in-process binding, not terminal output.
+    print(json.dumps(result))
 
 
 if __name__ == '__main__':
     try: main()
-    except (ValueError, OSError, KeyError, TypeError, subprocess.SubprocessError):
+    except (ValueError, OSError, KeyError, TypeError, tarfile.TarError, subprocess.SubprocessError):
         raise SystemExit('Private guard checkpoint failed; retain evidence and review. No erasure authority.')

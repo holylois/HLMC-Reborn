@@ -7,7 +7,7 @@ import uuid
 from pathlib import Path
 from unittest.mock import Mock
 from unittest.mock import patch
-from guard_checkpoint import checkpoint, pair, locked, Drive, FILES
+from guard_checkpoint import checkpoint, verify_current, pair, locked, Drive, FILES
 from recovery_guard import Guard
 
 
@@ -20,6 +20,12 @@ class Provider:
         if self.change:
             action, self.change = self.change, None; action()
         if self.fail: raise OSError('Generated transfer failure')
+
+    def verify(self, path, fingerprint, name):
+        if self.objects[(fingerprint, name)] != path.read_bytes(): raise ValueError('Generated readback mismatch')
+        if self.change:
+            action, self.change = self.change, None; action()
+        if self.fail: raise OSError('Generated read failure')
 
 
 class Checkpoints(unittest.TestCase):
@@ -164,6 +170,73 @@ class DriveTests(unittest.TestCase):
         for fingerprint, name in (('../x', FILES[0]), (self.fingerprint, '../key')):
             with self.assertRaises(ValueError): self.drive.ensure(self.path, fingerprint, name)
         self.drive.command.assert_not_called()
+
+    def test_verification_only_never_uploads(self):
+        self.drive.command = Mock(side_effect=[json.dumps(self.metadata).encode(), self.data])
+        self.drive.verify(self.path, self.fingerprint, FILES[0])
+        self.assertEqual([c.args[0] for c in self.drive.command.call_args_list], ['lsjson', 'cat'])
+
+    def test_changed_original_during_upload_cannot_be_accepted(self):
+        def changed(*args):
+            self.path.write_bytes(b'generated changed upload')
+            return b''
+        self.drive.command = Mock(side_effect=changed)
+        with self.assertRaises(ValueError): self.drive.ensure(self.path, self.fingerprint, FILES[0])
+        self.assertEqual(self.drive.command.call_count, 1)
+
+
+class CurrentProtection(unittest.TestCase):
+    setUp = Checkpoints.setUp
+    execute = Checkpoints.execute
+
+    def test_readback_has_no_local_or_remote_mutation(self):
+        self.execute()
+        local = {p.relative_to(self.base): p.read_bytes() for p in self.base.rglob('*') if p.is_file()}
+        remote = dict(self.provider.objects)
+        self.provider.ensure = Mock(side_effect=AssertionError('Verification must never upload'))
+        result = verify_current(self.guard, self.base, self.provider)
+        self.assertTrue(result['synchronous_readback']); self.assertFalse(result['uploaded'])
+        self.assertEqual(result['fingerprint'], pair(self.guard))
+        self.assertEqual(local, {p.relative_to(self.base): p.read_bytes() for p in self.base.rglob('*') if p.is_file()})
+        self.assertEqual(remote, self.provider.objects)
+
+    def test_old_valid_checkpoint_cannot_protect_new_request(self):
+        self.execute(); self.guard.record_request(str(uuid.uuid4()), str(uuid.uuid4()))
+        with self.assertRaises((ValueError, FileNotFoundError)): verify_current(self.guard, self.base, self.provider)
+        self.assertEqual(len(self.provider.objects), 3)
+
+    def test_old_latest_index_cannot_hide_current_directory(self):
+        self.execute(); prior = (self.base / 'latest.json').read_bytes()
+        self.guard.start(); self.execute(); (self.base / 'latest.json').write_bytes(prior)
+        with self.assertRaises(ValueError): verify_current(self.guard, self.base, self.provider)
+
+    def test_guard_changes_during_readback_block_completion(self):
+        self.execute(); prior = (self.base / 'latest.json').read_bytes()
+        self.provider.change = lambda: self.guard.record_request(str(uuid.uuid4()), str(uuid.uuid4()))
+        with self.assertRaises(ValueError): verify_current(self.guard, self.base, self.provider)
+        self.assertEqual((self.base / 'latest.json').read_bytes(), prior)
+
+    def test_remote_failure_and_corruption_cannot_use_cached_success(self):
+        self.execute(); self.provider.fail = True
+        with self.assertRaises(OSError): verify_current(self.guard, self.base, self.provider)
+        self.provider.fail = False
+        self.provider.objects[(pair(self.guard), FILES[0])] = b'generated corrupt'
+        with self.assertRaises(ValueError): verify_current(self.guard, self.base, self.provider)
+
+    def test_missing_checkpoint_is_not_created(self):
+        with self.assertRaises(FileNotFoundError): verify_current(self.guard, self.base, self.provider)
+        self.assertEqual(set(p.name for p in self.base.iterdir()), {'job.lock'})
+
+    def test_archive_swap_before_provider_readback_is_rejected(self):
+        from guard_snapshot import snapshot_contents
+        self.execute(); self.provider.verify = Mock(side_effect=AssertionError('Corrupt original must not reach provider'))
+        def changed(path, receipt):
+            contents = snapshot_contents(path, receipt)
+            path.write_bytes(b'generated replacement after inspection')
+            return contents
+        with patch('guard_checkpoint.snapshot_contents', changed), self.assertRaises(ValueError):
+            verify_current(self.guard, self.base, self.provider)
+        self.provider.verify.assert_not_called()
 
 
 if __name__ == '__main__': unittest.main()

@@ -107,3 +107,30 @@ use only the existing private staff operation, limited to one alert start per ho
 A private latest.json index is evidence of one successful check, not an erasure permit. Future erasure workflows
 must synchronously verify that the exact current ledger/key pair has current independent off-site protection.
 Never choose an older valid ledger to make a server start. Keep all earlier checkpoints and unresolved evidence.
+
+## Prepared per-store review228
+
+Prepared source only, not installed. The scheduled227 service and guard224 keep their existing deployed bytes.
+`guard_checkpoint.py --verify-current` adds synchronous verification of an existing exact-current checkpoint:
+it checks the current ledger/key fingerprint, independent local archive receipt, provider hashes and bounded
+readback. It performs no upload, snapshot creation, latest-index refresh or state replacement. An old timer
+success cannot stand in for this check. Missing evidence or a concurrent request/change refuses completion.
+
+`privacy_review.py` is an offline library with no default account paths or service control. A trusted operator
+workflow supplies the private identity cases, complete native store registry, stopped-writer lease and current
+source/inventory verifier. Every HMAC ledger request must have exactly one matching case. The identity review
+must explicitly list all linked online/offline/forced and case-variant UUIDs plus reviewed aliases; lowercase
+aliases alone cannot reconstruct case-sensitive free-play UUIDs. A proof digest references that separate review,
+it does not discover accounts or prove that an operator's identity inventory is complete.
+
+Every linked identity is checked across all ten store groups twice. A changed store fingerprint, source review,
+writer state, guard pair, missing case or unresolved store blocks the review. Only aggregate counts are returned.
+Even a successful review has `allow_start=false` and `erasure_authorized=false`. The existing guard still blocks
+all recorded requests. There is no erase, clear-request, production restore-completion or barrier-release API.
+
+Generated tests exercise this library with native-shaped SQLite/JSON/NBT/Anvil records, recovery tokens,
+shared records, exports and Discord fixture history. They prove detection/review behavior, not a completed real
+account erasure. The older215 SQLite-ledger pilot must never replace the deployed pseudonymous guard.
+Before any activation or erasure: finish current native bindings and ownership/hold decisions, adapt export
+suppression to the current guard/cases, prove the complete flow on an isolated generated account, then obtain
+separate deploy approval and exact account-action approval. No real deletion or new data upload is authorized.

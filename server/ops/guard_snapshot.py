@@ -84,7 +84,8 @@ def snapshot(guard, destination):
         return receipt
 
 
-def verify(archive_path, trusted_receipt, destination):
+def snapshot_contents(archive_path, trusted_receipt):
+    """Validate bounded bytes against an independent original. Returned secrets stay internal."""
     if (trusted_receipt.get('schema') != 1 or trusted_receipt.get('kind') != 'guard-state'
             or type(trusted_receipt.get('archive_bytes')) is not int):
         raise ValueError('Independent original receipt required')
@@ -116,6 +117,12 @@ def verify(archive_path, trusted_receipt, destination):
             or len(ledger['requests']) != trusted_receipt['request_count']
             or manifest['request_count'] != trusted_receipt['request_count']):
         raise ValueError('Ledger identity/count differs from trusted snapshot')
+    return contents
+
+
+def verify(archive_path, trusted_receipt, destination):
+    contents = snapshot_contents(archive_path, trusted_receipt)
+    ledger = json.loads(contents['ledger.json'])
     directory = new_directory(destination)
     for name in FILES: new_private_file(directory / name, contents[name])
     for name in FILES:
@@ -126,7 +133,7 @@ def verify(archive_path, trusted_receipt, destination):
     Guard._sync(directory)
     Guard._sync(directory.parent)
     return {'passed': True, 'files_verified': 2, 'request_count': len(ledger['requests']),
-            'archive_bytes': len(data), 'archive_sha256': sha(data), 'live_state_replaced': False,
+            'archive_bytes': trusted_receipt['archive_bytes'], 'archive_sha256': trusted_receipt['archive_sha256'], 'live_state_replaced': False,
             'production_restore_authorized': False, 'secret_values_printed': False}
 
 
