@@ -57,3 +57,30 @@ keeps maintenance and background jobs paused for review. A failed rollout is not
 The owner explicitly approved this deployment. Installed source hashes, the systemd hook, private file permissions,
 the zero-request ledger/anchor pair and original whitelist/timers were verified after the empty-server restart.
 New deployments still require explicit approval; this file and tests do not change services by themselves.
+
+## External checkpoint helper (prepared, not installed)
+
+`guard_snapshot.py` creates a bounded private archive of the ledger and subject key while holding the guard
+lock. It requires a valid current anchor and no pending restore. It writes a new private directory outside the
+server and guard roots, with an independent original receipt. Existing evidence is never overwritten.
+
+The verification action checks the archive against that trusted original receipt, allows exactly the expected
+regular files, rereads recovered disk bytes and validates the recovered state/key in a new private directory.
+It cannot replace live state, start Minecraft, clear requests or release a barrier. It has no upload, pruning,
+service or automatic restore behavior. The root operator must choose private unlinked paths with protected parents.
+
+Example operator commands, using the reviewed source beside the matching `recovery_guard.py`:
+
+```
+sudo python3 guard_snapshot.py snapshot --output NEW_PRIVATE_CHECKPOINT_DIR
+sudo python3 guard_snapshot.py verify --archive CHECKPOINT_DIR/guard-state.tar --receipt TRUSTED_ORIGINAL_RECEIPT --output NEW_PRIVATE_PROOF_DIR
+```
+
+Keep the original receipt independently protected. A digest supplied only by an archive/download is insufficient.
+An old snapshot can pass byte verification while being unsafe to substitute for a later ledger. The helper grants
+no freshness or production replacement authority. Preserve newer requests and every incomplete-transaction marker.
+Take a new reviewed checkpoint after ledger/generation changes; a one-time proof is not a scheduled backup service.
+Missing latest state still requires operator review. Do not initialize an empty ledger to recover from key loss.
+
+Fixture checks cover nonempty requests, old-copy recovery preserving new live requests/barriers, exact private
+disk recovery, corruption, unsafe paths/types/permissions, duplicate/incomplete archives and lock contention.
