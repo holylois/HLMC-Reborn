@@ -16,6 +16,6 @@ jobs:
         run: python server/ops/test-ops.py
       - name: Native backup selection and exact snapshot reconstruction
         working-directory: server/ops
-        run: python -m unittest test_recovery_chain test_restore_payload test_recovery_set test_recovery_guard test_guard_snapshot test_guard_checkpoint test_privacy_review test_privacy_exports test_privacy_actions test_privacy_bindings test_privacy_start test_privacy_evidence test_privacy_backup
+        run: python -m unittest test_recovery_chain test_restore_payload test_recovery_set test_recovery_guard test_guard_snapshot test_guard_checkpoint test_privacy_review test_privacy_exports test_privacy_actions test_privacy_bindings test_privacy_start test_privacy_evidence test_privacy_backup test_privacy_restore test_privacy_prestart
       - name: Release docs name the current versions
         run: python scripts/check_versions.py

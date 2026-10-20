@@ -47,6 +47,7 @@ class Fixture:
         self.plan_hash = self.add(encoded(e.plan.description()))
         journal = self.add((e.directory / 'journal.json').read_bytes())
         for a in e.plan.actions:
+            self.add((e.directory / 'originals' / a['relative']).read_bytes())
             if a['replacement'] is not None: self.add(a['replacement'])
         self.index_value = {'schema': 1, 'kind': 'private-case-recovery',
             'binding': {'root': str(e.root), 'cases_sha256': digest(e.cases), 'scopes_sha256': digest(e.reviews),
@@ -92,6 +93,21 @@ class EvidenceTests(unittest.TestCase):
         self.assertTrue(f.reader.verify_recovery(f.manifest))
         self.assertEqual(len(f.provider.calls), len(f.objects) + 1)
         self.assertEqual(set(f.env.base.rglob('*')), before)
+
+    def test_materialize_protects_actual_originals_and_replacements_without_upload(self):
+        from privacy_evidence import materialize
+        f = self.fresh(); e = f.env
+        names = {c['identity_proof_sha256'] for c in e.cases} | {v['evidence_sha256'] for v in e.reviews.values()}
+        artifacts = {name: f.bundle / 'objects' / name for name in names}
+        target = e.base / 'new-bundle'; index = e.base / 'new-independent-index.json'
+        result = materialize(e.guard, f.manifest, artifacts, {f.plan_hash: e.directory}, target, index,
+                             f.decisions, lambda: True, lambda: e.runtime)
+        self.assertFalse(result['uploaded']); self.assertFalse(f.provider.calls)
+        reader = f.make_reader(directory=target, index=index, index_sha256=result['index_sha256'])
+        self.assertTrue(reader.verify_scope(f.manifest))
+        for action in e.plan.actions:
+            self.assertEqual((target / 'objects' / action['before']['sha256']).read_bytes(),
+                             (e.directory / 'originals' / action['relative']).read_bytes())
 
     def test_checked_start_consumes_actual_readers_and_retains_request(self):
         f = self.fresh(); e = f.env

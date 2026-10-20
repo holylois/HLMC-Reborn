@@ -263,3 +263,35 @@ backup reader. Changed local/off-site originals block review without rotating th
 request.294 generated checks and168 ARM checks passed; no real backup/account read, provider operation, upload,
 JVM boot or deployment. Fixed production pre-start integration, historical extraction/anchor reconciliation,
 actual case/hold review and the complete native generated-account restore/startup rehearsal still remain.
+
+## Combined recovery candidate236
+
+Prepared, not installed. Startup, historical restoration and local private recovery-bundle creation are tested
+as one candidate. `privacy_prestart.py` has a fixed privileged CLI with no path/config/command overrides.
+It checks its actual systemd start-pre PID and invocation. Empty ledgers keep the normal conservative path;
+nonempty ledgers require a separately pinned complete private config and all native verifiers, current guard
+protection, original backup readback, completed private journals, original/replacement objects and current
+operator scope decisions. A missing review, unresolved hold, returned account record or changed original blocks.
+
+Native verifiers are now a self-contained `privacy_native` package. The old SQLite pilot Ledger is excluded.
+Runtime bindings pin the package initializer as well as verifier modules and the actual startup/restore code.
+Writer observations use one complete systemctl query, with no observation caching. Only the exact current
+Minecraft start-pre control process may represent an activating game unit; all other writers/timers must be
+stopped for a nonempty-request review. Unchanged runtime file hashes are cached only with full metadata checks.
+
+`privacy_restore.HistoricalRestore` requires an exact approved manifest, protected current external guard,
+stopped writers and a verified whole-server source. It arms the pending barrier before extraction, stages a new
+tree, compares every restored file, retains the entire previous root and installs with no-replace moves.
+Historical anchor reconciliation keeps every current external request/key instead of restoring them from the
+archive. It does not authorize startup or erasure. A fresh current checkpoint, per-store actions and the full
+checked startup review must follow. Interrupted extraction/install retains evidence and blocks automatic start;
+there is no speculative resume or automatic cleanup. Runtime drift needs a separately reviewed compatible plan.
+
+`privacy_evidence.materialize` creates a new local bundle from actual independent identity/scope artifacts and
+completed journals. The bundle now includes quarantined original bytes as well as replacements. It never
+uploads or invents support/identity/hold decisions. New real sensitive bundles need concrete upload approval;
+the existing scheduler227 authorization covers guard ledger/key only.
+
+Combined generated checks and actual systemd contracts are recorded in the private operator handoff. No actual
+account erasure or nonempty-account native restore is claimed. A sealed rollout and final request-aware native
+rehearsal are still required before real requests can be processed. Existing live224/227 remain unchanged.

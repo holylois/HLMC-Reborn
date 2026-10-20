@@ -128,6 +128,11 @@ class Evidence:
             plan._sidecars()
             if encoded(plan.description()) != payload[plan_hash]: raise ValueError('Protected action plan differs from actual transaction')
             for action in plan.actions:
+                # A metadata-only journal is insufficient to recover the move-only originals after host loss.
+                # Protect the original bytes as well as replacements; do not infer coverage from an older tar.
+                required.add(action['before']['sha256'])
+                if len(payload[action['before']['sha256']]) != action['before']['bytes']:
+                    raise ValueError('Protected original size differs from actual transaction')
                 if action['after'] is not None:
                     required.add(action['after'])
                     if payload[action['after']] != action['replacement']: raise ValueError('Protected replacement object differs')
@@ -162,3 +167,66 @@ class Evidence:
         if final != original or current != payload or self._decisions(manifest) != decisions:
             raise ValueError('Private evidence changed during independent readback')
         return True
+
+
+def materialize(guard, manifest, artifacts, transactions, destination, independent_index, decisions, lease, runtime_review):
+    """Create a new local private recovery bundle from actual reviewed evidence and completed journals.
+
+    No provider write. The owner must approve the concrete new sensitive upload scope separately. Current
+    decisions must already exist independently; this helper cannot discover identity/support associations.
+    """
+    from guard_checkpoint import pair
+    from privacy_actions import canonical, file as file_metadata
+    from privacy_review import cases_for
+    from guard_snapshot import new_private_file
+    destination, independent_index = canonical(destination), canonical(independent_index)
+    private_directory(destination.parent); private_directory(independent_index.parent)
+    if (destination.is_relative_to(guard.root) or independent_index.is_relative_to(guard.root)
+            or independent_index.is_relative_to(destination) or destination.is_relative_to(independent_index)):
+        raise ValueError('Independent private artifact locations required')
+    fingerprint = pair(guard); runtime = sha(runtime_review()); frozen = digest(manifest)
+    cases_for(guard, manifest['cases'])
+    def current():
+        if (lease() is not True or pair(guard) != fingerprint or sha(runtime_review()) != runtime
+                or manifest['root'] != str(guard.root) or manifest['guard_pair_sha256'] != fingerprint
+                or manifest['runtime_sha256'] != runtime or digest(manifest) != frozen):
+            raise ValueError('Private bundle binding changed')
+    current(); destination.mkdir(mode=0o700, exist_ok=False)
+    objects = destination / 'objects'; objects.mkdir(mode=0o700); inventory = {}; records = []; total = 0
+    def add(raw):
+        nonlocal total
+        current(); name = hash_bytes(raw)
+        if name in inventory: return name
+        total += len(raw)
+        if len(raw) > LIMIT or total > TOTAL or len(inventory) >= 1000: raise ValueError('Private bundle exceeds review budget')
+        new_private_file(objects / name, raw); inventory[name] = {'bytes': len(raw)}
+        return name
+    cases, scopes = add(encoded(manifest['cases'])), add(encoded(manifest['scopes']))
+    for expected, path in artifacts.items():
+        sha(expected); raw = private_read(path, LIMIT)
+        if add(raw) != expected: raise ValueError('Reviewed identity/scope artifact differs from its original')
+    for expected, directory in transactions.items():
+        plan = Plan.from_journal(directory); plan._sidecars()
+        if add(encoded(plan.description())) != sha(expected): raise ValueError('Protected plan identity changed')
+        journal = add(private_read(Path(directory) / 'journal.json', 4_000_000))
+        records.append({'plan': expected, 'journal': journal})
+        for action in plan.actions:
+            if plan._kind(action, Path(directory)) != ('applied' if action['after'] is not None else 'moved'):
+                raise ValueError('Actual completed original/replacement required')
+            original = Path(directory) / 'originals' / action['relative']
+            before = file_metadata(original)
+            fd = os.open(original, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+            with os.fdopen(fd, 'rb') as stream: raw = stream.read(LIMIT + 1)
+            if before != file_metadata(original) or add(raw) != action['before']['sha256']:
+                raise ValueError('Original transaction bytes changed while protecting')
+            if action['replacement'] is not None: add(action['replacement'])
+    index = {'schema': 1, 'kind': 'private-case-recovery',
+        'binding': {'root': manifest['root'], 'cases_sha256': digest(manifest['cases']),
+                    'scopes_sha256': digest(manifest['scopes']), 'runtime_sha256': runtime,
+                    'backup_sha256': manifest['backup_sha256'], 'policy_sha256': manifest['policy_sha256']},
+        'cases': cases, 'scopes': scopes, 'transactions': records, 'objects': inventory}
+    current(); raw = encoded(index); new_private_file(independent_index, raw)
+    reader = Evidence(destination, independent_index, hash_bytes(raw), decisions, transactions, None)
+    reader.verify_scope(manifest); current()
+    return {'index_sha256': hash_bytes(raw), 'objects': len(inventory), 'bytes': total,
+            'uploaded': False, 'allow_start': False, 'deleted': 0}
