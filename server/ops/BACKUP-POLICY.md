@@ -40,5 +40,15 @@ was part of that proof. Original and restored evidence remain held; this does no
 chain, a whole host restore, or future erasure adapters. It grants no cleanup approval.
 
 Guard224 adds the deployed external privacy/start barrier, described in RECOVERY-GUARD.md. It does not perform
-erasure. Its external ledger/key need independent recovery protection before any real
-erasure is allowed. The earlier Minecraft-root recovery set cannot supply those newly external files.
+erasure. Its external ledger/key have separate private recovery protection: the first one-time off-site readback
+and subsequent owner-approved checkpoint227 service passed on 20 October. The 15-minute timer verifies changed
+state and rechecks existing remote objects. Any future erasure still requires synchronous latest-state proof and
+the real per-store workflow. The earlier Minecraft-root recovery set cannot supply those newly external files.
+
+A historical world full/differential chain from 19 October passed off-site proof on 20 October. Both archives
+matched their original receipt hashes, sizes and native dependency metadata. All 5,249 payload members passed
+CRC/manifest-hash checks; the exact final 5,085-file, 15,886,880,836-byte world was reconstructed and independently
+reread. With the already proven recovery runtime, it booted Minecraft 26.3 on fenced loopback, loaded datapacks,
+saved and stopped cleanly in 142.6 seconds. Live service/guard were unchanged. Coverage is this world chain;
+auth/permissions/economy consistency requires the separate complete stopped recovery set. Original/download/
+restored evidence is retained, completed test-copy roots restricted, and expiry remains unauthorized.
