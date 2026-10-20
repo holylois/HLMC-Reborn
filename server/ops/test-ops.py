@@ -158,6 +158,31 @@ class DeployKit(unittest.TestCase):
                 self.deploy(plan, '')
         self.assertTrue(kit.MAINTENANCE.exists())
 
+    def test_guarded_rollback_rebinds_only_after_successful_extraction(self):
+        directory = self.temp / 'guard'
+        guard = kit.recovery_guard.Guard(self.root, directory)
+        guard.initialize()
+        plan = self.write_plan()
+        folder = self.temp / 'guarded-backup'; folder.mkdir()
+        kit.backup(plan, folder)
+        (self.root / 'config/a.json').write_text('changed')
+        with mock.patch.object(kit.recovery_guard, 'STATE', directory):
+            kit.restore(plan, folder)
+        self.assertEqual((self.root / 'config/a.json').read_text(), '{"old": true}')
+        self.assertTrue(guard.start()['allow_start'])
+
+    def test_guarded_failed_extraction_cannot_restart(self):
+        directory = self.temp / 'guard'
+        guard = kit.recovery_guard.Guard(self.root, directory)
+        guard.initialize()
+        plan = self.write_plan()
+        folder = self.temp / 'failed-guarded-backup'; folder.mkdir()
+        kit.backup(plan, folder)
+        with mock.patch.object(kit.recovery_guard, 'STATE', directory), \
+                mock.patch.object(kit, 'run', side_effect=OSError('Generated extraction failure')):
+            with self.assertRaises(OSError): kit.restore(plan, folder)
+        with self.assertRaisesRegex(ValueError, 'Incomplete restore'): guard.start()
+
     def test_migration_declaration_and_all_mod_paths_are_checked(self):
         for change in ({'data_migration': None}, {'data_migration': True},
                        {'swap': {'../outside.jar': 'lib-2.jar'}}, {'add': ['../outside.jar']},

@@ -32,6 +32,13 @@ only folders beginning with release. Held, unfinished and unrecognized historica
 review. This may retain more local evidence; it does not authorize remote cleanup. Backup failure diagnostics
 go only to the private staff alert destination, with no fallback to public server-status.
 
-The first safeguards223 stopped recovery archive passed comparison and SHA-256 verification and is held locally.
-It has not yet passed an off-site verification or an isolated complete account/config restore boot. Keep those
-coverage limits explicit; a successful game restart is not the missing restore proof.
+The first safeguards223 stopped recovery archive passed full off-site verification and isolated restoration on
+20 October 2026. Its 23,179,407,360-byte Drive stream matched the original SHA-256 and provider MD5; companion
+objects matched original hashes. Independent disk checks verified all 5,901 files. The exact archived server
+software booted, loaded datapacks, saved and stopped cleanly. No production restart or real account login/query
+was part of that proof. Original and restored evidence remain held; this does not validate every historical JEB
+chain, a whole host restore, or future erasure adapters. It grants no cleanup approval.
+
+Candidate224 adds an external privacy/start barrier, described in RECOVERY-GUARD.md. It is not deployed yet and
+does not perform erasure. Its future external ledger/key need independent recovery protection before any real
+erasure is allowed. The earlier Minecraft-root recovery set cannot supply those newly external files.

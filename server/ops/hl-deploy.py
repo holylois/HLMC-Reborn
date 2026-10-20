@@ -18,6 +18,8 @@ import argparse, datetime, fcntl, hashlib, json, os, shutil, socket, stat, struc
 from pathlib import Path, PurePosixPath
 from types import SimpleNamespace
 import recovery_set
+import recovery_guard
+import uuid
 
 ROOT = Path('/opt/minecraft')
 BACKUPS = Path('/opt/minecraft-backups/maintenance')
@@ -247,6 +249,10 @@ def backup(plan, folder):
 
 
 def restore(plan, folder):
+    guard = recovery_guard.configured(ROOT)
+    restore_id = str(uuid.uuid4())
+    if guard is not None:
+        guard.begin_restore(restore_id)
     failed = folder / 'failed'
     failed.mkdir(mode=0o700, exist_ok=True)
     with tarfile.open(folder / 'backup.tar') as tar:
@@ -265,6 +271,8 @@ def restore(plan, folder):
     prior = [ROOT.name + '/' + t for t in trees if ROOT.name + '/' + t in members]
     if prior:
         run('tar', '-xf', str(folder / 'backup.tar'), '-C', str(ROOT.parent), *prior)
+    if guard is not None:
+        guard.complete_restore(restore_id)
 
 
 def install(plan, folder):
