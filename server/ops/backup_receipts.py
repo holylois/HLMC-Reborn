@@ -96,7 +96,8 @@ def file_receipt(path, remote, remote_path, kind):
         normalized = jeb_header(path)
     elif kind == "server":
         normalized = {"id": "server-" + member["sha256"], "kind": "server", "base_id": None,
-                      "stream": "server", "created_at": datetime.fromtimestamp(before.st_mtime, timezone.utc).isoformat()}
+                      "stream": "server", "created_at": datetime.fromtimestamp(before.st_mtime, timezone.utc).isoformat(),
+                      "application_consistent": False, "linked_world_snapshot": False}
     else:
         raise ValueError("Unexpected file receipt kind")
     after = path.stat()

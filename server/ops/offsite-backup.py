@@ -13,9 +13,10 @@
 The owner creates the remote once with `sudo rclone config` (Google Drive, scope "drive.file"), so no
 Google credentials pass through anyone else. Without the remote the job exits quietly.
 """
-import hashlib, io, json, os, subprocess, sys, tarfile, time
+import hashlib, json, os, subprocess, sys, tarfile, time
 from pathlib import Path
-from backup_receipts import file_receipt, tree_receipt, save_receipt
+from backup_receipts import file_receipt, tree_receipt, save_receipt, jeb_header
+from recovery_chain import select_chain
 
 REMOTE = "gdrive:Holy Lois Backups"
 ROOT = Path("/opt/minecraft")
@@ -47,13 +48,10 @@ def settled(path):
 
 
 def newest_world_files():
-    fulls = sorted((p for p in JEB.glob("full-*.zip") if settled(p)), key=lambda p: p.stat().st_mtime)
-    if not fulls:
+    files = [p for p in JEB.glob('*.zip') if not p.is_symlink() and settled(p)]
+    if not files:
         return []
-    full = fulls[-1]
-    diffs = sorted((p for p in JEB.glob("differential-*.zip") if settled(p) and p.stat().st_mtime > full.stat().st_mtime),
-                   key=lambda p: p.stat().st_mtime)
-    return [full] + diffs[-1:]
+    return select_chain([(p, jeb_header(p)) for p in files])
 
 
 def volatile(path):
@@ -77,25 +75,55 @@ def server_archive():
     return digest.hexdigest(), files
 
 
-def upload_server(files, stamp):
+def upload_server(files, stamp, expected_fingerprint):
     name = f"server-{stamp}.tar.gz"
-    buffer = io.BytesIO()
-    with tarfile.open(fileobj=buffer, mode="w:gz") as tar:
-        for path in files:
-            try:
-                tar.add(path, arcname=str(path.relative_to(ROOT)))
-            except FileNotFoundError:
-                continue  # removed since the fingerprint; the next run picks up the new state
-    temporary = Path("/var/lib/holylois") / name
-    temporary.write_bytes(buffer.getvalue())
-    temporary.chmod(0o600)
+    temporary = STATE.parent / name
+    created = False
     try:
+        with temporary.open('xb') as output:
+            created = True
+            temporary.chmod(0o600)
+            with tarfile.open(fileobj=output, mode='w:gz') as tar:
+                for path in files:
+                    if path.is_symlink() or not path.is_file():
+                        raise ValueError('Server source changed before archiving')
+                    tar.add(path, arcname=path.relative_to(ROOT).as_posix(), recursive=False)
+        # Fingerprint the actual archived bytes, not a previous read of mutable live files.
+        digest = hashlib.sha256()
+        with tarfile.open(temporary) as tar:
+            for row in tar:
+                if not row.isfile():
+                    raise ValueError('Server archive contains a linked or non-regular member')
+                content = hashlib.sha256()
+                with tar.extractfile(row) as source:
+                    for block in iter(lambda: source.read(1024 * 1024), b''):
+                        content.update(block)
+                digest.update(row.name.encode() + b'\0' + content.digest())
+        if digest.hexdigest() != expected_fingerprint:
+            raise ValueError('Live files changed during supplementary server archiving; retry on the next run')
         rclone("copyto", str(temporary), f"{REMOTE}/server/{name}")
         remote = json.loads(rclone("lsjson", f"{REMOTE}/server/{name}", "--stat", "--hash", capture=True).stdout)
         save_receipt(RECEIPTS, file_receipt(temporary, remote, "server/" + name, "server"))
     finally:
-        temporary.unlink(missing_ok=True)
+        if created:
+            temporary.unlink(missing_ok=True)
     return name
+
+
+def maintenance_ready(folder):
+    """Unfinished, held and legacy/unrecognized recovery evidence is never reclaimed automatically."""
+    if folder.is_symlink() or folder.resolve().parent != MAINTENANCE.resolve():
+        return False
+    if any((folder / flag).exists() for flag in ('hold', '.hold', 'HOLD', 'held.json')):
+        return False
+    try:
+        receipt = json.loads((folder / 'receipt.json').read_text())
+        backup = receipt['backup']
+        return (receipt.get('live') is True and backup.get('scope') in ('jars', 'world')
+                and backup.get('archive_bytes', 0) > 0 and isinstance(backup.get('archive_sha256'), str)
+                and len(backup['archive_sha256']) == 64)
+    except (OSError, ValueError, KeyError, TypeError):
+        return False
 
 
 def offload_maintenance():
@@ -103,14 +131,18 @@ def offload_maintenance():
     (anything modified in the last 10 minutes) or one without a receipt (deploy not finished) waits for the next run."""
     moved = []
     for folder in sorted(p for p in MAINTENANCE.iterdir() if p.is_dir()) if MAINTENANCE.is_dir() else []:
+        if not maintenance_ready(folder):
+            continue
         newest = max((f.stat().st_mtime for f in folder.rglob("*") if f.is_file()), default=0)
-        if time.time() - newest < 600 or not (folder / "receipt.json").exists() and folder.name.startswith("release"):
+        if time.time() - newest < 600:
             continue
         target = f"{REMOTE}/maintenance/{folder.name}"
         rclone("copy", str(folder), target)
         rclone("check", str(folder), target, "--one-way")  # sizes and MD5 against Drive; raises on any mismatch
         listing = json.loads(rclone("lsjson", "-R", "--files-only", "--hash", target, capture=True).stdout)
         save_receipt(RECEIPTS, tree_receipt(folder, listing, "maintenance/" + folder.name))
+        if not maintenance_ready(folder):
+            raise ValueError('Recovery set hold or completion state changed; local evidence preserved')
         subprocess.run(["rm", "-rf", "--", str(folder)], check=True)
         moved.append(folder.name)
     return moved
@@ -150,7 +182,7 @@ def main():
         save_receipt(RECEIPTS, file_receipt(path, remote, "world/" + path.name, "world"))
     fingerprint, files = server_archive()
     if fingerprint != state.get("server_hash"):
-        uploaded.append(upload_server(files, time.strftime("%Y-%m-%d_%H-%M", time.gmtime())))
+        uploaded.append(upload_server(files, time.strftime("%Y-%m-%d_%H-%M", time.gmtime()), fingerprint))
         state["server_hash"] = fingerprint
     uploaded += [f"maintenance/{name}" for name in offload_maintenance()]
     total, removed = enforce_cap()
@@ -168,5 +200,5 @@ if __name__ == "__main__":
         main()
     except Exception as error:
         if os.path.exists(ALERT):
-            subprocess.run([sys.executable, ALERT, "message", f"Off-site backup to Google Drive failed: {error}"], check=False)
+            subprocess.run([sys.executable, ALERT, "staff-message", f"Off-site backup to Google Drive failed: {error}"], check=False)
         raise

@@ -4,6 +4,7 @@
   discord-alert.py failure   OnFailure= hook of minecraft.service: immediate crash report
   discord-alert.py test      sends a test message
   discord-alert.py message TEXT
+  discord-alert.py staff-message TEXT   private diagnostics only, never public fallback
 Every restart, planned or not, is announced once.
 
 Players read #server-status, so alerts go there through the bot (token /etc/holylois/discord-bot-token, root 600). The old
@@ -12,7 +13,7 @@ Without either, every mode exits quietly. During planned work /run/holylois-main
 it, e.g. "Adding new structures"): players get one "restarting for an update" note and a "back online" note after, no alarm.
 A deliberate stop (systemctl stop, no crash) is announced as a shutdown by an admin, not as a crash.
 Lag watch: 3+ "Can't keep up" spikes in 10 minutes with players online sends one admin note per hour (staff webhook) and
-starts a 2-minute spark profile at most every 6 hours; the profile link follows on a later check.
+opens Spark's existing background history at most every 6 hours; the link follows on a later check.
 """
 import glob, json, os, re, shutil, socket, struct, subprocess, sys, time, urllib.error, urllib.request
 from pathlib import Path
@@ -158,17 +159,18 @@ SPARK_LINK = re.compile(r"https://spark\.lucko\.me/(?!docs\b)[A-Za-z0-9]{6,}\b")
 
 
 def post_staff(title, description, color, fields=()):
-    """Admin notes (lag, profiles) go to the staff webhook; without it they fall back to #server-status."""
+    """Private diagnostics never fall back to the public server-status channel."""
     url = WEBHOOK.read_text().strip() if WEBHOOK.exists() else ""
     if not url.startswith(("https://discord.com/api/webhooks/", "https://discordapp.com/api/webhooks/")):
-        post(title, description, color, fields)
-        return
+        print('Private staff alert unavailable; diagnostic details withheld from public channels.', file=sys.stderr)
+        return False
     embed = {"title": title, "description": description[:3900], "color": color,
              "fields": [{"name": n, "value": v[:1000] or "-", "inline": False} for n, v in fields],
              "footer": {"text": "Holy Lois: Reborn server monitor"}}
     body = json.dumps({"username": "Holy Lois Server", "embeds": [embed], "allowed_mentions": {"parse": []}}).encode()
     request = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json", "User-Agent": "HolyLoisMonitor/1.2"})
     urllib.request.urlopen(request, timeout=15).read()
+    return True
 
 
 def stalls(since):
@@ -187,17 +189,18 @@ def service_started():
 
 
 def lag_watch(state, players):
-    """Sustained stalls with players online: one admin alert per hour and an automatic 2-minute spark profile at most
-    every 6 hours, whose link is posted on a later check. Empty-server stalls (pregen) and boot stalls are ignored."""
+    """Save the rolling background history after sustained stalls, without replacing it with a future-only capture.
+    One alert per hour and one snapshot per six hours. Empty-server and boot stalls are ignored."""
     now = time.time()
     spark_at = state.get("spark_at")
     if spark_at and not state.get("spark_posted") and now - spark_at > 140:
         links = SPARK_LINK.findall(stalls(spark_at)[2])
         link = links[-1] if links else None
         if link or now - spark_at > 600:
-            post_staff("Holy Lois lag profile", f"Automatic spark profile from the lag alert: {link}" if link
-                       else "The automatic spark profile produced no link; run /spark profiler start --timeout 120 in game.", GOLD)
-            state["spark_posted"] = True
+            delivered = post_staff("Holy Lois lag profile", f"Automatic spark profile from the lag alert: {link}" if link
+                                   else "The background spark snapshot produced no link; check /spark profiler info before starting another capture.", GOLD)
+            if delivered is not False:
+                state["spark_posted"] = True
     if not players or now - service_started() < BOOT_GRACE or now - state.get("lag_alert_at", 0) < LAG_QUIET:
         return
     count, worst, _ = stalls(now - LAG_WINDOW)
@@ -208,11 +211,11 @@ def lag_watch(state, players):
     if now - (spark_at or 0) > SPARK_QUIET and Path("/run/minecraft-console.fifo").exists():
         console = os.open("/run/minecraft-console.fifo", os.O_WRONLY | os.O_NONBLOCK)
         try:
-            os.write(console, b"spark profiler start --timeout 120\n")
+            os.write(console, b"spark profiler open\n")
         finally:
             os.close(console)
         state.update(spark_at=now, spark_posted=False)
-        note += " A 2-minute spark profile started; its link follows here."
+        note += " Spark's background history was requested; its link follows here."
     post_staff("Holy Lois server is lagging", note, RED)
 
 
@@ -248,6 +251,10 @@ def main():
         return
     if mode == "message":
         post("Holy Lois server", " ".join(sys.argv[2:]), GOLD)
+        return
+    if mode == "staff-message":
+        if not post_staff("Holy Lois backup or operations alert", " ".join(sys.argv[2:]), RED):
+            raise RuntimeError('Private staff destination is unavailable')
         return
     state = load()
     if MAINTENANCE.exists():

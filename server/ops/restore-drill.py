@@ -1,19 +1,22 @@
 """Restore drill: prove that the off-site world backups really bring the world back (owner roadmap, never done before).
 
-Downloads the newest JEB full backup and every newer differential from Google Drive, checks each file's MD5 against Drive
-(and against the local JEB copy when it still exists), restores full + differentials in order into an isolated server
+Selects the newest verified JEB snapshot and its full base by native identity in the private upload receipts.
+Checks each download against Drive and its original receipt, reconstructs the exact final snapshot into an isolated server
 copy and boots it on loopback (port 25566, voice 24455, JEB and BlueMap off, no Discord, no live files touched).
   sudo python3 restore-drill.py OUT_DIR      writes OUT_DIR/receipt.json; leaves /opt/restore-drill and the test copy for review
 Run it detached (systemd-run) because the download takes a while. Nothing is deleted; remove the folders when the owner says so.
 """
-import hashlib, json, os, re, shutil, socket, struct, subprocess, sys, time, zipfile
+import hashlib, json, os, re, shutil, socket, struct, subprocess, sys, time
 from pathlib import Path
+from backup_receipts import jeb_header, hashes, safe_remote
+from recovery_chain import select_chain
+from restore_payload import reconstruct
 
 LIVE = Path('/opt/minecraft'); JEB = LIVE / 'backups/world'
 DOWNLOAD = Path('/opt/restore-drill'); TEST = Path('/opt/minecraft-restore-drill')
 REMOTE = 'gdrive:Holy Lois Backups/world'
 UNIT = 'holylois-restore-drill'
-STAMP = re.compile(r'^(full|differential)-(\d{4}-\d\d-\d\d_\d\d-\d\d-\d\d)\.zip$')
+RECEIPTS = Path('/var/lib/holylois/backup-inventory')
 BAD = ('Incompatible mods found', 'Failed to start the minecraft server', 'Critical injection failure', 'Mixin apply failed',
        'Exception in server tick loop', 'Failed to load datapacks', 'Crash report saved', 'Failed to load level', 'Couldn\'t load level')
 DATA_WARNINGS = ('Failed to load player data', 'Couldn\'t load chunk', 'Exception reading', 'corrupt', 'Failed to read level data')
@@ -50,13 +53,31 @@ def ping():
     raise RuntimeError('no status reply')
 
 
-def chosen(listing):
-    """Newest full backup plus every differential made after it, oldest first."""
-    files = sorted((m.group(2), m.group(1), name) for name in listing if (m := STAMP.match(name)))
-    fulls = [f for f in files if f[1] == 'full']
-    if not fulls: raise RuntimeError('no full backup on Drive')
-    newest = fulls[-1][0]
-    return [fulls[-1][2]] + [f[2] for f in files if f[1] == 'differential' and f[0] > newest]
+def chosen(listing, receipts):
+    candidates, members = [], {}
+    for receipt in receipts:
+        backup = receipt.get('backup', {})
+        if backup.get('kind') not in ('full', 'differential') or not backup.get('complete') or not backup.get('verified'):
+            continue
+        rows = receipt.get('members', [])
+        if len(rows) != 1:
+            raise ValueError('World receipt needs exactly one object')
+        member = rows[0]
+        path = safe_remote(member['path'])
+        parts = path.split('/')
+        if len(parts) != 2 or parts[0] != 'world':
+            raise ValueError('Unexpected world object')
+        name = parts[1]
+        if name not in listing:
+            continue
+        if listing[name].strip().lower() != member['md5'].lower():
+            raise ValueError('Drive differs from original upload receipt')
+        if name in members:
+            raise ValueError('Duplicate world receipt')
+        members[name] = (member, backup)
+        candidates.append((name, backup))
+    names = select_chain(candidates)
+    return names, {name: members[name] for name in names}
 
 
 def main():
@@ -69,7 +90,7 @@ def main():
     live_pid = run('systemctl', 'show', 'minecraft', '--property=MainPID', '--value').stdout.strip()
 
     sums = dict(line.split(None, 1)[::-1] for line in run('rclone', 'md5sum', REMOTE).stdout.split('\n') if line.strip())
-    names = chosen(sums)
+    names, selected = chosen(sums, [json.loads(p.read_text()) for p in RECEIPTS.glob('*.json')])
     DOWNLOAD.mkdir(mode=0o700, exist_ok=True)
     files = []
     for name in names:
@@ -81,11 +102,17 @@ def main():
                       'local_jeb_md5_match': (md5(jeb) == got) if jeb.exists() else None,
                       'download_seconds': round(time.monotonic() - started)})
         if got != sums[name].strip(): raise RuntimeError(f'{name}: MD5 differs from Drive')
+        size, sha256, _ = hashes(local)
+        member, metadata = selected[name]
+        if size != member['size'] or sha256 != member['sha256'] or any(jeb_header(local).get(k) != metadata.get(k)
+                for k in ('id', 'kind', 'base_id', 'stream', 'created_at')):
+            raise RuntimeError('Downloaded backup differs from original receipt or native metadata')
     receipt['backups'] = files
 
-    TEST.mkdir(mode=0o750); world = TEST / 'world'; world.mkdir()
-    for name in names:
-        with zipfile.ZipFile(DOWNLOAD / name) as archive: archive.extractall(world)  # extraction checks every CRC
+    TEST.mkdir(mode=0o750); world = TEST / 'world'
+    receipt['payload'] = reconstruct(DOWNLOAD / names[0], DOWNLOAD / names[1] if len(names) == 2 else None, world)
+    receipt['coverage'] = {'world_snapshot': True, 'auth_permissions_economy_point_in_time': False,
+                           'note': 'World drill only; a complete stopped recovery set is required for account/config consistency.'}
     restored_regions = sum(1 for _ in world.rglob('region/*.mca')); live_regions = sum(1 for _ in (LIVE / 'world').rglob('region/*.mca'))
     live_top = sorted(p.name for p in (LIVE / 'world').iterdir()); restored_top = sorted(p.name for p in world.iterdir())
     receipt['restore'] = {'regions_restored': restored_regions, 'regions_live_now': live_regions,
@@ -135,6 +162,7 @@ def main():
                        'live_pid_unchanged': run('systemctl', 'show', 'minecraft', '--property=MainPID', '--value').stdout.strip() == live_pid}
     receipt['passed'] = (all(f['drive_md5_match'] and f['local_jeb_md5_match'] is not False for f in files) and receipt['boot']['ready']
                          and receipt['boot']['list_ran'] and not receipt['boot']['errors'] and receipt['boot']['live_pid_unchanged']
+                         and not receipt['boot']['data_warnings'] and receipt['payload']['disk_hashes_verified']
                          and receipt['restore']['regions_restored'] > 0)
     receipt['finished'] = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
     (out / 'receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')

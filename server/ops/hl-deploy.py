@@ -6,7 +6,7 @@
 
 PLAN.json (paths relative to the plan's folder):
   {"name": "libs-221", "reason": "small mod updates", "scope": "jars" | "world",
-   "swap": {"old.jar": "new.jar"}, "add": ["extra.jar"], "remove": ["gone.jar"],
+   "data_migration": false, "swap": {"old.jar": "new.jar"}, "add": ["extra.jar"], "remove": ["gone.jar"],
    "files": {"config/x.json": "x.json"}, "expect_log": ["fabric-api 0.163.0"],
    "tested": {"new.jar": "sha256", "x.json": "sha256"}, "launcher_update": true}
 
@@ -15,8 +15,9 @@ snapshot and its off-site copy); "world" takes a complete stopped archive withou
 Online players get the owner-approved one-minute countdown. Any failure restores the backed-up trees and restarts.
 """
 import argparse, datetime, fcntl, hashlib, json, os, shutil, socket, stat, struct, subprocess, sys, tarfile, time
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from types import SimpleNamespace
+import recovery_set
 
 ROOT = Path('/opt/minecraft')
 BACKUPS = Path('/opt/minecraft-backups/maintenance')
@@ -49,8 +50,14 @@ def load_plan(path):
     plan['home'] = path.parent
     if plan.get('scope') not in SCOPES:
         raise ValueError('scope must be "jars" or "world"')
+    if type(plan.get('data_migration')) is not bool:
+        raise ValueError('declare data_migration as true or false')
+    if plan['data_migration'] and plan['scope'] != 'world':
+        raise ValueError('data migrations require a stopped world backup')
     if not plan.get('name') or not plan['name'].replace('-', '').isalnum():
         raise ValueError('name must be letters, digits and hyphens')
+    if not isinstance(plan.get('reason'), str) or not plan['reason'].strip() or len(plan['reason']) > 200 or any(ord(c) < 32 for c in plan['reason']):
+        raise ValueError('reason must be a short single line')
     for key in ('swap', 'files', 'tested'):
         plan.setdefault(key, {})
     for key in ('add', 'remove', 'expect_log'):
@@ -58,15 +65,45 @@ def load_plan(path):
     sources = list(plan['swap'].values()) + plan['add'] + list(plan['files'].values())
     if not sources and not plan['remove']:
         raise ValueError('plan changes nothing')
+    if set(plan['tested']) != set(sources):
+        raise ValueError('tested hashes must cover exactly the candidate sources; no untested or unrelated paths')
     for source in sources:
+        relative(source)
+        if (plan['home'] / source).resolve().parent != plan['home'] or (plan['home'] / source).is_symlink():
+            raise ValueError('candidate must be a regular file in the kit folder')
         if source not in plan['tested']:
             raise ValueError('untested candidate: ' + source)
+    for name in list(plan['swap']) + plan['remove'] + list(plan['swap'].values()) + plan['add']:
+        if relative(name).parts != (name,) or not name.endswith('.jar'):
+            raise ValueError('mod names must be plain jar filenames')
     for target in plan['files']:
-        if Path(target).is_absolute() or '..' in Path(target).parts:
-            raise ValueError('config targets must stay inside the server folder: ' + target)
+        relative(target)
         if plan['scope'] == 'jars' and Path(target).parts[0] not in SCOPES['jars']:
             raise ValueError('a "jars" plan may only change mods/ and config/: ' + target)
+        if Path(target).parts[0] in ('world', 'EasyAuth') and not plan['data_migration']:
+            raise ValueError('world/account changes must declare data_migration')
+        if Path(target).parts[0] in ('backups', 'bluemap'):
+            raise ValueError('targets excluded from recovery cannot be deployed')
+    targets = [str(t.relative_to(ROOT)) for t, _ in changes(plan)]
+    if len(targets) != len(set(targets)):
+        raise ValueError('duplicate live target')
     return plan
+
+
+def relative(value):
+    path = PurePosixPath(value)
+    if (not value or path.is_absolute() or path.as_posix() != value or '\\' in value or ':' in value
+            or any(p in ('.', '..') for p in value.split('/')) or any(ord(c) < 32 for c in value)):
+        raise ValueError('paths must stay inside the server folder')
+    return path
+
+
+def safe_target(target):
+    relative(target.relative_to(ROOT).as_posix())
+    if ROOT.is_symlink() or target.resolve().is_relative_to(ROOT.resolve()) is False:
+        raise RuntimeError('Target escapes server folder')
+    if any(p.is_symlink() for p in (target, *target.parents) if p == ROOT or p.is_relative_to(ROOT)):
+        raise RuntimeError('Symlink in deploy target')
 
 
 def changes(plan):
@@ -167,6 +204,9 @@ def check(base, plan):
         if sha(plan['home'] / source) != digest:
             raise RuntimeError('Candidate differs from tested bytes: ' + source)
     for target, source in changes(plan):
+        safe_target(target)
+        if target.exists() and not target.is_file():
+            raise RuntimeError('Deploy target is not a regular file')
         if source is None and not target.exists():
             raise RuntimeError('Expected live file missing: ' + target.name)
         if source is not None and target.parent.name == 'mods' and target.exists():
@@ -183,6 +223,8 @@ def check(base, plan):
 def backup(plan, folder):
     archive = folder / 'backup.tar'
     trees = SCOPES[plan['scope']]
+    if not trees:
+        recovery_set.require_stopped()
     if trees:
         run('tar', '-cf', str(archive), '-C', str(ROOT.parent), *(ROOT.name + '/' + t for t in trees))
     else:
@@ -197,24 +239,37 @@ def backup(plan, folder):
     for required in (trees or ('world', 'config', 'mods', 'EasyAuth')):
         if ROOT.name + '/' + required not in names:
             raise RuntimeError('Backup is missing ' + required)
-    return {'archive_bytes': archive.stat().st_size, 'archive_sha256': sha(archive), 'scope': plan['scope']}
+    info = {'archive_bytes': archive.stat().st_size, 'archive_sha256': sha(archive), 'scope': plan['scope']}
+    if not trees:
+        recovery_set.save(folder, recovery_set.attest(archive, ROOT, info['archive_sha256'], info['archive_bytes']))
+        info['consistent_recovery_set'] = True
+    return info
 
 
 def restore(plan, folder):
     failed = folder / 'failed'
     failed.mkdir(mode=0o700, exist_ok=True)
-    trees = SCOPES[plan['scope']] or ('world', 'config', 'mods', 'EasyAuth')
+    with tarfile.open(folder / 'backup.tar') as tar:
+        members = set(tar.getnames())
+    # A world migration can change any application store, not just the explicitly installed config files.
+    # Preserve excluded tiles/backups; quarantine every other current or archived top-level entry.
+    archived_roots = {Path(name).parts[1] for name in members if len(Path(name).parts) > 1 and Path(name).parts[0] == ROOT.name}
+    trees = SCOPES[plan['scope']] or tuple(sorted((archived_roots | {p.name for p in ROOT.iterdir()}) - {'backups', 'bluemap'}))
     for name in trees:
         tree = ROOT / name
-        if tree.is_symlink() or tree.resolve().parent != ROOT:
+        safe_target(tree)
+        if tree.resolve().parent != ROOT.resolve():
             raise RuntimeError('Unsafe rollback tree')
         if tree.exists():
             shutil.move(str(tree), str(failed / name))
-    run('tar', '-xf', str(folder / 'backup.tar'), '-C', str(ROOT.parent), *(ROOT.name + '/' + t for t in trees))
+    prior = [ROOT.name + '/' + t for t in trees if ROOT.name + '/' + t in members]
+    if prior:
+        run('tar', '-xf', str(folder / 'backup.tar'), '-C', str(ROOT.parent), *prior)
 
 
 def install(plan, folder):
     for target, source in changes(plan):
+        safe_target(target)
         if source is None:
             shutil.move(str(target), str(folder / ('replaced-' + target.name)))
             continue
@@ -251,6 +306,7 @@ def deploy(base, plan):
     folder = BACKUPS / f'{plan["name"]}-{stamp}'
     folder.mkdir(mode=0o700, parents=True)
     held, backed_up, touched, info = HOLD.exists(), False, False, None
+    recovered = True
     timers = {u: subprocess.run(['systemctl', 'is-active', '--quiet', u]).returncode == 0 for u in TIMERS}
     MAINTENANCE.write_text(plan['reason'][:1].upper() + plan['reason'][1:])
     try:
@@ -267,17 +323,20 @@ def deploy(base, plan):
         if HOLD.exists() != held:
             raise RuntimeError('Terrain hold changed')
     except BaseException:
+        recovered = False
         run('systemctl', 'stop', 'minecraft-console.socket', 'minecraft.service')
         if touched and backed_up:
             restore(plan, folder)
-        run('systemctl', 'start', 'minecraft-console.socket', 'minecraft.service')
+        start(base, dict(plan, expect_log=[]))
+        recovered = True
         print('Previous server restored; backup and failed candidate kept in ' + str(folder), flush=True)
         raise
     finally:
-        MAINTENANCE.unlink(missing_ok=True)
-        for unit, active in timers.items():
-            if active:
-                subprocess.run(['systemctl', 'start', unit], check=False)
+        if recovered:
+            MAINTENANCE.unlink(missing_ok=True)
+            for unit, active in timers.items():
+                if active:
+                    subprocess.run(['systemctl', 'start', unit], check=False)
     receipt = {'live': True, 'plan': plan['name'], 'backup': info, 'folder': str(folder),
                'installed': {t.name: sha(t) for t, s in changes(plan) if s is not None}}
     (folder / 'receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')

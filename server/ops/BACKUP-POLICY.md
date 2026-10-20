@@ -11,3 +11,23 @@ exceed the reminder threshold while removal waits for approval. Never restore th
 Run audit_backup_inventory.py for aggregate read-only coverage. Private receipts and member lists stay outside
 the public repository. Account/profile/quarantine recovery copies need separate reviewed handling; moving data
 into a protected backup is not final erasure. Routine log/support expiry is independent of backup approval.
+
+Prepared recovery safeguards (not deployed): native world selection uses backup IDs, stream and creation time.
+The drill requires original upload receipts and reconstructs the final snapshot, including file removals.
+A passing world drill proves world recovery only. It does not prove account/config/economy consistency.
+
+World-scope deployments now require an explicit data_migration boolean, verified stopped writers, a compared
+whole-server archive and recovery-set.json. Root files changed by a plan are included in rollback, and newly
+created trees are quarantined on failure. A failed rollback boot keeps maintenance and background jobs paused.
+The complete stopped archive preserves account database sidecars alongside the world, permissions, economy,
+configuration and software. BlueMap tiles and recursive backups are excluded. Off-site verification and a restore
+boot remain separate evidence. A recovery-set receipt never grants expiry/deletion approval.
+
+Routine live server/config archives are supplementary copies, not consistent recovery points paired with JEB.
+Their receipts explicitly say application_consistent=false. This batch does not introduce automatic shutdowns
+or claim that historical copies have been upgraded. A scheduled stopped recovery window needs owner approval.
+
+Local maintenance offload now requires a recognized successful deployment receipt for every folder name, not
+only folders beginning with release. Held, unfinished and unrecognized historical folders stay on the VM for
+review. This may retain more local evidence; it does not authorize remote cleanup. Backup failure diagnostics
+go only to the private staff alert destination, with no fallback to public server-status.
