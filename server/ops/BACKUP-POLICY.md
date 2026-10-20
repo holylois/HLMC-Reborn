@@ -1,6 +1,6 @@
 # Backup policy source
 
-This source matches the previously deployed inventory205 and safeguard207, not a new live policy change.
+This source matches inventory205, safeguard207 and the silent safeguards223 deployment on 20 October 2026.
 The off-site uploader verifies new copies, writes private receipts, and reports capacity without remote pruning.
 Removing older remote recovery sets needs a complete reviewed recovery catalog and explicit owner approval.
 
@@ -12,7 +12,7 @@ Run audit_backup_inventory.py for aggregate read-only coverage. Private receipts
 the public repository. Account/profile/quarantine recovery copies need separate reviewed handling; moving data
 into a protected backup is not final erasure. Routine log/support expiry is independent of backup approval.
 
-Prepared recovery safeguards (not deployed): native world selection uses backup IDs, stream and creation time.
+Recovery safeguards are deployed: native world selection uses backup IDs, stream and creation time.
 The drill requires original upload receipts and reconstructs the final snapshot, including file removals.
 A passing world drill proves world recovery only. It does not prove account/config/economy consistency.
 
@@ -31,3 +31,7 @@ Local maintenance offload now requires a recognized successful deployment receip
 only folders beginning with release. Held, unfinished and unrecognized historical folders stay on the VM for
 review. This may retain more local evidence; it does not authorize remote cleanup. Backup failure diagnostics
 go only to the private staff alert destination, with no fallback to public server-status.
+
+The first safeguards223 stopped recovery archive passed comparison and SHA-256 verification and is held locally.
+It has not yet passed an off-site verification or an isolated complete account/config restore boot. Keep those
+coverage limits explicit; a successful game restart is not the missing restore proof.
