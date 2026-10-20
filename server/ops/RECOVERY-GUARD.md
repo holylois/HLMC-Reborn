@@ -173,7 +173,7 @@ Missing originals, changed files/modes, corrupt prepared bytes, SQLite sidecars 
 refuse progress. Undo retains replacements and restores originals. Every incomplete journal is retained.
 Action completion/undo is not final erasure and never releases a recorded request or restore barrier.
 
-`privacy_bindings.py` pins complete active mod membership,27 application source roles plus13 verifier/parser modules,
+`privacy_bindings.py` pins complete active mod membership,28 application source roles plus13 verifier/parser modules,
 the verifier registry and
 scope-review fingerprint. Its read-only maintenance lease requires ten stopped services and eight inactive
 trigger timers, including Discord, weekly recap, retention, guard checkpoints, automatic health restarts and
@@ -212,3 +212,27 @@ records. Synthetic systemd checks use a harmless marker command, not Minecraft o
 Production private evidence bindings, a pre-start lease compatible with the activating unit, historical-anchor
 reconciliation/extraction and an end-to-end native request-aware restore/startup rehearsal remain mandatory
 before any activation proposal. The currently deployed guard224/checkpoints227 remain unchanged.
+
+## Prepared file-backed private evidence reader234
+
+Not deployed. `privacy_evidence.Evidence` implements the private scope/recovery readers used by the startup
+library. It requires an independent original index and its separately reviewed SHA256 pin outside the recovery
+bundle, a current operator-reviewed decision file outside the restored server, explicit active journal locations
+and a read-only provider. A hash recomputed from an unreviewed bundle is not an independent approval or receipt.
+
+The index binds the exact cases/scopes, root, runtime, stopped-backup reference and suppression policy. It lists
+content-addressed objects for cases, scopes, every identity/scope evidence reference, completed plans/journals
+and replacement bytes. Active journals, durable preparation and retained originals are checked on disk through
+the action reader; incomplete/undone journals, changed originals, SQLite sidecars and extra/missing objects block
+verification. Files must be unlinked, private and operator-owned. Bounds:1,000objects,64MiB each,256MiB total.
+
+`ReadOnlyDrive` only uses provider metadata and bounded content readback. Both are compared against the pinned
+local originals. It has no upload/ensure or cleanup operation. Every reader call rereads current decisions and
+rechecks originals after provider access; a new hold or concurrent modification blocks the older proof. The
+decision file represents an actual operator review; it does not discover Discord authors, support associations
+or holds automatically. Those reviews must still be completed for a real case.
+
+There is no bundle authoring/upload CLI or service, live case bundle, sensitive transfer approval or startup
+activation in this batch. The stopped-backup verifier, fixed pre-start integration/lease, historical extraction
+and native account restore/startup proof remain. Existing automatic checkpoint227 permission covers ledger/key
+only and does not authorize uploading the new private cases, plans, support evidence or journals.

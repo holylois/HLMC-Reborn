@@ -17,7 +17,7 @@ VERIFIERS = frozenset(('auth_sqlite', 'store_adapters', 'scoped_stores', 'identi
 SOURCES = frozenset(('auth', 'claims', 'economy', 'homes', 'holylois', 'extras', 'audio', 'audit', 'terrain-cache',
                      'stats-exporter', 'weekly-exporter', 'stats-http', 'guard', 'snapshot', 'checkpoint',
                      'review', 'exports', 'actions', 'bindings', 'discord-bot', 'support-registry', 'routine', 'enforcement',
-                     'deployment', 'thread-guard', 'offsite-backup', 'startup')) | {
+                     'deployment', 'thread-guard', 'offsite-backup', 'startup', 'evidence')) | {
                          'verifier:' + name for name in VERIFIERS}
 SERVICES = ('minecraft', 'holylois-stats', 'holylois-botwall', 'holylois-terrain-expansion',
             'holylois-discord-bot', 'holylois-weekly-recap', 'holylois-log-retention', 'holylois-guard-checkpoint',
