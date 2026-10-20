@@ -157,3 +157,29 @@ with gate/policy initialization and exact-current off-site proof. A single expor
 must not be deployed. Live224/227 bytes and services are unchanged. Generated tests cover current exporter code,
 restored records, unrelated-account preservation, interruption and actual loopback HTTP; they are not a native
 Minecraft account-erasure proof. Current store bindings, exact reversible plans and native rehearsal remain.
+
+## Prepared exact action journals and native bindings230
+
+Not deployed. `privacy_actions.py` adds an explicit reversible file-action library. It has no CLI, default target,
+account discovery, unlink, clear-request or startup override. Exact approved file/store/hash/ownership plans need
+all store reviews plus permission, support/moderation, shared-ownership and external-copy decisions. Holds block
+actions. Current cases, code inventory, stopped writers, full stopped recovery proof and current guard checkpoint
+are rechecked. Private cases/plan/evidence and exact replacement byte objects also require independent recovery
+protection before any account file moves; ledger/key-only protection is insufficient.
+
+Originals move to a private outside-root same-filesystem transaction directory. Replacement bytes are durably
+stored and checked before originals move. Resume reconstructs the plan from that journal and actual disk bytes.
+Missing originals, changed files/modes, corrupt prepared bytes, SQLite sidecars and unresolved initialization
+refuse progress. Undo retains replacements and restores originals. Every incomplete journal is retained.
+Action completion/undo is not final erasure and never releases a recorded request or restore barrier.
+
+`privacy_bindings.py` pins complete active mod membership,23 application source roles plus13 verifier/parser modules,
+the verifier registry and
+scope-review fingerprint. Its read-only maintenance lease requires eight stopped writer services and six inactive
+trigger timers, including Discord, weekly recap, retention and guard checkpoints. It changes no unit state.
+
+Generated tests cover all ten native-shaped verifiers with the current HMAC guard, source changes, retained
+originals, process interruption, undo and old-file reintroduction/reapplication. No native Minecraft account-erasure
+or trusted production restore-completion proof is claimed. Complete production bindings and request-aware native
+orchestration remain. The existing automatic227 upload permission covers ledger/key only; private case/plan/
+evidence/replacement/journal recovery needs its own explicit scoped approval before real sensitive uploads/actions.
