@@ -58,7 +58,7 @@ The owner explicitly approved this deployment. Installed source hashes, the syst
 the zero-request ledger/anchor pair and original whitelist/timers were verified after the empty-server restart.
 New deployments still require explicit approval; this file and tests do not change services by themselves.
 
-## External checkpoint helper (prepared, not installed)
+## External checkpoint helper
 
 `guard_snapshot.py` creates a bounded private archive of the ledger and subject key while holding the guard
 lock. It requires a valid current anchor and no pending restore. It writes a new private directory outside the
@@ -85,13 +85,15 @@ Missing latest state still requires operator review. Do not initialize an empty 
 Fixture checks cover nonempty requests, old-copy recovery preserving new live requests/barriers, exact private
 disk recovery, corruption, unsafe paths/types/permissions, duplicate/incomplete archives and lock contention.
 
-## Scheduled checkpoints (prepared, not deployed)
+## Scheduled checkpoints
 
-`guard_checkpoint.py` and its three systemd units are a separate proposed operations rollout. The first one-time
-external checkpoint passed owner-approved off-site readback on 20 October. That approval is not standing authority
-for the new timer's automatic sensitive uploads. No timer is enabled by committing source or running fixtures.
+`guard_checkpoint.py` and its three systemd units were deployed on 20 October after the owner explicitly approved
+the unit-only service, future automatic private ledger/key uploads and private failure notices. The first real
+current-state upload/readback passed before timer enablement. Installed hashes, the fresh pair and timer state
+were verified; Minecraft kept its process with zero automatic restarts. The earlier one-time checkpoint approval
+alone did not authorize this timer. Committing source or running fixtures does not enable a service.
 
-The prepared job checks every 15 minutes, creates a private set when the ledger/key pair changes, and rechecks
+The job checks every 15 minutes, creates a private set when the ledger/key pair changes, and rechecks
 unchanged remote copies against local originals. Each immutable archive and companion receipt receives provider
 hash checks and bounded actual readback. Complete interrupted uploads can resume. Incomplete local evidence is
 retained for review. A current-state change during preparation/upload refuses to update the latest-proof index.
@@ -99,7 +101,7 @@ retained for review. A current-state change during preparation/upload refuses to
 The service has read-only access to the live ledger/key, write access to the existing lock, its own private state
 directory and the existing root-only provider configuration directory for token refresh. Minecraft is not restarted
 by a unit-only rollout. The job has no account adapters, prune, reset, ledger replacement or barrier-release action.
-Prepared resource limits: CPU 20%, memory 256 MB, ten-minute service timeout and low I/O priority. Failure notices
+Resource limits: CPU 20%, memory 256 MB, ten-minute service timeout and low I/O priority. Failure notices
 use only the existing private staff operation, limited to one alert start per hour, with no public fallback.
 
 A private latest.json index is evidence of one successful check, not an erasure permit. Future erasure workflows
