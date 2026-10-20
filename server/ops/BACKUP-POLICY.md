@@ -39,6 +39,6 @@ software booted, loaded datapacks, saved and stopped cleanly. No production rest
 was part of that proof. Original and restored evidence remain held; this does not validate every historical JEB
 chain, a whole host restore, or future erasure adapters. It grants no cleanup approval.
 
-Candidate224 adds an external privacy/start barrier, described in RECOVERY-GUARD.md. It is not deployed yet and
-does not perform erasure. Its future external ledger/key need independent recovery protection before any real
+Guard224 adds the deployed external privacy/start barrier, described in RECOVERY-GUARD.md. It does not perform
+erasure. Its external ledger/key need independent recovery protection before any real
 erasure is allowed. The earlier Minecraft-root recovery set cannot supply those newly external files.

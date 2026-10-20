@@ -1,6 +1,7 @@
 # Restore privacy barrier
 
-Candidate 224, not deployed yet. This is a conservative start/restore barrier, not an account-erasure executor.
+Guard 224 is deployed as a silent operations update on 20 October 2026. This is a conservative start/restore
+barrier, not an account-erasure executor.
 The owner confirmed on 20 October 2026 that no player-data erasure request has been completed. Free-play character
 quarantine is a recoverable move, not erasure and not a reason to invent a deletion record.
 
@@ -53,4 +54,6 @@ The first empty-ledger deployment can restore previous operations files/drop-in 
 there are still no requests. Its private evidence is kept. Any unresolved privacy transaction/restore failure
 keeps maintenance and background jobs paused for review. A failed rollout is not a deployed privacy guarantee.
 
-The owner must explicitly approve deployment. This file and tests do not change the live server by themselves.
+The owner explicitly approved this deployment. Installed source hashes, the systemd hook, private file permissions,
+the zero-request ledger/anchor pair and original whitelist/timers were verified after the empty-server restart.
+New deployments still require explicit approval; this file and tests do not change services by themselves.
