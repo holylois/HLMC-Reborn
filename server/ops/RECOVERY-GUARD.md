@@ -236,3 +236,30 @@ There is no bundle authoring/upload CLI or service, live case bundle, sensitive 
 activation in this batch. The stopped-backup verifier, fixed pre-start integration/lease, historical extraction
 and native account restore/startup proof remain. Existing automatic checkpoint227 permission covers ledger/key
 only and does not authorize uploading the new private cases, plans, support evidence or journals.
+
+## Prepared stopped recovery-set reader235
+
+Not deployed. `privacy_backup.StoppedSet` implements the stopped-backup callback used by reviewed actions
+and checked startup. Its maintenance receipt and separately reviewed SHA256 pin must come from the trusted
+stopped-capture/upload workflow, outside both the backup folder and restored server. Supplied success flags
+alone cannot establish that capture was stopped; the independent pin is an operator trust boundary.
+
+The reader checks exact local file membership, private ownership/modes, single-link files, bounded sizes,
+SHA256/MD5, every original's provider metadata and streamed readback. The original stopped attestation must
+match the archive and capture writers. A bounded uncompressed tar scan requires world, account, configuration,
+mods and server software; extended metadata is bounded before parsing. Traversal, duplicates, unknown links/sparse/special files and recursive backup or
+BlueMap payload are refused. This conservative format needs separate review for any legitimate linked archive.
+It neither extracts files nor proves a Minecraft boot or the completeness of stores outside the server root.
+
+Streaming uses bounded memory. One reader may reuse byte checks while every local file/directory metadata
+stamp stays unchanged within the same stopped operation. Provider checksums and local inventory are rechecked
+on each call. A new reader/process performs full readback again; no persisted success permit is accepted.
+The caller still needs the current writer lease, independent private case/journal evidence and current guard
+protection. The source binding now includes capture, receipt and reader code:31 application roles plus13
+verifier/parser roles. The read-only Drive adapter exposes only maintenance metadata and bounded content reads.
+
+Generated WSL checks combine all ten native-shaped store verifiers, real private evidence readers and this
+backup reader. Changed local/off-site originals block review without rotating the generation or dropping the
+request.294 generated checks and168 ARM checks passed; no real backup/account read, provider operation, upload,
+JVM boot or deployment. Fixed production pre-start integration, historical extraction/anchor reconciliation,
+actual case/hold review and the complete native generated-account restore/startup rehearsal still remain.
