@@ -84,3 +84,24 @@ Missing latest state still requires operator review. Do not initialize an empty 
 
 Fixture checks cover nonempty requests, old-copy recovery preserving new live requests/barriers, exact private
 disk recovery, corruption, unsafe paths/types/permissions, duplicate/incomplete archives and lock contention.
+
+## Scheduled checkpoints (prepared, not deployed)
+
+`guard_checkpoint.py` and its three systemd units are a separate proposed operations rollout. The first one-time
+external checkpoint passed owner-approved off-site readback on 20 October. That approval is not standing authority
+for the new timer's automatic sensitive uploads. No timer is enabled by committing source or running fixtures.
+
+The prepared job checks every 15 minutes, creates a private set when the ledger/key pair changes, and rechecks
+unchanged remote copies against local originals. Each immutable archive and companion receipt receives provider
+hash checks and bounded actual readback. Complete interrupted uploads can resume. Incomplete local evidence is
+retained for review. A current-state change during preparation/upload refuses to update the latest-proof index.
+
+The service has read-only access to the live ledger/key, write access to the existing lock, its own private state
+directory and the existing root-only provider configuration directory for token refresh. Minecraft is not restarted
+by a unit-only rollout. The job has no account adapters, prune, reset, ledger replacement or barrier-release action.
+Prepared resource limits: CPU 20%, memory 256 MB, ten-minute service timeout and low I/O priority. Failure notices
+use only the existing private staff operation, limited to one alert start per hour, with no public fallback.
+
+A private latest.json index is evidence of one successful check, not an erasure permit. Future erasure workflows
+must synchronously verify that the exact current ledger/key pair has current independent off-site protection.
+Never choose an older valid ledger to make a server start. Keep all earlier checkpoints and unresolved evidence.

@@ -1,0 +1,12 @@
+[Unit]
+Description=Check current Holy Lois guard recovery every 15 minutes
+
+[Timer]
+OnBootSec=2min
+OnUnitInactiveSec=15min
+RandomizedDelaySec=30s
+AccuracySec=30s
+Unit=holylois-guard-checkpoint.service
+
+[Install]
+WantedBy=timers.target

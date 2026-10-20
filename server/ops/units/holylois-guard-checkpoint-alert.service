@@ -1,0 +1,15 @@
+[Unit]
+Description=Holy Lois private guard checkpoint failure notice
+StartLimitIntervalSec=1h
+StartLimitBurst=1
+
+[Service]
+Type=oneshot
+User=root
+UMask=0077
+ExecStart=/usr/bin/python3 /usr/local/lib/holylois/discord-alert.py staff-message "Private guard checkpoint failed. Recovery evidence is retained; operator review is needed."
+TimeoutStartSec=45
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=read-only
+PrivateTmp=yes

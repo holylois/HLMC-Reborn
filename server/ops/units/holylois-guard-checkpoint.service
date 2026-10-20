@@ -1,0 +1,29 @@
+[Unit]
+Description=Holy Lois private current guard checkpoint and readback
+Wants=network-online.target
+After=network-online.target minecraft.service
+OnFailure=holylois-guard-checkpoint-alert.service
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+UMask=0077
+StateDirectory=holylois/guard-checkpoints
+StateDirectoryMode=0700
+ExecStart=/usr/bin/python3 /usr/local/lib/holylois/guard_checkpoint.py
+TimeoutStartSec=600
+Nice=15
+CPUQuota=20%
+MemoryMax=256M
+IOWeight=10
+ProtectSystem=strict
+ProtectHome=read-only
+PrivateTmp=yes
+NoNewPrivileges=yes
+ReadWritePaths=/var/lib/holylois/guard-checkpoints /var/lib/holylois/recovery-guard/lock /root/.config/rclone
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
