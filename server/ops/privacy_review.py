@@ -109,5 +109,5 @@ def review(guard, base, provider, cases, adapters, lease, runtime_review):
         raise ValueError('Case, source, writer or guard changed during private review')
     return {'review_passed': True, 'requests_checked': len(bound), 'stores_per_request': len(STORES),
             'identities_checked': sum(len(case['related_subjects']) for case in bound),
-            'store_checks': len(first), 'synchronous_offsite_readback': True,
+            'store_checks': len(first), 'store_evidence_sha256': digest(first), 'synchronous_offsite_readback': True,
             'allow_start': False, 'erasure_authorized': False, 'live_state_changed': False, 'deleted': 0}

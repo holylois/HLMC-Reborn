@@ -173,7 +173,7 @@ Missing originals, changed files/modes, corrupt prepared bytes, SQLite sidecars 
 refuse progress. Undo retains replacements and restores originals. Every incomplete journal is retained.
 Action completion/undo is not final erasure and never releases a recorded request or restore barrier.
 
-`privacy_bindings.py` pins complete active mod membership,26 application source roles plus13 verifier/parser modules,
+`privacy_bindings.py` pins complete active mod membership,27 application source roles plus13 verifier/parser modules,
 the verifier registry and
 scope-review fingerprint. Its read-only maintenance lease requires ten stopped services and eight inactive
 trigger timers, including Discord, weekly recap, retention, guard checkpoints, automatic health restarts and
@@ -188,3 +188,27 @@ originals, process interruption, undo and old-file reintroduction/reapplication.
 or trusted production restore-completion proof is claimed. Complete production bindings and request-aware native
 orchestration remain. The existing automatic227 upload permission covers ledger/key only; private case/plan/
 evidence/replacement/journal recovery needs its own explicit scoped approval before real sensitive uploads/actions.
+
+## Prepared verified startup library233
+
+Not deployed or wired into the production pre-start command. `privacy_start.checked_start` provides a separate
+trusted caller path for a nonempty request ledger. Default `Guard.start` and its CLI still refuse every recorded
+request. There is no skip switch, persisted startup permit, ledger clearing, Java launcher or new uploader.
+
+The caller must supply every private case, actual native verifiers, stopped-writer lease, complete source pins,
+current guard off-site readback, exact export suppression, stopped backup verification and current private
+scope/recovery evidence readers. All ten stores plus permissions, support/moderation, shared ownership and
+external copies require reviewed decisions; a hold or missing evidence blocks startup. Evidence readers must
+inspect actual protected private objects and current holds, not accept a supplied success receipt.
+
+After the double store review, a final full pass runs under the actual guard lock. Its evidence fingerprint must
+match the earlier review. Writer, code, registry, cases, scopes, policy/gate and guard bytes are rechecked before
+generation rotation. Every request is preserved unchanged, so subsequent starts must reverify the current
+checkpoint and all stores again. Rotation interruption retains the existing transaction barrier. No final
+erasure or real-account authorization follows from a successful startup review.
+
+Generated integrations exercise all ten real native-shaped verifier classes and preserve unrelated account
+records. Synthetic systemd checks use a harmless marker command, not Minecraft or production evidence readers.
+Production private evidence bindings, a pre-start lease compatible with the activating unit, historical-anchor
+reconciliation/extraction and an end-to-end native request-aware restore/startup rehearsal remain mandatory
+before any activation proposal. The currently deployed guard224/checkpoints227 remain unchanged.
