@@ -134,3 +134,26 @@ account erasure. The older215 SQLite-ledger pilot must never replace the deploye
 Before any activation or erasure: finish current native bindings and ownership/hold decisions, adapt export
 suppression to the current guard/cases, prove the complete flow on an isolated generated account, then obtain
 separate deploy approval and exact account-action approval. No real deletion or new data upload is authorized.
+
+## Prepared exporter suppression229
+
+Not deployed. `privacy_exports.py` replaces the old pilot's SQLite-ledger dependency for public export policy.
+The private policy is bound to reviewed cases/linked identities and the current HMAC request inventory. Activation
+requires exact policy approval, stopped writers and synchronous exact-current checkpoint readback. It grants no
+erasure, startup or restore-completion permission. All existing request barriers remain.
+
+The production Guard binding closes an operator-owned serving gate before adding a request or arming a restore.
+Failure/interruption keeps serving closed. The HTTP service checks the gate epoch and exact output hashes;
+old/corrupt or incomplete output returns503. Current stats/recap code applies UUID and alias suppression, including
+renamed records and legacy names linked through the identity cache. Weekly snapshots use atomic private writes.
+Name checks return unknown for withheld names, rather than claiming an account name is available before review.
+
+The HTTP DynamicUser needs only identity-free gate/control metadata and its existing output cache. It never reads
+the HMAC key, private case/policy files or accounts. No-store responses prevent new cached successes. Copies
+already delivered to browsers/CDNs or Discord still require the separate expiry/purge/history workflow.
+
+Ship all eight matching guard/snapshot/checkpoint/review/policy/exporter modules as one sealed, rehearsed update,
+with gate/policy initialization and exact-current off-site proof. A single exporter copy without its dependencies
+must not be deployed. Live224/227 bytes and services are unchanged. Generated tests cover current exporter code,
+restored records, unrelated-account preservation, interruption and actual loopback HTTP; they are not a native
+Minecraft account-erasure proof. Current store bindings, exact reversible plans and native rehearsal remain.

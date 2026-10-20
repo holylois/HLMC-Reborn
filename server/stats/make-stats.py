@@ -7,6 +7,8 @@ Usage: python3 make-stats.py [SERVER_ROOT] OUTPUT_JSON
 """
 import datetime, json, os, re, sys, tempfile, urllib.request
 from pathlib import Path
+from privacy_exports import load as load_policy, excluded, require_same, envelope, POLICY
+from recovery_guard import Guard
 
 ROOT = Path(sys.argv[1]) if len(sys.argv) > 2 else Path('/opt/minecraft')
 OUT = Path(sys.argv[-1])
@@ -36,11 +38,12 @@ def hidden_names():
     return hidden
 
 
-def names():
-    hidden = hidden_names()
+def names(policy=None):
+    if policy is None: policy, _ = load_policy(Guard(), POLICY)
+    hidden = hidden_names() | set(policy['names'])
     profiles = read(WORLD / 'holylois' / 'account-profile-names.json', {})
     canonical = profiles.get('names', {})
-    hidden_ids = {identity for alias, identity in profiles.get('aliases', {}).items() if alias.lower() in hidden}
+    hidden_ids = set(policy['ids']) | {identity for alias, identity in profiles.get('aliases', {}).items() if alias.lower() in hidden}
     result, raw = {}, {}
     for entry in read(ROOT / 'usercache.json', []):
         original = entry.get('name', '')
@@ -129,19 +132,34 @@ def when(text):
     except (TypeError, ValueError): return None
 
 
-def taken_names():
+def taken_names(policy):
     """Every name the server already knows (joined names, renamed accounts' old and new names, staff), lower case. Written next to
     stats.json but never served whole: stats-web only answers "is this one name taken" for the launcher's name check."""
     profiles = read(WORLD / 'holylois' / 'account-profile-names.json', {})
-    taken = {e.get('name', '').lower() for e in read(ROOT / 'usercache.json', []) if isinstance(e, dict)}
-    taken.update(n.lower() for n in profiles.get('names', {}).values() if isinstance(n, str))
-    taken.update(a.lower() for a in profiles.get('aliases', {}) if isinstance(a, str))
+    taken = {e.get('name', '').lower() for e in read(ROOT / 'usercache.json', []) if isinstance(e, dict)
+             and not excluded(policy, e.get('uuid'), e.get('name'))}
+    taken.update(n.lower() for uid, n in profiles.get('names', {}).items() if isinstance(n, str) and not excluded(policy, uid, n))
+    taken.update(a.lower() for a, uid in profiles.get('aliases', {}).items() if isinstance(a, str) and not excluded(policy, uid, a))
     taken.update(hidden_names())
     return sorted(n for n in taken if re.fullmatch(r'[a-z0-9_]{3,16}', n))
 
 
+def withheld_names(policy):
+    """Suppression is not permission to release a registered name before account review finishes."""
+    profiles = read(WORLD / 'holylois/account-profile-names.json', {})
+    held = set(policy['names'])
+    for entry in read(ROOT / 'usercache.json', []):
+        if excluded(policy, entry.get('uuid'), entry.get('name')): held.add(str(entry.get('name', '')).lower())
+    for uid, name in profiles.get('names', {}).items():
+        if excluded(policy, uid, name): held.add(str(name).lower())
+    for name, uid in profiles.get('aliases', {}).items():
+        if excluded(policy, uid, name): held.add(str(name).lower())
+    return sorted(n for n in held if re.fullmatch(r'[a-z0-9_]{3,16}', n))
+
+
 def main():
-    people, shown_as = names()
+    guard = Guard(); policy, gate_raw = load_policy(guard, POLICY)
+    people, shown_as = names(policy)
     stats, done = {}, {}
     for file in (WORLD / 'players/stats').glob('*.json'):
         if file.stem in people: stats[file.stem] = read(file, {}).get('stats', {})
@@ -204,7 +222,7 @@ def main():
     # World firsts: the first find of each structure kind (onboarding Discoveries v2 marks it; v1 files: first by name and time)
     # with a BlueMap link, plus boss and Runeforged elite/level firsts.
     firsts = []
-    hidden = hidden_names()
+    hidden = hidden_names() | set(withheld_names(policy))
     discoveries = read(WORLD / 'holylois/discoveries.json', {})
     maps = {'minecraft:overworld': 'world', 'minecraft:the_nether': 'world_the_nether', 'minecraft:the_end': 'world_the_end'}
     def day(entry):
@@ -218,11 +236,11 @@ def main():
         first = entry['first'] if 'first' in entry else kind not in seen
         seen.add(kind)
         name = entry.get('player', '')
-        if not first or name.lower() in hidden: continue
+        if not first or name.lower() in hidden or excluded(policy, entry.get('uuid'), name): continue
         firsts.append({'what': kind, 'player': shown_as.get(name, 'Someone'), 'date': day(entry), 'map': link(entry) if 'x' in entry or 'first' in entry else ''})
     for entry in discoveries.get('firsts', []):
         name = entry.get('player', '')
-        if name.lower() in hidden: continue
+        if name.lower() in hidden or excluded(policy, entry.get('uuid'), name): continue
         what = entry.get('what', '')
         firsts.append({'what': what[:1].upper() + what[1:], 'player': shown_as.get(name, 'Someone'), 'date': day(entry), 'map': ''})
     firsts.sort(key=lambda f: f['date'], reverse=True)
@@ -264,13 +282,20 @@ def main():
         'world_firsts': firsts[:20],
     }
     text = json.dumps(report, indent=2, ensure_ascii=False) + '\n'
+    taken_raw = json.dumps({'names': taken_names(policy), 'withheld': withheld_names(policy)}).encode()
+    require_same(guard, POLICY, policy, gate_raw)
     assert not SLURS.search(text), 'A filtered name reached the output'
     OUT.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.NamedTemporaryFile('w', dir=OUT.parent, delete=False, encoding='utf-8') as temp: temp.write(text)
     os.chmod(temp.name, 0o644); os.replace(temp.name, OUT)
     taken = OUT.parent / 'taken-names.json'
-    with tempfile.NamedTemporaryFile('w', dir=OUT.parent, delete=False, encoding='utf-8') as temp: json.dump({'names': taken_names()}, temp)
+    with tempfile.NamedTemporaryFile('wb', dir=OUT.parent, delete=False) as temp: temp.write(taken_raw)
     os.chmod(temp.name, 0o644); os.replace(temp.name, taken)
+    require_same(guard, POLICY, policy, gate_raw)
+    control = OUT.parent / 'privacy-control.json'
+    with tempfile.NamedTemporaryFile('w', dir=OUT.parent, delete=False, encoding='utf-8') as temp:
+        json.dump(envelope(policy, text.encode('utf-8'), taken_raw), temp)
+    os.chmod(temp.name, 0o644); os.replace(temp.name, control)
     print(f'{OUT}: {len(people)} players, {len(leaderboards)} boards, {len(earned)}/{len(defined)} achievements earned, {len(firsts)} world firsts')
 
 

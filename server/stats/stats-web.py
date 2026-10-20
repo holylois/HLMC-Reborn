@@ -4,23 +4,33 @@ list behind it (taken-names.json, written by make-stats.py) is never served."""
 import json, re, threading, time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from privacy_exports import gate_bytes, sha, GATE, unique
 
 FILE = Path('/var/lib/holylois-stats/stats.json')
 TAKEN = Path('/var/lib/holylois-stats/taken-names.json')
+CONTROL = Path('/var/lib/holylois-stats/privacy-control.json')
+GATE_OWNER = 0
 NAME = re.compile(r'/name/([A-Za-z0-9_]{3,16})')
 LIMIT, WINDOW = 30, 60  # name checks per visitor per minute
 _lock = threading.Lock()
-_hits, _taken = {}, {'stamp': None, 'names': frozenset()}
+_hits = {}
 
 
-def taken_names():
-    try: stamp = TAKEN.stat().st_mtime_ns
-    except OSError: return None
-    with _lock:
-        if stamp != _taken['stamp']:
-            try: _taken.update(stamp=stamp, names=frozenset(json.loads(TAKEN.read_text(encoding='utf-8'))['names']))
-            except (OSError, ValueError, KeyError, TypeError): return None
-        return _taken['names']
+def protected_body(path, kind):
+    """Serve only bytes produced for the currently open, operator-owned privacy epoch."""
+    before, gate = gate_bytes(GATE, GATE_OWNER)
+    if not gate['ready']: raise ValueError('Public exports are paused')
+    raw = CONTROL.read_bytes()
+    if len(raw) > 4096: raise ValueError('Oversized export control')
+    control = json.loads(raw, object_pairs_hook=unique)
+    if (set(control) != {'schema', 'epoch', 'stats_sha256', 'taken_sha256'} or control['schema'] != 1
+            or control['epoch'] != gate['epoch']): raise ValueError('Stale export control')
+    with path.open('rb') as stream: body = stream.read(16_000_001)
+    if len(body) > 16_000_000 or sha(body) != control[kind + '_sha256']:
+        raise ValueError('Export differs from reviewed output')
+    if gate_bytes(GATE, GATE_OWNER)[0] != before or CONTROL.read_bytes() != raw:
+        raise ValueError('Privacy state changed while reading output')
+    return body
 
 
 def allowed(visitor, now):
@@ -45,14 +55,21 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         path = self.path.split('?')[0]
         if path in ('/stats.json', '/'):
-            try: body = FILE.read_bytes()
-            except OSError: self.send_error(503); return
-            self.reply(200, body, 'public, max-age=120'); return
+            try: body = protected_body(FILE, 'stats')
+            except (OSError, ValueError, KeyError, TypeError): self.reply(503, b'{"available":false}', 'no-store'); return
+            self.reply(200, body, 'no-store'); return
         match = NAME.fullmatch(path)
         if not match: self.send_error(404); return
         if not allowed(self.headers.get('CF-Connecting-IP') or self.client_address[0], time.monotonic()): self.send_error(429); return
-        names = taken_names()
-        if names is None: self.send_error(503); return
+        try:
+            data = json.loads(protected_body(TAKEN, 'taken'), object_pairs_hook=unique)
+            if set(data) != {'names', 'withheld'}: raise ValueError('Unknown name-check schema')
+            for values in data.values():
+                if not isinstance(values, list) or any(not isinstance(n, str) or not re.fullmatch('[a-z0-9_]{3,16}', n) for n in values):
+                    raise ValueError('Invalid taken names')
+            names = data['names']
+            if match.group(1).lower() in data['withheld']: raise ValueError('Name release needs separate account review')
+        except (OSError, ValueError, KeyError, TypeError): self.reply(503, b'{"available":false}', 'no-store'); return
         self.reply(200, json.dumps({'taken': match.group(1).lower() in names}).encode(), 'no-store')
 
     def log_message(self, *args): pass

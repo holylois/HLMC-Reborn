@@ -5,6 +5,8 @@ only saves the snapshot. A quiet week (nobody played) posts nothing. Uses the mo
 """
 import importlib.util, json, time
 from pathlib import Path
+from privacy_exports import load as load_policy, excluded, require_same, POLICY
+from recovery_guard import Guard
 
 ROOT = Path("/opt/minecraft")
 STATS = ROOT / "world/players/stats"
@@ -13,13 +15,10 @@ DISCOVERIES = ROOT / "world/holylois/discoveries.json"
 AFK = ROOT / "world/holylois/afk.json"  # AFK seconds per player (onboarding add-on): not counted as played time
 SNAPSHOT = Path("/var/lib/holylois/weekly-stats.json")
 
-spec = importlib.util.spec_from_file_location("alert", "/usr/local/lib/holylois/discord-alert.py")
-alert = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(alert)
-# The website's name rules: staff/test accounts hidden, offensive names masked ("N*****"), merged account names.
-spec = importlib.util.spec_from_file_location("stats", "/usr/local/lib/holylois/make-stats.py")
-stats_names = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(stats_names)
+def module(name, path):
+    spec = importlib.util.spec_from_file_location(name, path)
+    loaded = importlib.util.module_from_spec(spec); spec.loader.exec_module(loaded)
+    return loaded
 
 
 def numbers(stats, afk_seconds=0):
@@ -35,13 +34,14 @@ def numbers(stats, afk_seconds=0):
     }
 
 
-def current():
+def current(policy):
     names = {u["uuid"]: u["name"] for u in json.loads(USERS.read_text())} if USERS.exists() else {}
     afk = {}
     try: afk = json.loads(AFK.read_text()).get("seconds", {}) if AFK.exists() else {}
     except ValueError: pass
     result = {}
     for file in STATS.glob("*.json"):
+        if excluded(policy, file.stem, names.get(file.stem, '')): continue
         try:
             result[names.get(file.stem, file.stem[:8])] = numbers(json.loads(file.read_text()).get("stats", {}), afk.get(file.stem, 0))
         except ValueError:
@@ -57,15 +57,18 @@ def best(delta, key, unit, digits=0):
 
 
 def main():
-    now, last = current(), json.loads(SNAPSHOT.read_text()) if SNAPSHOT.exists() else None
+    guard = Guard(); policy, gate_raw = load_policy(guard, POLICY)
+    stats_names = module('stats', '/usr/local/lib/holylois/make-stats.py')
+    now, last = current(policy), json.loads(SNAPSHOT.read_text()) if SNAPSHOT.exists() else None
+    require_same(guard, POLICY, policy, gate_raw)
     SNAPSHOT.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
-    SNAPSHOT.write_text(json.dumps({"time": time.time(), "players": now}))
+    guard._atomic(SNAPSHOT, {"time": time.time(), "players": now})
     if last is None:
         print("First run: snapshot saved, the first recap comes next week.")
         return
     before = last["players"]
     delta = {name: {k: v - before.get(name, {}).get(k, 0) for k, v in stats.items()} for name, stats in now.items()}
-    _, shown = stats_names.names()  # raw name -> public name; hidden accounts are missing
+    _, shown = stats_names.names(policy)  # raw name -> public name; hidden/suppressed accounts are missing
     delta = {shown[name]: d for name, d in delta.items() if d["hours"] >= 0.05 and name in shown}
     if not delta:
         print("Nobody played this week; no recap.")
@@ -73,7 +76,8 @@ def main():
     found = []
     if DISCOVERIES.exists():
         found = [dict(f, player=shown[f.get("player")]) for f in json.loads(DISCOVERIES.read_text()).get("found", [])
-                 if f.get("time", 0) >= last["time"] and f.get("player") in shown]
+                 if f.get("time", 0) >= last["time"] and f.get("player") in shown
+                 and not excluded(policy, f.get('uuid'), f.get('player'))]
     fields = []
     for title, key, unit, digits in [("Most played", "hours", " h", 1), ("Diamonds mined", "diamonds", "", 0),
                                      ("Mob kills", "kills", "", 0), ("Blocks mined", "blocks", "", 0),
@@ -87,6 +91,8 @@ def main():
         fields.append((f"Discoveries ({len(found)})", "\n".join(lines)))
     total = sum(d["hours"] for d in delta.values())
     assert not any(stats_names.SLURS.search(v) for _, v in fields), "A filtered name reached the recap"
+    require_same(guard, POLICY, policy, gate_raw)
+    alert = module('alert', '/usr/local/lib/holylois/discord-alert.py')
     alert.post("Holy Lois weekly recap", f"{len(delta)} player(s) played {total:.1f} hours this week.", alert.GOLD, fields)
     print("Recap posted.")
 

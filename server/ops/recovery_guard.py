@@ -17,6 +17,7 @@ from pathlib import Path
 
 STATE = Path('/var/lib/holylois/recovery-guard')
 ROOT = Path('/opt/minecraft')
+EXPORT_GATE = Path('/var/lib/holylois-stats/privacy-gate.json')
 ANCHOR = Path('config/.holylois-recovery-generation.json')
 
 
@@ -31,8 +32,13 @@ def stamp():
 
 
 class Guard:
-    def __init__(self, root=ROOT, directory=None):
+    def __init__(self, root=ROOT, directory=None, *, export_gate=None):
         self.root, self.directory = Path(root).absolute(), Path(STATE if directory is None else directory).absolute()
+        self.export_gate = Path(export_gate).absolute() if export_gate is not None else (
+            EXPORT_GATE if self.root == ROOT and directory is None else None)
+        if self.export_gate is not None and (self.export_gate.is_relative_to(self.root)
+                or self.export_gate.is_relative_to(self.directory)):
+            raise ValueError('Export serving gate must survive server restores')
         if (self.root.resolve() != self.root or self.directory.resolve() != self.directory
                 or self.directory.is_relative_to(self.root) or self.root.is_relative_to(self.directory)):
             raise ValueError('Guard state must be separate from the unlinked server root')
@@ -174,6 +180,8 @@ class Guard:
                 if prior['subject_hmac'] != digest:
                     raise ValueError('Request identity already belongs to another subject')
                 return
+            from privacy_exports import invalidate
+            invalidate(self)
             state['requests'].append({'id': request_id, 'subject_hmac': digest, 'recorded_at': stamp()})
             self._atomic(self.directory / 'ledger.json', state)
 
@@ -185,6 +193,8 @@ class Guard:
                 raise ValueError('Another restore is already pending')
             self._clear_requests(state)
             self._anchor(state)
+            from privacy_exports import invalidate
+            invalidate(self)
             state['pending_restore'] = restore_id
             self._atomic(self.directory / 'ledger.json', state)
 
