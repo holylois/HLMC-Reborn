@@ -16,12 +16,14 @@ VERIFIERS = frozenset(('auth_sqlite', 'store_adapters', 'scoped_stores', 'identi
                        'runtime_guard', 'bindings', 'restore_ledger'))
 SOURCES = frozenset(('auth', 'claims', 'economy', 'homes', 'holylois', 'extras', 'audio', 'audit', 'terrain-cache',
                      'stats-exporter', 'weekly-exporter', 'stats-http', 'guard', 'snapshot', 'checkpoint',
-                     'review', 'exports', 'actions', 'bindings', 'discord-bot', 'support-registry', 'routine', 'enforcement')) | {
+                     'review', 'exports', 'actions', 'bindings', 'discord-bot', 'support-registry', 'routine', 'enforcement',
+                     'deployment', 'thread-guard', 'offsite-backup')) | {
                          'verifier:' + name for name in VERIFIERS}
 SERVICES = ('minecraft', 'holylois-stats', 'holylois-botwall', 'holylois-terrain-expansion',
-            'holylois-discord-bot', 'holylois-weekly-recap', 'holylois-log-retention', 'holylois-guard-checkpoint')
+            'holylois-discord-bot', 'holylois-weekly-recap', 'holylois-log-retention', 'holylois-guard-checkpoint',
+            'holylois-thread-guard', 'holylois-offsite-backup')
 TIMERS = ('holylois-stats', 'holylois-botwall', 'holylois-terrain-expansion', 'holylois-weekly-recap',
-          'holylois-log-retention', 'holylois-guard-checkpoint')
+          'holylois-log-retention', 'holylois-guard-checkpoint', 'holylois-thread-guard', 'holylois-offsite-backup')
 
 
 def service_lease(run=subprocess.run):

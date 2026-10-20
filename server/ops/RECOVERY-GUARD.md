@@ -173,10 +173,15 @@ Missing originals, changed files/modes, corrupt prepared bytes, SQLite sidecars 
 refuse progress. Undo retains replacements and restores originals. Every incomplete journal is retained.
 Action completion/undo is not final erasure and never releases a recorded request or restore barrier.
 
-`privacy_bindings.py` pins complete active mod membership,23 application source roles plus13 verifier/parser modules,
+`privacy_bindings.py` pins complete active mod membership,26 application source roles plus13 verifier/parser modules,
 the verifier registry and
-scope-review fingerprint. Its read-only maintenance lease requires eight stopped writer services and six inactive
-trigger timers, including Discord, weekly recap, retention and guard checkpoints. It changes no unit state.
+scope-review fingerprint. Its read-only maintenance lease requires ten stopped services and eight inactive
+trigger timers, including Discord, weekly recap, retention, guard checkpoints, automatic health restarts and
+off-site backup uploads. Deployment, restart and backup code are pinned as well. It changes no unit state.
+
+The production serving gate is selected by the canonical server and external state paths, including when CLI
+arguments supply both paths explicitly. An isolated recovered root/state pair does not select that live gate.
+This prevents explicit CLI defaults from recording a production request without first closing public serving.
 
 Generated tests cover all ten native-shaped verifiers with the current HMAC guard, source changes, retained
 originals, process interruption, undo and old-file reintroduction/reapplication. No native Minecraft account-erasure

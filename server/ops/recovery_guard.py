@@ -35,7 +35,7 @@ class Guard:
     def __init__(self, root=ROOT, directory=None, *, export_gate=None):
         self.root, self.directory = Path(root).absolute(), Path(STATE if directory is None else directory).absolute()
         self.export_gate = Path(export_gate).absolute() if export_gate is not None else (
-            EXPORT_GATE if self.root == ROOT and directory is None else None)
+            EXPORT_GATE if self.root == ROOT and self.directory == STATE else None)
         if self.export_gate is not None and (self.export_gate.is_relative_to(self.root)
                 or self.export_gate.is_relative_to(self.directory)):
             raise ValueError('Export serving gate must survive server restores')

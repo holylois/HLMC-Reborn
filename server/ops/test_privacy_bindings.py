@@ -54,11 +54,16 @@ class Leases(unittest.TestCase):
             calls.append(args[2]); return SimpleNamespace(stdout='LoadState=loaded\nActiveState=inactive\nMainPID=0\nControlPID=0\n')
         self.assertTrue(service_lease(run)); self.assertEqual(len(calls), len(SERVICES) + len(TIMERS))
         self.assertIn('holylois-weekly-recap.timer', calls); self.assertIn('holylois-discord-bot.service', calls)
+        self.assertIn('holylois-thread-guard.timer', calls); self.assertIn('holylois-offsite-backup.service', calls)
 
     def test_enabled_timer_or_live_writer_or_missing_unit_refuses_lease(self):
         for unit, field in (('holylois-stats.timer', 'ActiveState=active'),
                             ('holylois-discord-bot.service', 'MainPID=1'),
                             ('holylois-weekly-recap.service', 'ControlPID=1'),
+                            ('holylois-thread-guard.timer', 'ActiveState=active'),
+                            ('holylois-thread-guard.service', 'ControlPID=1'),
+                            ('holylois-offsite-backup.timer', 'ActiveState=active'),
+                            ('holylois-offsite-backup.service', 'MainPID=1'),
                             ('holylois-log-retention.service', 'LoadState=not-found')):
             def run(args, **kwargs):
                 values = {'LoadState': 'loaded', 'ActiveState': 'inactive', 'MainPID': '0', 'ControlPID': '0'}

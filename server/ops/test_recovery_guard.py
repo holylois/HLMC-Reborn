@@ -26,6 +26,21 @@ class RecoveryGuardTests(unittest.TestCase):
         self.assertNotEqual(old, current['generation'])
         self.guard._anchor(current)
 
+    def test_explicit_production_paths_keep_export_gate_like_cli_defaults(self):
+        gate = self.base / 'serving-gate.json'
+        with mock.patch('recovery_guard.ROOT', self.root), mock.patch('recovery_guard.STATE', self.guard.directory), \
+                mock.patch('recovery_guard.EXPORT_GATE', gate):
+            self.assertEqual(Guard(self.root).export_gate, gate)
+            explicit = Guard(self.root, self.guard.directory)
+            self.assertEqual(explicit.export_gate, gate)
+            with self.assertRaises(FileNotFoundError):
+                explicit.record_request(str(uuid.uuid4()), str(uuid.uuid4()))
+            self.assertEqual(explicit.state()['requests'], [])
+
+    def test_recovered_alternate_state_does_not_use_production_gate(self):
+        with mock.patch('recovery_guard.ROOT', self.root), mock.patch('recovery_guard.STATE', self.base / 'other-state'):
+            self.assertIsNone(Guard(self.root, self.guard.directory).export_gate)
+
     def test_historical_anchor_blocks_start(self):
         old = (self.root / ANCHOR).read_bytes()
         self.guard.start()
