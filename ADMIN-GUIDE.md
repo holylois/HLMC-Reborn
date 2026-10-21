@@ -2,7 +2,7 @@
 
 Release builds use a frozen release profile and the current tested publishing scripts. The owner's CurseForge play profile can lag behind live and is not the release source. Friends use the normal Holy Lois app to install updates. The older Admin-app walkthrough below is historical; follow the current operator runbook and release checklist for publishing.
 
-Launcher 1.6.1 updates itself through the signed app channel. Players do not rerun the installer for each launcher release. First setup offers a launcher choice and optional Desktop and Start menu shortcuts. Deleted shortcuts stay deleted, and existing players keep their setup. The EXE is not Authenticode-signed.
+Launcher 1.6.2 updates itself through the signed app channel. Players do not rerun the installer for each launcher release. First setup offers a launcher choice and optional Desktop and Start menu shortcuts. Deleted shortcuts stay deleted, and existing players keep their setup. The EXE is not Authenticode-signed.
 
 ## Add a mod, resource pack or shader
 
