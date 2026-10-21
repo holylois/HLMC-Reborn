@@ -12,8 +12,8 @@ webhook in /etc/holylois/discord-webhook points at a staff channel and is used o
 Without either, every mode exits quietly. During planned work /run/holylois-maintenance holds the reason (deploy scripts write
 it, e.g. "Adding new structures"): players get one "restarting for an update" note and a "back online" note after, no alarm.
 A deliberate stop (systemctl stop, no crash) is announced as a shutdown by an admin, not as a crash.
-Lag watch: 3+ "Can't keep up" spikes in 10 minutes with players online sends one admin note per hour (staff webhook) and
-opens Spark's existing background history at most every 6 hours; the link follows on a later check.
+Lag watch: one 5s stall or 3+ spikes in 10 minutes with current/recent players sends one private note per hour.
+Spark background history is requested at most every 30 minutes, independently of the note cooldown.
 """
 import glob, json, os, re, shutil, socket, struct, subprocess, sys, time, urllib.error, urllib.request
 from pathlib import Path
@@ -153,9 +153,13 @@ def restart_count():
     return int(value) if value.isdigit() else 0
 
 
-LAG_WINDOW, LAG_STALLS, LAG_QUIET, SPARK_QUIET, BOOT_GRACE = 600, 3, 3600, 6 * 3600, 300
+LAG_WINDOW, LAG_STALLS, LAG_QUIET, SPARK_QUIET, BOOT_GRACE = 600, 3, 3600, 1800, 300
+LAG_SEVERE_MS, RECENT_PLAYERS, SPARK_RETRY = 5000, 180, 300
+LAG_STATE_KEYS = ('lag_alert_at', 'lag_alert_event_us', 'lag_players_at', 'lag_invocation',
+                  'spark_at', 'spark_posted', 'spark_event_us', 'spark_retry_at', 'storage')
 # Profile links only: spark also prints https://spark.lucko.me/docs/... help links, which once got posted instead.
 SPARK_LINK = re.compile(r"https://spark\.lucko\.me/(?!docs\b)[A-Za-z0-9]{6,}\b")
+LAG_WARNING = re.compile(r"^\[\d{2}:\d{2}:\d{2}\] \[Server thread/WARN\]: Can't keep up! .*?Running (\d+)ms")
 
 
 def post_staff(title, description, color, fields=()):
@@ -175,7 +179,7 @@ def post_staff(title, description, color, fields=()):
 
 def stalls(since):
     """Lag spikes ("Can't keep up") logged since a time: (count, worst delay in ms)."""
-    log = subprocess.run(["journalctl", "-u", "minecraft", "--since", "@%d" % int(since), "-o", "cat", "--no-pager"],
+    log = subprocess.run(["journalctl", "-u", "minecraft", "--since", "@%d" % int(since), "-n", "4000", "-o", "cat", "--no-pager"],
                          capture_output=True, text=True, errors="replace").stdout
     delays = [int(m) for m in re.findall(r"Can't keep up! .*?Running (\d+)ms", log)]
     return len(delays), max(delays, default=0), log
@@ -188,10 +192,38 @@ def service_started():
     return time.time() - (uptime - int(value) / 1e6) if value.isdigit() and int(value) else 0
 
 
+def lag_events(since):
+    """Only event times/durations escape this bounded journal reader, never player/chat text."""
+    result = subprocess.run(['journalctl', '-u', 'minecraft', '--since', '@%d' % int(since),
+                             '--no-pager', '-n', '2000', '-o', 'json', '--grep', "Can't keep up!"],
+                            capture_output=True, text=True, errors='replace', timeout=15)
+    if result.returncode == 1 and not result.stdout.strip() and not result.stderr.strip():
+        return []  # journalctl grep: no matches, not an evidence-reader failure.
+    if result.returncode:
+        raise OSError('Lag event journal query failed')
+    events = {}
+    for line in result.stdout.splitlines():
+        row = json.loads(line)
+        match = LAG_WARNING.search(row.get('MESSAGE', ''))
+        if match:
+            stamp = int(row['__REALTIME_TIMESTAMP'])
+            if stamp >= since * 1000000:
+                events[stamp] = {'at_us': stamp, 'delay_ms': int(match[1])}
+    return sorted(events.values(), key=lambda event: event['at_us'])
+
+
 def lag_watch(state, players):
-    """Save the rolling background history after sustained stalls, without replacing it with a future-only capture.
-    One alert per hour and one snapshot per six hours. Empty-server and boot stalls are ignored."""
+    """Capture severe/sustained stalls using background history; bound alerts and uploads separately."""
     now = time.time()
+    run = state.get('invocation')
+    if run and state.get('lag_invocation') not in (None, run):
+        for key in LAG_STATE_KEYS:
+            if key != 'storage':
+                state.pop(key, None)
+    if run:
+        state['lag_invocation'] = run
+    if players:
+        state['lag_players_at'] = now
     spark_at = state.get("spark_at")
     if spark_at and not state.get("spark_posted") and now - spark_at > 140:
         links = SPARK_LINK.findall(stalls(spark_at)[2])
@@ -201,22 +233,40 @@ def lag_watch(state, players):
                                    else "The background spark snapshot produced no link; check /spark profiler info before starting another capture.", GOLD)
             if delivered is not False:
                 state["spark_posted"] = True
-    if not players or now - service_started() < BOOT_GRACE or now - state.get("lag_alert_at", 0) < LAG_QUIET:
+    started = service_started()
+    if (now - started < BOOT_GRACE or MAINTENANCE.exists()
+            or (not players and now - state.get('lag_players_at', 0) > RECENT_PLAYERS)):
         return
-    count, worst, _ = stalls(now - LAG_WINDOW)
-    if count < LAG_STALLS:
+    events = lag_events(max(now - LAG_WINDOW, started + BOOT_GRACE))
+    if not events:
         return
-    state["lag_alert_at"] = now
-    note = f"{count} lag spikes in the last 10 minutes (worst {worst / 1000:.1f} s) with {players} player(s) online."
-    if now - (spark_at or 0) > SPARK_QUIET and Path("/run/minecraft-console.fifo").exists():
-        console = os.open("/run/minecraft-console.fifo", os.O_WRONLY | os.O_NONBLOCK)
+    count = len(events)
+    worst = max(event['delay_ms'] for event in events)
+    latest = events[-1]['at_us']
+    if count < LAG_STALLS and worst < LAG_SEVERE_MS:
+        return
+    presence = f'{players} player(s) online' if players else 'players seen within the last 3 minutes; none online now'
+    note = f"{count} lag spikes in the last 10 minutes (worst {worst / 1000:.1f} s), {presence}."
+    pending = spark_at and not state.get('spark_posted')
+    if (not pending and latest > state.get('spark_event_us', 0) and now - (spark_at or 0) >= SPARK_QUIET
+            and now >= state.get('spark_retry_at', 0) and Path('/run/minecraft-console.fifo').exists()):
         try:
-            os.write(console, b"spark profiler open\n")
-        finally:
-            os.close(console)
-        state.update(spark_at=now, spark_posted=False)
-        note += " Spark's background history was requested; its link follows here."
-    post_staff("Holy Lois server is lagging", note, RED)
+            console = os.open('/run/minecraft-console.fifo', os.O_WRONLY | os.O_NONBLOCK)
+            try:
+                payload = b'spark profiler open\n'
+                if os.write(console, payload) != len(payload):
+                    raise OSError('Incomplete background history request')
+            finally:
+                os.close(console)
+            state.update(spark_at=now, spark_posted=False, spark_event_us=latest)
+            state.pop('spark_retry_at', None)
+            note += " Spark's background history was requested; its link follows here."
+        except OSError:
+            state['spark_retry_at'] = now + SPARK_RETRY
+            note += ' Background history request failed; bounded retry will follow.'
+    if latest > state.get('lag_alert_event_us', 0) and now - state.get('lag_alert_at', 0) >= LAG_QUIET:
+        if post_staff('Holy Lois server is lagging', note, RED) is not False:
+            state.update(lag_alert_at=now, lag_alert_event_us=latest)
 
 
 def load():
@@ -331,7 +381,7 @@ def main():
             # Planned restarts (updates, the owner's restart button) get a short friendly note.
             post("Holy Lois server restarted", f"Back up with {players} player(s) online.", GREEN)
         fresh = {"up": True, "failures": 0, "down_since": None, "restarts": restarts, "invocation": run,
-                 **{k: state[k] for k in ("lag_alert_at", "spark_at", "spark_posted", "storage") if k in state}}
+                 **{k: state[k] for k in LAG_STATE_KEYS if k in state}}
         try:
             lag_watch(fresh, players)
         except Exception as error:

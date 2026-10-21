@@ -218,11 +218,16 @@ class LagWatch(unittest.TestCase):
 
     def run_watch(self, state, players, count, worst=3000, log='', started_ago=3600):
         posts = []
+        events = [{'at_us': int((time.time() - 20 + i) * 1000000),
+                   'delay_ms': worst if i == 0 else 2200} for i in range(count)]
         with mock.patch.object(alert, 'stalls', return_value=(count, worst, log)), \
+                mock.patch.object(alert, 'lag_events', return_value=events), \
                 mock.patch.object(alert, 'service_started', return_value=time.time() - started_ago), \
                 mock.patch.object(alert, 'post_staff', side_effect=lambda *a, **k: posts.append(a)), \
-                mock.patch.object(alert.os, 'open', return_value=3), mock.patch.object(alert.os, 'write') as write, \
-                mock.patch.object(alert.os, 'close'), mock.patch.object(alert.Path, 'exists', return_value=True):
+                mock.patch.object(alert.os, 'open', return_value=3), \
+                mock.patch.object(alert.os, 'write', return_value=len(b'spark profiler open\n')) as write, \
+                mock.patch.object(alert.os, 'close'), \
+                mock.patch.object(alert.Path, 'exists', lambda p: str(p) == '/run/minecraft-console.fifo'):
             alert.lag_watch(state, players)
         return posts, write
 
@@ -241,6 +246,77 @@ class LagWatch(unittest.TestCase):
         self.assertEqual(self.run_watch({}, 2, 9, started_ago=60)[0], [])
         self.assertEqual(self.run_watch({'lag_alert_at': time.time() - 600}, 2, 9)[0], [])
         self.assertEqual(self.run_watch({}, 2, 2)[0], [])
+
+    def test_single_severe_stall_and_independent_capture_cooldown(self):
+        state = {'lag_alert_at': time.time() - 600}
+        posts, write = self.run_watch(state, 2, 1, worst=15904)
+        self.assertEqual(posts, [])
+        write.assert_called_once()
+        self.assertIn('spark_event_us', state)
+
+    def test_recent_disconnect_is_eligible_but_old_presence_is_not(self):
+        posts, write = self.run_watch({'lag_players_at':time.time()-130}, 0, 1, worst=5000)
+        self.assertIn('none online now', posts[0][1])
+        write.assert_called_once()
+        self.assertEqual(self.run_watch({'lag_players_at':time.time()-181}, 0, 1, worst=9000)[0], [])
+
+    def test_same_event_not_recaptured_even_after_wall_clock_cooldown(self):
+        with mock.patch.object(alert.time, 'time', return_value=10000):
+            state = {'spark_at':0, 'spark_posted':True, 'spark_event_us':9980000000,
+                     'lag_alert_event_us':9980000000}
+            posts, write = self.run_watch(state, 2, 1, worst=9000)
+        self.assertEqual(posts, [])
+        write.assert_not_called()
+
+    def test_missing_fifo_failed_write_and_pending_link_do_not_start_extra_capture(self):
+        for mode in ('missing', 'failed', 'pending'):
+            state = {'spark_at':time.time()-200, 'spark_posted':False} if mode=='pending' else {}
+            events = [{'at_us':int((time.time()-5)*1000000),'delay_ms':9000}]
+            with mock.patch.object(alert, 'lag_events', return_value=events), \
+                    mock.patch.object(alert, 'service_started', return_value=time.time()-3600), \
+                    mock.patch.object(alert, 'stalls', return_value=(0,0,'')), \
+                    mock.patch.object(alert, 'post_staff', return_value=True), \
+                    mock.patch.object(alert.Path, 'exists', lambda p: mode!='missing' and str(p)=='/run/minecraft-console.fifo'), \
+                    mock.patch.object(alert.os, 'open', side_effect=OSError('Generated failure')) as opened:
+                alert.lag_watch(state, 1)
+            if mode=='failed':
+                self.assertIn('spark_retry_at', state)
+                self.assertNotIn('spark_event_us', state)
+            else:
+                opened.assert_not_called()
+
+    def test_maintenance_suppresses_new_capture(self):
+        with mock.patch.object(alert.Path, 'exists', return_value=True), \
+                mock.patch.object(alert, 'service_started', return_value=time.time()-3600), \
+                mock.patch.object(alert, 'lag_events') as events:
+            alert.lag_watch({}, 2)
+        events.assert_not_called()
+
+    def test_new_invocation_resets_recent_presence_and_old_event_markers(self):
+        state = {'invocation':'new', 'lag_invocation':'old', 'lag_players_at':time.time(), 'spark_event_us':999}
+        self.run_watch(state, 0, 1, worst=9000)
+        self.assertEqual(state['lag_invocation'], 'new')
+        self.assertNotIn('lag_players_at', state)
+        self.assertNotIn('spark_event_us', state)
+
+    def test_bounded_journal_reader_orders_and_excludes_unrelated_text(self):
+        text = '\n'.join(json.dumps(row) for row in [
+            {'__REALTIME_TIMESTAMP':'3000000','MESSAGE':"[12:00:00] [Server thread/WARN]: Can't keep up! Running 9000ms behind"},
+            {'__REALTIME_TIMESTAMP':'2000000','MESSAGE':"[12:00:00] [Server thread/WARN]: Can't keep up! Running 5000ms behind"},
+            {'__REALTIME_TIMESTAMP':'1000000','MESSAGE':'Generated unrelated text'},
+            {'__REALTIME_TIMESTAMP':'4000000','MESSAGE':"[12:00:00] [Server thread/INFO]: <GeneratedPlayer> Can't keep up! Running 99999ms behind"}])
+        with mock.patch.object(alert.subprocess, 'run', return_value=SimpleNamespace(returncode=0,stdout=text,stderr='')) as query:
+            self.assertEqual(alert.lag_events(1), [{'at_us':2000000,'delay_ms':5000},{'at_us':3000000,'delay_ms':9000}])
+        self.assertIn('2000', query.call_args.args[0])
+
+    def test_journal_failure_and_malformed_events_fail_closed(self):
+        for response in (SimpleNamespace(returncode=2,stdout='',stderr='Generated journal error'),
+                         SimpleNamespace(returncode=0,stdout='not json',stderr='')):
+            with mock.patch.object(alert.subprocess, 'run', return_value=response):
+                with self.assertRaises((OSError, ValueError)):
+                    alert.lag_events(1)
+        with mock.patch.object(alert.subprocess, 'run', return_value=SimpleNamespace(returncode=1,stdout='',stderr='')):
+            self.assertEqual(alert.lag_events(1), [])
 
     def test_profile_link_is_posted_once(self):
         state = {'spark_at': time.time() - 200, 'spark_posted': False, 'lag_alert_at': time.time()}
