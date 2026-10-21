@@ -13,6 +13,7 @@ from pathlib import Path
 
 import discord
 from support_registry import Registry
+from support_delivery import deliver as deliver_support, private_webhook
 from routine import load_policy, ensure_audit, support as expire_support
 from discord import app_commands
 
@@ -221,12 +222,20 @@ class HolyLoisBot(discord.Client):
         channel = text(guild, SUPPORT_CHANNEL)
         staff = discord.utils.get(guild.categories, name=STAFF_CATEGORY)
         if channel is None and staff is not None:
-            channel = await guild.create_text_channel(SUPPORT_CHANNEL, category=staff, topic="Help requests and reports from in game (/support, /report)")
+            try:
+                channel = await guild.create_text_channel(SUPPORT_CHANNEL, category=staff, topic="Help requests and reports from in game (/support, /report)")
+            except discord.HTTPException:
+                print('Support channel could not be created; private staff fallback will be used.')
+                return None
+        if channel is not None:
+            permissions = channel.permissions_for(guild.me)
+            if not (permissions.view_channel and permissions.send_messages and permissions.embed_links):
+                print('Support channel permissions incomplete; private staff fallback will be used.')
+                return None
         return channel
 
     async def post_support(self, data):
         """One embed per request, pinging the server owner, with buttons that answer the player in game."""
-        if self.support_channel is None: return
         player, kind = str(data.get("player", "")), data.get("kind", "help")
         if not NAME.match(player) or kind not in ("help", "report"): return
         safe = lambda text: discord.utils.escape_mentions(discord.utils.escape_markdown(str(text)))[:1000]
@@ -240,9 +249,17 @@ class HolyLoisBot(discord.Client):
         view.add_item(discord.ui.Button(label="On my way", style=discord.ButtonStyle.primary, custom_id=f"hl-support:onway:{player}"))
         view.add_item(discord.ui.Button(label="Solved", style=discord.ButtonStyle.success, custom_id=f"hl-support:solved:{player}"))
         view.add_item(self.hold_button(player, report))
-        owner = self.support_channel.guild.owner_id
-        sent = await self.support_channel.send(content=f"<@{owner}>" if owner else None, embed=embed, view=view,
-                                        allowed_mentions=discord.AllowedMentions(users=True))
+        async def primary():
+            owner = self.support_channel.guild.owner_id
+            return await self.support_channel.send(content=f"<@{owner}>" if owner else None, embed=embed, view=view,
+                                                   allowed_mentions=discord.AllowedMentions(users=True))
+        async def fallback():
+            payload = embed.to_dict()
+            payload['footer'] = {'text': 'Support fallback: reply in game. Staff must review retention manually.'}
+            await private_webhook(payload)
+        sent = await deliver_support(primary if self.support_channel is not None else None, fallback, print)
+        if sent is None:
+            return
         self.support_registry.received(sent.id, sent.channel.id, sent.created_at.isoformat(),
                                        retention_class="case" if report else "routine")
 

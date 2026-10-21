@@ -45,6 +45,7 @@ class DeployKit(unittest.TestCase):
                      'expect_log': ['lib 2'], 'tested': {'lib-2.jar': kit.sha(self.plan_dir / 'lib-2.jar'),
                                                           'a.json': kit.sha(self.plan_dir / 'a.json')}}
         self.patches = [mock.patch.object(kit, 'ROOT', self.root), mock.patch.object(kit, 'BACKUPS', self.temp / 'backups'),
+                        mock.patch.object(kit.recovery_guard, 'STATE', self.temp / 'guard'),
                         mock.patch.object(kit, 'MAINTENANCE', self.temp / 'maintenance'),
                         mock.patch.object(kit, 'HOLD', self.temp / 'hold'), mock.patch.object(kit, 'console'),
                         mock.patch.object(kit.recovery_set, 'require_stopped'),
@@ -248,6 +249,43 @@ class LagWatch(unittest.TestCase):
         self.assertIn('https://spark.lucko.me/AbC123', posts[0][1])
         self.assertTrue(state['spark_posted'])
         self.assertEqual(self.run_watch(state, 1, 0, log='https://spark.lucko.me/AbC123')[0], [])
+
+
+class StorageWatch(unittest.TestCase):
+    def watch(self, state, free_gib, delivered=True):
+        disk = SimpleNamespace(total=200 * 1024**3, free=free_gib * 1024**3)
+        with mock.patch.object(alert.shutil, 'disk_usage', return_value=disk), \
+                mock.patch.object(alert, 'post_staff', return_value=delivered) as post:
+            alert.storage_watch(state)
+        return post
+
+    def test_warn_escalate_and_recover_once(self):
+        state = {}
+        self.assertEqual(self.watch(state, 35).call_count, 1)
+        self.assertEqual(self.watch(state, 34).call_count, 0)
+        self.assertEqual(self.watch(state, 15).call_count, 1)
+        self.assertEqual(self.watch(state, 8).call_count, 1)
+        self.assertEqual(self.watch(state, 42).call_count, 0)
+        self.assertEqual(self.watch(state, 60).call_count, 1)
+        self.assertEqual(self.watch(state, 60).call_count, 0)
+        self.assertEqual(state['storage'], {'level': 0})
+
+    def test_failed_private_delivery_is_retried_without_losing_level(self):
+        state = {}
+        self.assertEqual(self.watch(state, 15, delivered=False).call_count, 1)
+        self.assertNotIn('level', state['storage'])
+        self.assertEqual(self.watch(state, 15).call_count, 0)
+        state['storage']['retry_at'] = 0
+        self.assertEqual(self.watch(state, 15).call_count, 1)
+        self.assertEqual(state['storage'], {'level': 2})
+
+    def test_transport_exception_keeps_retry_backoff(self):
+        state = {}
+        with mock.patch.object(alert.shutil, 'disk_usage', return_value=SimpleNamespace(total=100, free=5)), \
+                mock.patch.object(alert, 'post_staff', side_effect=OSError('offline')):
+            with self.assertRaises(OSError):
+                alert.storage_watch(state)
+        self.assertGreater(state['storage']['retry_at'], time.time())
 
 
 class OffsiteVolatile(unittest.TestCase):

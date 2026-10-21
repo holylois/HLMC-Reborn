@@ -1,10 +1,12 @@
 """Exercise actual candidate methods with fake Discord objects, no login/token/network."""
 import ast
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 from types import SimpleNamespace, MethodType
 import unittest
 from unittest.mock import AsyncMock, Mock
+from support_delivery import deliver
 
 
 def method(name, environment):
@@ -14,6 +16,37 @@ def method(name, environment):
     module = ast.fix_missing_locations(ast.Module(body=[fn], type_ignores=[]))
     exec(compile(module, "candidate-bot-method", "exec"), environment)
     return environment[name]
+
+
+class SupportRoutingTests(unittest.IsolatedAsyncioTestCase):
+    async def invoke(self, channel):
+        embed = SimpleNamespace(add_field=Mock(), to_dict=Mock(return_value={'title': 'Help request'}))
+        discord = SimpleNamespace(Embed=Mock(return_value=embed), ui=SimpleNamespace(View=Mock(return_value=SimpleNamespace(add_item=Mock())),
+            Button=Mock()), ButtonStyle=SimpleNamespace(primary=1, success=2), AllowedMentions=Mock(),
+            utils=SimpleNamespace(escape_mentions=str, escape_markdown=str))
+        fallback = AsyncMock()
+        bot = SimpleNamespace(support_channel=channel, hold_button=Mock(), support_registry=Mock())
+        environment = {'discord': discord, 'NAME': re.compile(r'^[A-Za-z0-9_]{3,16}$'), 'RED': 1, 'GOLD': 2,
+                       'deliver_support': deliver, 'private_webhook': fallback, 'print': Mock()}
+        await MethodType(method('post_support', environment), bot)({'player': 'Fixture', 'message': 'Generated help'})
+        return bot, fallback
+
+    async def test_missing_channel_routes_to_private_staff(self):
+        bot, fallback = await self.invoke(None)
+        fallback.assert_awaited_once()
+        bot.support_registry.received.assert_not_called()
+
+    async def test_forbidden_send_routes_to_private_staff(self):
+        channel = SimpleNamespace(guild=SimpleNamespace(owner_id=1), send=AsyncMock(side_effect=PermissionError()))
+        _, fallback = await self.invoke(channel)
+        fallback.assert_awaited_once()
+
+    async def test_delivered_ticket_is_registered_without_duplicate(self):
+        sent = SimpleNamespace(id=30, channel=SimpleNamespace(id=20), created_at=datetime(2026, 10, 21, tzinfo=timezone.utc))
+        channel = SimpleNamespace(guild=SimpleNamespace(owner_id=1), send=AsyncMock(return_value=sent))
+        bot, fallback = await self.invoke(channel)
+        fallback.assert_not_awaited()
+        bot.support_registry.received.assert_called_once_with(30, 20, sent.created_at.isoformat(), retention_class='routine')
 
 
 class BotIntegrationTests(unittest.IsolatedAsyncioTestCase):

@@ -223,6 +223,37 @@ def load():
     return json.loads(STATE.read_text()) if STATE.exists() else {"up": True, "failures": 0, "down_since": None}
 
 
+def storage_watch(state):
+    """Private capacity warnings only. Never prune backups, tiles or rehearsal evidence."""
+    disk = shutil.disk_usage(ROOT)
+    pressure = 1 - disk.free / disk.total
+    level = 3 if pressure >= .95 or disk.free < 10 * 1024**3 else 2 if pressure >= .90 else (
+        1 if pressure >= .80 or disk.free < 40 * 1024**3 else 0)
+    previous = state.get('storage', {})
+    now = time.time()
+    if level == 0 and not (pressure < .75 and disk.free >= 45 * 1024**3):
+        return  # Hysteresis avoids repeated warnings around a threshold.
+    if level == previous.get('level', 0):
+        return
+    if previous.get('retry_at', 0) > now:
+        return
+    description = (f"Available {disk.free / 1024**3:.1f} GiB of {disk.total / 1024**3:.1f} GiB. "
+                   f"Capacity pressure {pressure:.0%}. "
+                   + ('Space has recovered.' if level == 0 else
+                      'Review local staging, restore copies and verified off-site receipts. '
+                      'World deployments require 40 GiB available. Nothing was deleted.'))
+    try:
+        delivered = post_staff('Holy Lois storage recovered' if level == 0 else 'Holy Lois storage needs attention',
+                               description, GREEN if level == 0 else RED if level >= 2 else GOLD)
+    except Exception:
+        state['storage'] = {**previous, 'retry_at': now + 900}
+        raise
+    if delivered is False:
+        state['storage'] = {**previous, 'retry_at': now + 900}
+    else:
+        state['storage'] = {'level': level}
+
+
 def save(state):
     STATE.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
     STATE.write_text(json.dumps(state))
@@ -257,6 +288,12 @@ def main():
             raise RuntimeError('Private staff destination is unavailable')
         return
     state = load()
+    if mode == 'check':
+        try:
+            storage_watch(state)
+        except Exception as error:
+            print('Storage watch failed (' + type(error).__name__ + ').', file=sys.stderr)
+        save(state)
     if MAINTENANCE.exists():
         # Planned work: one friendly note with the reason, no crash alarm.
         if not state.get("maintenance"):
@@ -294,7 +331,7 @@ def main():
             # Planned restarts (updates, the owner's restart button) get a short friendly note.
             post("Holy Lois server restarted", f"Back up with {players} player(s) online.", GREEN)
         fresh = {"up": True, "failures": 0, "down_since": None, "restarts": restarts, "invocation": run,
-                 **{k: state[k] for k in ("lag_alert_at", "spark_at", "spark_posted") if k in state}}
+                 **{k: state[k] for k in ("lag_alert_at", "spark_at", "spark_posted", "storage") if k in state}}
         try:
             lag_watch(fresh, players)
         except Exception as error:

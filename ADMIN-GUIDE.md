@@ -1,8 +1,8 @@
 # Holy Lois: Reborn - easy owner guide
 
-Your CurseForge profile is where you edit and test. The Holy Lois Admin app publishes your tested changes. Friends use the normal Holy Lois app to install them.
+Release builds use a frozen release profile and the current tested publishing scripts. The owner's CurseForge play profile can lag behind live and is not the release source. Friends use the normal Holy Lois app to install updates. The older Admin-app walkthrough below is historical; follow the current operator runbook and release checklist for publishing.
 
-Launcher 0.4.0 updates itself and its small startup checker before opening. Players do not rerun the installer for each launcher release. First setup offers a launcher choice and optional Desktop and Start menu shortcuts. Deleted shortcuts stay deleted, and existing players keep their setup. Your Admin shortcuts are separate and are not recreated by the player updater.
+Launcher 1.6.1 updates itself through the signed app channel. Players do not rerun the installer for each launcher release. First setup offers a launcher choice and optional Desktop and Start menu shortcuts. Deleted shortcuts stay deleted, and existing players keep their setup. The EXE is not Authenticode-signed.
 
 ## Add a mod, resource pack or shader
 
@@ -42,7 +42,7 @@ The first publish needs **Connect GitHub once**. Complete GitHub's sign-in and p
 
 After publishing, friends see an update on the next check, normally within two minutes while Holy Lois is open. They close their game/launcher, then click **Update Holy Lois**. They do not need a new EXE for each mod change.
 
-A new release applies changed shared settings as part of installation, before the next game launch. JSON/options/properties merge changed published values. Unrelated personal values remain. Changed TOML/JSON5/other shared files are replaced as complete reviewed files. Changed keybinds in `options.txt`, voice devices, accounts, worlds and caches stay personal. The previous settings are retained in the update recovery backup. Repairing the same version does not repeatedly reset settings.
+A new release applies changed shared settings before the next game launch. Supported JSON/options/properties and TOML merge changed published values while preserving unrelated personal values. Unsupported personal TOML stays byte for byte. Other shared formats follow their reviewed policy. Existing keybinds in `options.txt`, voice devices, accounts, worlds and caches stay personal. Previous settings are retained in the update recovery backup. Repairing the same version does not repeatedly reset settings.
 
 Starting graphics stay at render distance 12, DH distance 64, shaders off. Resource-pack activation follows the shared Minecraft options. Adding a shader does not turn shaders on.
 
@@ -111,14 +111,14 @@ For an unusual desktop install, **Find launcher** accepts its EXE or a Windows s
 
 ## Backups and space
 
-Backups live on Google Drive (`Holy Lois Backups`), not on the VM disk (owner decision, 2026-10-04). Since release 1.7.4:
+Google Drive (`Holy Lois Backups`) is the off-site recovery destination. Local staging and restore tests still consume VM disk until verified cleanup is approved. Copying to Drive alone does not reclaim those bytes.
 
-- **World (JEB)**: differential every 30 minutes, full every 3 hours, at most one full and two differentials locally within 6 GB. The off-site job uploads the newest of each.
-- **Release backups**: each deploy still makes a complete stopped-server backup under `/opt/minecraft-backups/maintenance/` first (rollback needs it locally). The off-site job uploads it, checks every file's size and MD5 against Drive and only then deletes the local copy. Release folders without `receipt.json` (deploy not finished) wait.
+- **World (JEB)**: differential every 30 minutes, full every 3 hours, with the repaired 64 GB local size limit. The off-site job runs every three hours with a small random delay and selects the newest complete native full/differential chain. It does not automatically reclaim every older local JEB archive. Keep the base required for subsequent differentials; review original receipts, provider hashes and dependencies before local cleanup.
+- **Release backups**: jar/config-only changes back up mods and config. World changes require a complete stopped backup excluding rebuildable BlueMap tiles. The off-site job can upload completed recognized maintenance sets, verify every member, then reclaim eligible local staging. Held, unfinished, failed or unrecognized sets stay protected. A successful upload does not release a hold.
 - **One-time move**: `server/ops/move-backups-to-drive.py` moved the older maintenance folders, legacy archives and old JEB files to `maintenance/`, `legacy/` and `world/` on Drive, each verified before deletion. `/opt/minecraft-backups/terrain-expansion` is the terrain job's state, not a backup, and stays.
-- **Restore**: `sudo rclone copy "gdrive:Holy Lois Backups/maintenance/NAME" /opt/restore/NAME`, then restore with the server stopped. The archives include private server data, so never send them to friends.
+- **Restore**: follow [the recovery guard procedure](server/ops/RECOVERY-GUARD.md). Verify complete recovery sets and preserve the latest external request ledger/key before extraction or startup. A raw copy followed by starting Minecraft is not a complete restore procedure. Archives include private server data; never send them to friends.
 
-Check `df -h /` now and then; the world and BlueMap tiles are what grows.
+Check disk headroom before backups, deployments and large rehearsals. Local archives, held sets and extracted test servers can grow faster than the live world. Preserve proof receipts, and obtain exact deletion approval for completed local test copies. Remote pruning remains disabled.
 
 ## Release tools and pack 2.2.0 changes
 
