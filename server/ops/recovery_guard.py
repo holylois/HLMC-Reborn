@@ -70,6 +70,7 @@ class Guard:
         temporary = path.with_name(path.name + '.' + uuid.uuid4().hex + '.tmp')
         fd = os.open(temporary, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, mode)
         with os.fdopen(fd, 'w', encoding='utf-8') as stream:
+            os.fchmod(stream.fileno(), mode)
             json.dump(value, stream, sort_keys=True)
             stream.write('\n'); stream.flush(); os.fsync(stream.fileno())
         os.replace(temporary, path)

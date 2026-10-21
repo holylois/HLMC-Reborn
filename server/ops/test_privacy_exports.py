@@ -82,6 +82,19 @@ class Exports(unittest.TestCase):
         approved = digest(plan(self.guard, self.cases))
         return publish(self.guard, self.cases, self.policy, self.base, self.provider, approved, lambda: True)
 
+    def test_private_umask_preserves_public_gate_readability_and_private_state_modes(self):
+        import stat
+        prior = os.umask(0o077)
+        try:
+            self.activate()
+            self.assertEqual(stat.S_IMODE(self.gate.stat().st_mode), 0o644)
+            for path in (self.policy, self.guard.directory / 'ledger.json', self.guard.directory / 'subject-key.json'):
+                self.assertEqual(stat.S_IMODE(path.stat().st_mode), 0o600)
+            self.record()
+            self.assertEqual(stat.S_IMODE(self.gate.stat().st_mode), 0o644)
+            self.assertFalse(gate_bytes(self.gate, os.geteuid())[1]['ready'])
+        finally: os.umask(prior)
+
     def generate(self):
         with contextlib.redirect_stdout(io.StringIO()), patch.object(self.stats.urllib.request, 'urlopen', side_effect=OSError('No external feed in generated proof')):
             self.stats.main()

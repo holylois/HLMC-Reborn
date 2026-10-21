@@ -1,13 +1,16 @@
 # Restore privacy barrier
 
-Guard 224 is deployed as a silent operations update on 20 October 2026. This is a conservative start/restore
-barrier, not an account-erasure executor.
+Recovery operations237 is deployed as a silent operations update on21October2026, carrying forward guard224
+and checkpoints227. It adds verified request-aware startup/restore libraries and guarded public exports, not
+automatic account erasure. Minecraft was not restarted; the new startup hook runs on its next normal restart.
 The owner confirmed on 20 October 2026 that no player-data erasure request has been completed. Free-play character
 quarantine is a recoverable move, not erasure and not a reason to invent a deletion record.
 
 ## Behavior
 
-The systemd pre-start hook runs `recovery_guard.py start` as root before the Minecraft user can start Java.
+The systemd pre-start hook runs `privacy_prestart.py` as root before the Minecraft user can start Java.
+Empty request ledgers use the conservative guard path. Nonempty ledgers require the independently pinned
+private review, current recovery protection, complete native store checks and current operator decisions.
 Private state and its HMAC key live outside the Minecraft backup root in /var/lib/holylois/recovery-guard, mode 700;
 files are mode 600. Request records contain a random request ID, a keyed UUID digest and a timestamp, not names,
 raw UUIDs, credentials or message content. This is still private pseudonymous metadata, not anonymous public data.
@@ -18,16 +21,18 @@ state or creates an empty ledger for a root that already contains a generation m
 
 The deploy kit arms an external pending-restore barrier before rollback extraction. Only successful extraction
 can release it, and only when the request ledger is empty. A failed extraction leaves startup blocked. The outside
-ledger is never taken from the restored archive. Every recorded request blocks both startup and new restores;
-there is no clear-request command, supplied-receipt shortcut, automatic erasure or silent override.
+ledger is never taken from the restored archive. Every recorded request blocks the default start/restore paths;
+the separate reviewed startup and historical restore workflows retain every request. There is no clear-request
+command, supplied-receipt shortcut, automatic erasure or silent override.
 
 ## Limits and operator workflow
 
 - Normal restarts with an empty ledger remain automatic. A recorded request intentionally requires a separately
   reviewed per-store workflow before startup can resume. Do not record test requests in production.
-- Before any real erasure, implement and verify the real auth, aliases, inventories, claims/party, economy,
-  permission, journal/discovery, cache/export, support and relevant embedded-world adapters. Export an independently
-  protected off-site recovery copy of the latest external ledger/key and prove its restore before erasure.
+- Before any real erasure, complete and approve the case-specific identity, auth, inventories, claims/party,
+  economy, permissions, journal/discovery, cache/export, support and embedded-world reviews. The installed
+  native verifiers and reversible action libraries do not invent ownership/hold decisions. Independently
+  protect the latest ledger/key and the approved case/action/original/replacement recovery evidence.
   The older Minecraft-root backup does not include this newly external state. No erasure/expiry is authorized here.
 - Privileged operators must arm the barrier before every production restore, including a partial/world-only copy.
   The supported deploy rollback does this automatically. A manual copy that bypasses the restore tool can bypass
@@ -39,10 +44,17 @@ there is no clear-request command, supplied-receipt shortcut, automatic erasure 
   the ledger/pending state or substitute an old ledger just to make the server boot.
 - An approved real request would be recorded while writers are stopped with `record-request --id REQUEST_UUID
   --subject SUBJECT_UUID`. It does not erase data or claim the request is completed. Stop before this step until
-  the per-store workflow and external-state backup described above are ready and explicitly approved.
+  its complete case, per-store workflow and external-state protection are ready and explicitly approved.
 - Interrupted generation writes retain transaction.json. Keep the server off and review both state/anchor copies;
   do not guess which half is current, remove the barrier, or reinitialize. Missing external state after a host loss
   needs independent ledger/key recovery; a successful old world boot is insufficient evidence.
+
+Public stats and name checks now require an open identity-free serving gate, matching export epoch and exact
+current output hashes. Responses use no-store; unknown or withheld names do not become availability claims.
+Gate writes explicitly set0644 even under umask0077 so the restricted HTTP service can read control metadata.
+Ledger, key, policy and case files remain private0600 inside their private directories. No HTTP service access
+to those private files is granted. Full generated native restore proof and restricted-user HTTP checks passed.
+The rollout preserved existing state, retained source rollback evidence and restored the prior timer states.
 
 ## Deployment and rollback
 
