@@ -65,6 +65,11 @@ def decode(raw,suffix):
     if suffix in ('.jsonl','.log'):
         return [json.loads(line,object_pairs_hook=unique) for line in raw.decode('utf-8').splitlines() if line.strip()]
     if suffix=='.toml':return tomllib.loads(raw.decode('utf-8'))
+    if suffix=='.txt':
+        text=raw.decode('utf-8')
+        if any(ord(c)<32 and c not in '\t\r\n' or ord(c)==127 for c in text):
+            raise ValueError('Non-text bytes require separate store review')
+        return text
     if suffix=='.snbt':
         from .snbt import decode as read_snbt
         return read_snbt(raw.decode('utf-8'))

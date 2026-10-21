@@ -57,6 +57,22 @@ class FixedStartup(unittest.TestCase):
         from privacy_native import restore_ledger
         self.assertFalse(hasattr(restore_ledger, 'Ledger'))
 
+    def test_native_serverconfig_text_is_scanned_for_identity_instead_of_skipped(self):
+        from privacy_native.scoped_stores import FileScope
+        e = self.fresh(); world = e.root / 'world'; folder = world / 'serverconfig'; folder.mkdir(parents=True)
+        path = folder / 'readme.txt'; path.write_bytes(b'Generated server configuration instructions.\n')
+        scope = FileScope(world, ['serverconfig'], lambda: True, 'a' * 64)
+        self.assertTrue(scope.verify(e.cases[0])['absent'])
+        path.write_text('Owner: ' + e.cases[0]['aliases'][0], encoding='utf-8')
+        self.assertFalse(scope.verify(e.cases[0])['absent'])
+        path.write_text('Owner: ' + e.cases[0]['subject'], encoding='utf-8')
+        self.assertFalse(scope.verify(e.cases[0])['absent'])
+
+    def test_binary_or_invalid_utf8_text_does_not_become_an_absence_proof(self):
+        from privacy_native.identity_codec import decode
+        for raw in (b'\xff', b'generated\0hidden', b'generated\x7fhidden'):
+            with self.assertRaises((ValueError, UnicodeError)): decode(raw, '.txt')
+
     def test_actual_packaged_native_registry_reads_generated_auth_and_refuses_returned_account(self):
         from privacy_prestart import registry
         from privacy_native.runtime_guard import REQUIRED, RuntimePins

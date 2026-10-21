@@ -295,3 +295,27 @@ the existing scheduler227 authorization covers guard ledger/key only.
 Combined generated checks and actual systemd contracts are recorded in the private operator handoff. No actual
 account erasure or nonempty-account native restore is claimed. A sealed rollout and final request-aware native
 rehearsal are still required before real requests can be processed. Existing live224/227 remain unchanged.
+
+## Completed generated native restore rehearsal237
+
+The combined candidate now passed a complete nonempty-request rehearsal with the current66-mod Minecraft
+runtime and generated accounts. A full stopped synthetic root was captured and compared, the test request was
+applied, and an older whole-root snapshot was staged, compared and installed with the prior root retained.
+The current outside-root HMAC key and every request survived historical anchor reconciliation. Returned account
+records blocked review; a new exact transaction reapplied the request without losing the unrelated account.
+
+All ten packaged native store verifiers and14 generated scope decisions were checked before an actual systemd
+pre-start invocation. That reviewed pre-start was followed by a loopback-only Minecraft boot, save and clean
+stop. The synthetic account remained absent, the unrelated profile/authentication record survived, and the
+request/key were still retained after shutdown. The default start path continued to refuse the request.
+The JVM could not access production world, backups, credentials or guard paths. No live state was changed.
+
+The real generated runtime exposed a textual serverconfig/readme.txt file. Bounded UTF-8 plain text is now
+scanned for aliases/UUIDs instead of being skipped; invalid UTF-8 and binary control bytes refuse review.
+Two regressions cover both identity detection and malformed text. The local combined suite passed315 checks.
+
+Provider/Discord/HTTP transports in this drill were explicitly simulated, with independent local byte copies
+for recovery objects. This is not a new real off-site upload verification, a production-unit activation, a
+completed real erasure, or evidence of any actual person's identity/hold decisions. Existing223/225/226/227
+off-site proofs retain their earlier scopes. New real case/support/plan/journal/original/replacement uploads
+still require their own exact approval. No real request exists. Prepared rollout remains separate from deploy.
