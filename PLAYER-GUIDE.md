@@ -267,6 +267,6 @@ Quick start accepts a valid player name without checking Minecraft ownership. Na
 
 If an admin requests a name change, log in and click the private reminder or type `/account rename`. Choose an available name. Your inventory, homes and progress stay with you; your previous name remains protected. Reconnect when the form finishes. You can use your new name or your saved previous name for the same profile.
 
-For a forgotten server password, contact support. After ownership is verified, an admin can issue a one-use recovery code. Open `/account password` and enter the code and your new password in the private form. Never post either in chat. The recovery request expires after one hour; five incorrect codes cancel it. Reconnect and log in with your new password after it changes.
+For a forgotten server password, contact support. After ownership is verified, an admin unlocks a reset: join and set a new password in the private form, no old password needed. If that cannot reach you, the admin issues a one-use recovery code instead: open `/account password` and enter the code and your new password in the private form. Never post either in chat. The recovery request expires after one hour; five incorrect codes cancel it. Reconnect and log in with your new password after it changes.
 
 `/logout` and account changes are blocked during combat. Wait for the combat cooldown before using the account form; disconnecting during a PvP fight still triggers the existing death penalty.

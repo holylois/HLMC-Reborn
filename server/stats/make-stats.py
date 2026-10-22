@@ -60,7 +60,8 @@ def names(policy=None):
 
 
 def online_now():
-    """Players online right now as the public sees them (staff hidden: the ping names play.holylois.com), None if no answer."""
+    """Players online right now as the public sees them (staff hidden: the ping names play.holylois.com): (count, sample
+    UUIDs), (None, []) if no answer. The sample is the server list's own player preview, already without hidden accounts."""
     import socket, struct
     def varint(n):
         out = b''
@@ -75,10 +76,13 @@ def online_now():
             data = b''
             while chunk := s.recv(65536):
                 data += chunk
-                try: return json.loads(data[data.index(b'{'):].decode())['players']['online']
+                try: players = json.loads(data[data.index(b'{'):].decode())['players']
                 except ValueError: continue
-    except (OSError, KeyError):
-        return None
+                ids = [p.get('id') for p in players.get('sample') or [] if isinstance(p, dict) and isinstance(p.get('id'), str)]
+                return players['online'], ids
+    except (OSError, KeyError, TypeError):
+        pass
+    return None, []
 
 
 def holylois_advancements():
@@ -258,11 +262,14 @@ def main():
 
     everyone = list(stats)
     skin_textures = read(WORLD / 'holylois/skin-textures.json', {})
+    # Who is on now, for the website's skin heads: only names already public here (hidden accounts never, slurs masked).
+    online, sample = online_now()
+    online_players = [people[uid] for uid in sample if uid in people][:12]
     report = {
         'pack': pack,
         'generated': datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'),
         # 'players' is everyone who has joined (kept for old readers); 'online' is a live ping at generation time.
-        'server': {'address': 'play.holylois.com', 'players': len(people), 'registered_players': len(people), 'online': online_now(), 'world_day': read(WORLD / 'holylois/events.json', {}).get('lastDay')},
+        'server': {'address': 'play.holylois.com', 'players': len(people), 'registered_players': len(people), 'online': online, 'online_players': online_players, 'world_day': read(WORLD / 'holylois/events.json', {}).get('lastDay')},
         'totals': {
             'hours_played': round(sum(custom(u, 'play_time') for u in everyone) / 72000),
             'km_travelled': round(sum(distance(u) for u in everyone)),
