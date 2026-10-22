@@ -1,6 +1,6 @@
 # Holy Lois: Reborn - Server rules
 
-Holy Lois is a small survival server for friends. Guests are welcome as long as they play fair. By joining you agree
+Holy Lois is a small survival server run by players. Everyone is welcome as long as they play fair. By joining you agree
 to these rules. In game, type `/rules` to see the short version.
 
 ## Rules
