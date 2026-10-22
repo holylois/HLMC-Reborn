@@ -41,7 +41,7 @@ LOGIN = re.compile(r"\]: ([A-Za-z0-9_]{3,16})\[/[^\]]+\] logged in with entity i
 SYSTEM = re.compile(r"\]: System chat: (.+)$")
 NAME = re.compile(r"^[A-Za-z0-9_]{3,16}$")
 # Same filter and fixed-length mask as the website (server/stats/make-stats.py): keep the row, never the word.
-SLURS = re.compile(r'n[i1!|l][g6q9]{2}|f[a@4][g6q9]{1,2}[o0]t|f[a@4][g6q9]$|r[e3]t[a@4]rd|p[i1!]d[o0a]r|k[i1!]ke|ch[i1!]nk|tr[a@4]nn(?:y|ie)|п[иі]д[оа]р', re.I)
+SLURS = re.compile(r'n[i1!|l][g6q9]{2}|f[a@4][g6q9]{1,2}[o0]t|f[a@4][g6q9]$|r[e3]t[a@4]rd|p[i1!]d[o0a]r|k[i1!]ke|ch[i1!]nk|tr[a@4]nn(?:y|ie)|п[иі]д[оа]р|(?:p[o0]|n[a@4]|n[i1])h[uy][ijy]|x[uy][ijy](?!e)|p[i1!]zd|bl[yj]a[dt]|[yj][e3]b[a@4][nlt]|d[o0]lb[o0][e3]b|m[uy]d[a@4]k|g[a@4]nd[o0]n|z[a@4]l[uy]p|p[i1!]mp[i1!]s|m[a@4][uy]k[a@4]', re.I)
 
 
 def shown(name):
