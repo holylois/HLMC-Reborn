@@ -347,9 +347,11 @@ These commands require an authenticated administrator with `holylois:account.adm
 - `/account rename grant NAME`: allow that authenticated player to choose an available new name. The private clickable reminder opens `/account rename`. The request lasts seven days and is used once.
 - `/account password grant NAME`: allow a password change for one hour. An authenticated player can use the form directly. An unauthenticated player must enter the private recovery code. The command reports a private file path, never the code. Deliver the code privately after verifying ownership. Never paste it into server/chat commands or release logs.
 - `/seen NAME` (operators only): online now (and AFK), or how long ago and when (Riga time) NAME was last on.
-- `/account password reset NAME`: quick reset for a friend who forgot their password, no code. For the next 10 minutes the next
-  player who joins as NAME can set a new password right away, so only use it while you are talking to them (anyone could join with a
-  free-play name). Online admins get a chat message the moment it is used; it is also in the server log.
+- `/account password reset NAME`: quick reset for a friend who forgot their password, no code. For the next 10 minutes NAME can set
+  a new password right after joining, but only from the IP the account last logged in from (EasyAuth's record, held in memory only),
+  so a stranger joining with the same free-play name cannot take it. No known IP, a changed IP or a server restart: use
+  `/account password grant NAME` with the private recovery code instead. Online admins get a chat message the moment it is used; it
+  is also in the server log.
 - `/account rename status NAME` and `/account password status NAME`: check for a pending request.
 - `/account rename revoke NAME` and `/account password revoke NAME`: cancel a request. Creating another grant replaces the previous one.
 
