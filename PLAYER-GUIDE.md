@@ -74,7 +74,7 @@ Land is claimed in whole chunks (16 x 16 blocks, from bedrock to sky) with **Ope
 
 You don't need a team to claim. Everyone, admins included, claims under the same limits.
 
-**How much land?** Everyone gets **16 chunks free**, earns **1 more for every 2 hours played** (up to 48), and can buy more with coins: `/claims` shows your numbers, `/claims buy` buys the next chunk (500 coins, each next one 15% more) and `/claims sell` sells one back for half price.
+**How much land?** Everyone gets **16 chunks free**, earns **1 more for every 2 hours played** (up to 48), and can buy more with coins: `/claims` shows your numbers, `/claims buy` buys the next chunk (500 coins, each next one 15% more) and `/claims sell` sells one back for half price. You can buy up to 64, so one player can hold up to 128 chunks.
 
 **Unused land:** land of a player who has not played for **30 days** goes back to wilderness, so nobody can sit on chunks forever.
 
@@ -128,7 +128,7 @@ Log in once a day (Riga time) for a small gift: food, ores, books or rockets. Th
 
 ## Money and the auction house
 
-Everyone starts with 250 coins. `/sell` turns spare items into coins, `/ah` opens the auction house to buy and list items, `/orders` lets you ask for items at your price, `/pay NAME AMOUNT` sends coins and `/bal` shows your balance. 100 daily coins arrive by themselves with your first login each day; if they ever do not, the daily message shows a **[Claim]** button.
+Everyone starts with 250 coins. `/sell` turns spare items into coins, `/ah` opens the auction house to buy and list items, `/orders` lets you ask for items at your price, `/pay NAME AMOUNT` sends coins and `/bal` shows your balance. 100 daily coins arrive by themselves with your first login each day; if they ever do not, the daily message shows a **[Claim]** button. `/sell` pays out up to 10,000 coins a day; auction listings and orders stay up for 7 days.
 
 ## Boombox
 

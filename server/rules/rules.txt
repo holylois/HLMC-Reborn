@@ -7,5 +7,6 @@
 <yellow>6.</yellow> No spam, advertising or begging.
 <yellow>7.</yellow> Never share anyone's personal information.
 <yellow>8.</yellow> One account per person. Never share your password.
+<yellow>9.</yellow> Keep it friendly for everyone: no sexual or extremely graphic content.
 <gray>Breaking rules: warning, temporary ban or permanent ban. Pastor has the final say.</gray>
 <gray>Full rules and privacy: holylois.com/rules</gray>
