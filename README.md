@@ -1,6 +1,6 @@
 # Holy Lois: Reborn
 
-A small player-run modded Minecraft survival server: claim land on the map, explore dungeons, earn achievements and Runeforged runes, trade in the auction house and play radio with a boombox. A Windows launcher installs the pack and keeps it updated.
+A player-run modded Minecraft survival server: claim land on the map, explore dungeons, earn achievements and Runeforged runes, trade in the auction house and play radio with a boombox. A Windows launcher installs the pack and keeps it updated.
 
 **Launcher 1.6.2 / pack 2.2.0 / Minecraft 26.3 / Fabric 0.19.5 / Java 25**
 
