@@ -313,14 +313,16 @@ class HolyLoisBot(discord.Client):
     async def post_welcome(self, guild):
         """One start-here message in #welcome: what the server is, how to join and every link."""
         embed = discord.Embed(title="Welcome to Holy Lois: Reborn", color=GOLD, url=WEBSITE,
-            description="A player-run modded Minecraft survival server: cooking and furniture, dungeons with real loot, "
-                        "a boombox radio, daily gifts, an auction house and proximity voice chat with cave echo.")
+            description="A modded Minecraft survival server run by players: claim land, raid dungeons, catch trophy fish, "
+                        "cook and decorate, with proximity voice chat, a boombox radio, daily gifts and an auction house.")
         embed.add_field(name="How to join", inline=False, value=(
-            f"1. Download the launcher from **{WEBSITE}**\n"
-            "2. Open it and click **Install Holy Lois**\n"
-            f"3. Start Minecraft and join **{ADDRESS}**"))
+            f"1. Download the launcher from **{WEBSITE}** (Windows 10 and 11, free)\n"
+            "2. Pick how you play (I own Minecraft, or Play with a name) and click **Install**\n"
+            "3. Press **Play**. With a player name the game opens and joins Holy Lois by itself. With a bought account, "
+            "Minecraft Launcher opens: pick **Holy Lois: Reborn** and press Play."))
         embed.add_field(name="Links", inline=False, value=(
-            f"[Website and download]({WEBSITE}) - [Live map]({MAP}) - [Rules]({WEBSITE}/rules) - [How to play]({WEBSITE}/guide)"))
+            f"[Website]({WEBSITE}) - [Live map]({MAP}) - [Rules]({WEBSITE}/rules) - [Player guide]({WEBSITE}/guide) - "
+            f"[Updates]({WEBSITE}/updates) - [About]({WEBSITE}/about)"))
         around = [(RULES_CHANNEL, "read before playing"), (ROLES_CHANNEL, "pick which pings you want"),
                   (STATUS_CHANNEL, "live status and who is online"), (CHAT_CHANNEL, "talk with players in game"),
                   ("help", "launcher or game problems"), (SUGGESTIONS_CHANNEL, "ideas for the server, vote with 👍 or 👎")]
