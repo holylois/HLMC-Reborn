@@ -2,14 +2,36 @@
 
 Historical player notes, retained from the README. Current setup and play instructions are in [README.md](README.md).
 
-## Pack 2.2.2
-
-Mod updates: smoother graphics, better voice chat and fixes across the pack.
+## Launcher 1.6.4
 
 **Changed**
 
-- Sodium, Simple Voice Chat, Sound Physics, Fabric API, Farmer's Delight, Xaero's Minimap and World Map, Enhanced Block Entities, CreativeCore and Better Advancements are on their newest versions.
-- Fresh Animations 1.11.1 and the MakeUp Ultra Fast 9.6 shader bring their latest fixes.
+- The server list entry has no extra name above the server's own gold title.
+
+**Fixed**
+
+- Free play no longer fails with "Failed to locate library: lwjgl.dll" on PCs where another launcher's Java files were locked down.
+
+## Pack 2.2.2
+
+Voice chat, graphics and farming fixes from the latest mod updates.
+
+**Added**
+
+- The MakeUp Ultra Fast shader has a new setting that cuts the ghost trail behind moving mobs.
+
+**Changed**
+
+- Voice chat and game sounds fade with distance the way they used to. If a friend sounds too loud or too quiet, adjust their volume in voice chat.
+
+**Fixed**
+
+- Joining a voice chat group while you're already in one no longer breaks it, and group passwords with quotes or backslashes work.
+- Voice chat no longer crashes alongside mods that change player models.
+- Fewer graphics glitches on Intel laptop graphics. Water and lava next to slabs, stairs and other odd-shaped blocks look right.
+- Baby pigs and baby villagers have their proper animated models again.
+- Straw beds drop when broken, crops wash away in flowing water, and shelf mushrooms work as compost activators.
+- Advancement tabs respond to clicks with Caps Lock or Num Lock on.
 
 ## Pack 2.2.1
 
