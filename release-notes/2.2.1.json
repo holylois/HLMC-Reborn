@@ -1,0 +1,33 @@
+{
+  "version": "2.2.1",
+  "date": "2026-10-24",
+  "locales": {
+    "en": {
+      "summary": "A small fix for the Holy Lootbox.",
+      "teaser": "A small fix for the Holy Lootbox.",
+      "added": [],
+      "changed": [],
+      "fixed": [
+        "The Holy Lootbox shows as Legendary everywhere, also in the daily reward screen and the recipe viewer."
+      ]
+    },
+    "ru": {
+      "summary": "Небольшой фикс для Holy Lootbox.",
+      "teaser": "Небольшой фикс для Holy Lootbox.",
+      "added": [],
+      "changed": [],
+      "fixed": [
+        "Holy Lootbox теперь везде легендарный, в том числе в окне ежедневных наград и в просмотре рецептов."
+      ]
+    },
+    "lv": {
+      "summary": "Mazs fikss Holy Lootbox.",
+      "teaser": "Mazs fikss Holy Lootbox.",
+      "added": [],
+      "changed": [],
+      "fixed": [
+        "Holy Lootbox visur rādās kā leģendārs, arī ikdienas balvu logā un recepšu skatā."
+      ]
+    }
+  }
+}

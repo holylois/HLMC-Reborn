@@ -2,6 +2,14 @@
 
 Historical player notes, retained from the README. Current setup and play instructions are in [README.md](README.md).
 
+## Pack 2.2.1
+
+A small fix for the Holy Lootbox.
+
+**Fixed**
+
+- The Holy Lootbox shows as Legendary everywhere, also in the daily reward screen and the recipe viewer.
+
 ## What's new in pack 2.2.0 and launcher 1.6.0
 
 Catch the fish you see, one set of rarity colours for every item and a new /played command.
