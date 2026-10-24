@@ -2,6 +2,15 @@
 
 Historical player notes, retained from the README. Current setup and play instructions are in [README.md](README.md).
 
+## Pack 2.2.2
+
+Mod updates: smoother graphics, better voice chat and fixes across the pack.
+
+**Changed**
+
+- Sodium, Simple Voice Chat, Sound Physics, Fabric API, Farmer's Delight, Xaero's Minimap and World Map, Enhanced Block Entities, CreativeCore and Better Advancements are on their newest versions.
+- Fresh Animations 1.11.1 and the MakeUp Ultra Fast 9.6 shader bring their latest fixes.
+
 ## Pack 2.2.1
 
 A small fix for the Holy Lootbox.

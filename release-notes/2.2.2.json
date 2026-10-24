@@ -1,0 +1,36 @@
+{
+  "version": "2.2.2",
+  "date": "2026-10-24",
+  "locales": {
+    "en": {
+      "summary": "Mod updates: smoother graphics, better voice chat and fixes across the pack.",
+      "teaser": "Fresh mod updates across the pack.",
+      "added": [],
+      "changed": [
+        "Sodium, Simple Voice Chat, Sound Physics, Fabric API, Farmer's Delight, Xaero's Minimap and World Map, Enhanced Block Entities, CreativeCore and Better Advancements are on their newest versions.",
+        "Fresh Animations 1.11.1 and the MakeUp Ultra Fast 9.6 shader bring their latest fixes."
+      ],
+      "fixed": []
+    },
+    "ru": {
+      "summary": "Обновления модов: плавнее графика, лучше голосовой чат и фиксы по всей сборке.",
+      "teaser": "Свежие обновления модов.",
+      "added": [],
+      "changed": [
+        "Sodium, Simple Voice Chat, Sound Physics, Fabric API, Farmer's Delight, Xaero's Minimap и World Map, Enhanced Block Entities, CreativeCore и Better Advancements обновлены до последних версий.",
+        "Fresh Animations 1.11.1 и шейдер MakeUp Ultra Fast 9.6 с последними фиксами."
+      ],
+      "fixed": []
+    },
+    "lv": {
+      "summary": "Modu atjauninājumi: plūstošāka grafika, labāks balss čats un fiksi visā modpakā.",
+      "teaser": "Svaigi modu atjauninājumi.",
+      "added": [],
+      "changed": [
+        "Sodium, Simple Voice Chat, Sound Physics, Fabric API, Farmer's Delight, Xaero's Minimap un World Map, Enhanced Block Entities, CreativeCore un Better Advancements ir jaunākajās versijās.",
+        "Fresh Animations 1.11.1 un MakeUp Ultra Fast 9.6 šeiders ar jaunākajiem fiksiem."
+      ],
+      "fixed": []
+    }
+  }
+}
